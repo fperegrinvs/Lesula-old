@@ -4,20 +4,18 @@
 
     using Lesula.JobContracts;
 
-    public abstract class ReducerRunner<IK, I, OK, O>
-        where I : IList<JobData<IK>>
-        where O : IList<JobData<OK>>
+    public abstract class ReducerRunner
     {
         protected MapperOptions Options { get; set; }
 
         public void Execute()
         {
             var reducer = this.GetReducer();
-            IList<I> input;
+            IList<IList<JobData>> input;
             do
             {
                 input = this.LoadData();
-                var output = new List<O>(input.Count);
+                var output = new List<IList<JobData>>(input.Count);
                 foreach (var record in input)
                 {
                     output.Add(reducer.Reduce(record));
@@ -31,11 +29,11 @@
             this.Cleanup();
         }
 
-        public abstract IList<I> LoadData();
+        public abstract IList<IList<JobData>> LoadData();
 
-        public abstract void WriteData(IList<O> reducedData);
+        public abstract void WriteData(IList<JobData> reducedData);
 
-        public abstract Reducer<IK, I, OK, O> GetReducer();
+        public abstract Reducer GetReducer();
 
         public abstract void ProcessData();
 

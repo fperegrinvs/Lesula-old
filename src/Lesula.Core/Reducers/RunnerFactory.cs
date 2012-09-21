@@ -9,9 +9,7 @@ namespace Lesula.Core.Reducers
 
     public class RunnerFactory
     {
-        public ReducerRunner<IK, I, OK, O> CreateReduceRunner<IK, I, OK, O>(string reducerType)
-            where I : IList<JobData<IK>>
-            where O : IList<JobData<OK>>
+        public ReducerRunner CreateReduceRunner(string reducerType)
         {
             throw new NotImplementedException();
         }

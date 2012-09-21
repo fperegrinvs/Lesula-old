@@ -4,16 +4,16 @@
 
     using Lesula.JobContracts.Cassandra;
 
-    public abstract class JobData<T>
+    public abstract class JobData
     {
-        public T Key { get; set; }
+        public virtual byte[] Key { get; private set; }
 
         public virtual IRow ToRow()
         {
             throw new NotImplementedException();
         }
 
-        public virtual JobData<T> FromRow(IRow row)
+        public virtual JobData FromRow(IRow row)
         {
             throw new NotImplementedException();
         }

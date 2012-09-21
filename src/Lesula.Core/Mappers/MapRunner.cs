@@ -4,20 +4,18 @@
 
     using Lesula.JobContracts;
 
-    public abstract class MapRunner<IK, I, OK, O>
-        where I : JobData<IK>
-        where O : JobData<OK>
+    public abstract class MapRunner
     {
         protected MapperOptions Options { get; set; }
 
         public void Execute()
         {
             var mapper = this.GetMapper();
-            IList<I> input;
+            IList<JobData> input;
             do
             {
                 input = this.LoadData();
-                var output = new List<O>(input.Count);
+                var output = new List<JobData>(input.Count);
                 foreach (var record in input)
                 {
                     output.Add(mapper.Map(record));
@@ -31,11 +29,11 @@
             this.Cleanup();
         }
 
-        public abstract IList<I> LoadData();
+        public abstract IList<JobData> LoadData();
 
-        public abstract void WriteData(IList<O> mappedData);
+        public abstract void WriteData(IList<JobData> mappedData);
 
-        public abstract Mapper<IK, I, OK, O> GetMapper();
+        public abstract Mapper GetMapper();
 
         public abstract void ProcessData();
 
