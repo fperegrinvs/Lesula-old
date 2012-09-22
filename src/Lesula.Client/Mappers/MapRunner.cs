@@ -22,7 +22,7 @@ namespace Lesula.Client.Mappers
     using System.Collections.Generic;
 
     using Lesula.Client.Contracts.Base;
-    using Lesula.Core.Base;
+    using Lesula.Client.Contracts.Models;
     using Lesula.JobContracts;
 
     public abstract class MapRunner

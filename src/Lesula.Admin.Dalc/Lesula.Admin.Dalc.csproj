@@ -30,6 +30,12 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Funq">
+      <HintPath>..\Lesula.Core\bin\Debug\Funq.dll</HintPath>
+    </Reference>
+    <Reference Include="LZ4Sharp">
+      <HintPath>..\..\lib\LZ4\LZ4Sharp.dll</HintPath>
+    </Reference>
     <Reference Include="ServiceStack.Text">
       <HintPath>..\packages\ServiceStack.Text.3.9.11\lib\net35\ServiceStack.Text.dll</HintPath>
     </Reference>
@@ -42,11 +48,27 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DataBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Register.cs" />
+    <Compile Include="UserDalc.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Lesula.Admin.Contracts\Lesula.Admin.Contracts.csproj">
+      <Project>{69194894-2AD1-49C6-9601-D007E56EB0BF}</Project>
+      <Name>Lesula.Admin.Contracts</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Lesula.Cassandra\Lesula.Cassandra.csproj">
+      <Project>{e96d658f-a28d-4cac-a414-7328cf12052f}</Project>
+      <Name>Lesula.Cassandra</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Lesula.Core\Lesula.Core.csproj">
+      <Project>{e236cca6-3d70-4146-9da9-7199416ee69f}</Project>
+      <Name>Lesula.Core</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -8,6 +8,17 @@
     public static class Context
     {
         /// <summary>
+        /// App configuration
+        /// </summary>
+        public static IConfigSettings Config
+        {
+            get
+            {
+                return Container.Resolve<IConfigSettings>();
+            }
+        }
+
+        /// <summary>
         /// Get the current context
         /// </summary>
         public static IContext Current

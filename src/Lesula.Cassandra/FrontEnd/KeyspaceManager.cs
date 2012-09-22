@@ -1,4 +1,24 @@
-﻿namespace Lesula.Cassandra.FrontEnd
+﻿// --------------------------------------------------------------------------------------------------------------------
+// <copyright file="KeyspaceManager.cs" company="Lesula MapReduce Framework - http://github.com/lstern/lesula">
+//   Licensed under the Apache License, Version 2.0 (the "License");
+//   you may not use this file except in compliance with the License.
+//   You may obtain a copy of the License at
+//   
+//    http://www.apache.org/licenses/LICENSE-2.0
+//   
+//   Unless required by applicable law or agreed to in writing, software
+//   distributed under the License is distributed on an "AS IS" BASIS,
+//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+//   See the License for the specific language governing permissions and
+//   limitations under the License.
+// </copyright>
+// <summary>
+//   Management operations need to be applied to a single node.
+//   See http://wiki.apache.org/cassandra/LiveSchemaUpdates for more details.
+// </summary>
+// --------------------------------------------------------------------------------------------------------------------
+
+namespace Lesula.Cassandra.FrontEnd
 {
     using System.Collections.Generic;
 
@@ -13,7 +33,6 @@
     /// </summary>
     public class KeyspaceManager
     {
-
         public const string KsdefStrategySimple = "org.apache.cassandra.locator.SimpleStrategy";
         public const string KsdefStrategyLocal = "org.apache.cassandra.locator.LocalStrategy";
         public const string KsdefStrategyNetworkTopology = "org.apache.cassandra.locator.NetworkTopologyStrategy";
@@ -54,9 +73,13 @@
                     Name = name,
                     Replication_factor = replicationFactor,
                     Strategy_class = KsdefStrategySimple,
-                    Cf_defs = new List<CfDef>()
+                    Cf_defs = new List<CfDef>(),
+                    Strategy_options = new Dictionary<string, string>()
                 };
-            return AddKeyspace(keyDefinition);
+
+            keyDefinition.Strategy_options["replication_factor"] = replicationFactor.ToString();
+
+            return this.AddKeyspace(keyDefinition);
         }
 
         /// <summary>

@@ -929,6 +929,17 @@ namespace Lesula.Cassandra.FrontEnd
         }
 
         /// <summary>
+        /// Gets the key range all.
+        /// </summary>
+        public static KeyRange KeyRangeAll
+        {
+            get
+            {
+                return new KeyRange { Count = 10000, Start_key = new byte[0], End_key = new byte[0] };
+            }
+        }
+
+        /// <summary>
         /// Create a new 
         /// <code>
         /// KeyRange
@@ -4182,9 +4193,9 @@ namespace Lesula.Cassandra.FrontEnd
                         var apiResult = myclient.get_range_slices(cp, colPredicate, keyRange, consistencyLevel);
                         var result = new List<KeyValuePair<byte[], List<SuperColumn>>>(apiResult.Count);
                         result.AddRange(
-                            from ks in apiResult 
-                            let coscList = ks.Columns 
-                            let colList = ToSuperColumnList(coscList) 
+                            from ks in apiResult
+                            let coscList = ks.Columns
+                            let colList = ToSuperColumnList(coscList)
                             select new KeyValuePair<byte[], List<SuperColumn>>(ks.Key, colList));
 
                         return result;
@@ -4247,7 +4258,7 @@ namespace Lesula.Cassandra.FrontEnd
                         var apiResult = myclient.multiget_slice(
                             keys, cp, colPredicate, consistencyLevel);
                         var result = new List<KeyValuePair<string, List<SuperColumn>>>(apiResult.Count);
-                        result.AddRange(apiResult.Select(aResult => 
+                        result.AddRange(apiResult.Select(aResult =>
                             new KeyValuePair<string, List<SuperColumn>>(aResult.Key.ToUtf8String(), ToSuperColumnList(aResult.Value))));
 
                         return result;

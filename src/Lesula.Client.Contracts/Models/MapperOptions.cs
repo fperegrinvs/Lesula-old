@@ -17,7 +17,7 @@
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
 
-namespace Lesula.JobContracts
+namespace Lesula.Client.Contracts.Models
 {
     public class MapperOptions
     {

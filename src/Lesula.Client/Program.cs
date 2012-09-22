@@ -33,6 +33,7 @@ namespace Lesula.Client
         {
             // base services
             Context.Container.Register<IContext>(c => ThreadContext.CreateInstance());
+            Context.Container.Register<IConfigSettings>(c => new AppConfigSettings());
 
             // admin dalc
             Dalc.Register.RegisterAll();

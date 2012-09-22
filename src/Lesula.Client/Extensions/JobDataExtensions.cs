@@ -25,6 +25,9 @@ namespace Lesula.Client.Extensions
     using Lesula.Client.Contracts.Base;
     using Lesula.JobContracts.Cassandra;
 
+    /// <summary>
+    /// The job data extensions.
+    /// </summary>
     public static class JobDataExtensions
     {
         public static IList<IRow> ToRows(this IList<JobData> data)

@@ -19,6 +19,9 @@
 
 namespace Lesula.Admin.Dalc
 {
+    using Lesula.Admin.Contracts;
+    using Lesula.Core;
+
     /// <summary>
     /// IOC Helper
     /// </summary>
@@ -29,7 +32,7 @@ namespace Lesula.Admin.Dalc
         /// </summary>
         public static void RegisterAll()
         {
-            
+            Context.Container.Register<IUserDalc>(c => new UserDalc());
         }
     }
 }
