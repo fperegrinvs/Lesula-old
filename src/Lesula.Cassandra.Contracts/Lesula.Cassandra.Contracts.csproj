@@ -7,8 +7,8 @@
     <ProjectGuid>{3BA77057-3011-4A29-954C-88FD4C06FF2E}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Lesula.CassandraStorage</RootNamespace>
-    <AssemblyName>Lesula.CassandraStorage</AssemblyName>
+    <RootNamespace>Lesula.Cassandra.Contracts</RootNamespace>
+    <AssemblyName>Lesula.Cassandra.Contracts</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -34,6 +34,7 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ColumnType.cs" />
     <Compile Include="ConsistencyLevel.cs" />
     <Compile Include="ICassandraStorage.cs" />
     <Compile Include="IColumn.cs" />

@@ -40,9 +40,9 @@
     <Compile Include="Reducer.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Lesula.CassandraStorage\Lesula.CassandraStorage.csproj">
+    <ProjectReference Include="..\Lesula.Cassandra.Contracts\Lesula.Cassandra.Contracts.csproj">
       <Project>{3ba77057-3011-4a29-954c-88fd4c06ff2e}</Project>
-      <Name>Lesula.CassandraStorage</Name>
+      <Name>Lesula.Cassandra.Contracts</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -49,9 +49,9 @@
     <Compile Include="Reducers\RunnerFactory.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Lesula.CassandraStorage\Lesula.CassandraStorage.csproj">
+    <ProjectReference Include="..\Lesula.Cassandra.Contracts\Lesula.Cassandra.Contracts.csproj">
       <Project>{3ba77057-3011-4a29-954c-88fd4c06ff2e}</Project>
-      <Name>Lesula.CassandraStorage</Name>
+      <Name>Lesula.Cassandra.Contracts</Name>
     </ProjectReference>
     <ProjectReference Include="..\Lesula.JobContracts\Lesula.JobContracts.csproj">
       <Project>{8fe04955-2075-496f-adc8-12a1895e891d}</Project>

@@ -1,6 +1,5 @@
 ﻿namespace Lesula.Core.Extensions
 {
-    using System;
     using System.Collections.Generic;
     using System.Linq;
 
@@ -9,7 +8,7 @@
 
     public static class JobDataExtensions
     {
-        public static IList<IRow> ToRows<T>(this IList<JobData> data)
+        public static IList<IRow> ToRows(this IList<JobData> data)
         {
             var rows = new List<IRow>(data.Count);
             rows.AddRange(data.Select(element => element.ToRow()));
