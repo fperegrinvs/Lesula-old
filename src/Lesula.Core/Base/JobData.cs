@@ -1,4 +1,4 @@
-﻿namespace Lesula.JobContracts
+﻿namespace Lesula.Core.Base
 {
     using System;
 

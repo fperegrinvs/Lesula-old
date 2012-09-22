@@ -3,6 +3,7 @@
     using System.Collections.Generic;
     using System.Linq;
 
+    using Lesula.Core.Base;
     using Lesula.JobContracts;
     using Lesula.JobContracts.Cassandra;
 

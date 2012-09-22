@@ -1,4 +1,4 @@
-﻿namespace Lesula.JobContracts
+﻿namespace Lesula.Core.Base
 {
     /// <summary>
     /// Maps input key/value pairs to a set of intermediate key/value pairs.

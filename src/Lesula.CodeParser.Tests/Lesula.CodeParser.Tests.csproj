@@ -63,10 +63,6 @@
       <Project>{fd2f9edb-e17a-4662-912d-2c0e10f41539}</Project>
       <Name>Lesula.CodeParser</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Lesula.JobContracts\Lesula.JobContracts.csproj">
-      <Project>{8fe04955-2075-496f-adc8-12a1895e891d}</Project>
-      <Name>Lesula.JobContracts</Name>
-    </ProjectReference>
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">

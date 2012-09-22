@@ -1,8 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lesula.JobContracts", "Lesula.JobContracts\Lesula.JobContracts.csproj", "{8FE04955-2075-496F-ADC8-12A1895E891D}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lesula.Core", "Lesula.Core\Lesula.Core.csproj", "{E236CCA6-3D70-4146-9DA9-7199416EE69F}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lesula.CodeParser", "Lesula.CodeParser\Lesula.CodeParser.csproj", "{FD2F9EDB-E17A-4662-912D-2C0E10F41539}"
@@ -21,10 +19,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{8FE04955-2075-496F-ADC8-12A1895E891D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{8FE04955-2075-496F-ADC8-12A1895E891D}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{8FE04955-2075-496F-ADC8-12A1895E891D}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{8FE04955-2075-496F-ADC8-12A1895E891D}.Release|Any CPU.Build.0 = Release|Any CPU
 		{E236CCA6-3D70-4146-9DA9-7199416EE69F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{E236CCA6-3D70-4146-9DA9-7199416EE69F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E236CCA6-3D70-4146-9DA9-7199416EE69F}.Release|Any CPU.ActiveCfg = Release|Any CPU

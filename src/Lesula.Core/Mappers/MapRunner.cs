@@ -2,6 +2,7 @@
 {
     using System.Collections.Generic;
 
+    using Lesula.Core.Base;
     using Lesula.JobContracts;
 
     public abstract class MapRunner

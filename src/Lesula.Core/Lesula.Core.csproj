@@ -30,6 +30,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Funq">
+      <HintPath>..\..\lib\Funq\Funq.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -39,7 +42,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Base\JobData.cs" />
+    <Compile Include="Base\Mapper.cs" />
+    <Compile Include="Base\Reducer.cs" />
+    <Compile Include="Context.cs" />
     <Compile Include="Extensions\JobDataExtensions.cs" />
+    <Compile Include="IContext.cs" />
+    <Compile Include="IFactory.cs" />
     <Compile Include="Mappers\MapperFactory.cs" />
     <Compile Include="Mappers\MapperOptions.cs" />
     <Compile Include="Mappers\MapRunner.cs" />
@@ -47,15 +56,12 @@
     <Compile Include="Reducers\ReducerOptions.cs" />
     <Compile Include="Reducers\ReducerRunner.cs" />
     <Compile Include="Reducers\RunnerFactory.cs" />
+    <Compile Include="ThreadContext.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Lesula.Cassandra.Contracts\Lesula.Cassandra.Contracts.csproj">
       <Project>{3ba77057-3011-4a29-954c-88fd4c06ff2e}</Project>
       <Name>Lesula.Cassandra.Contracts</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Lesula.JobContracts\Lesula.JobContracts.csproj">
-      <Project>{8fe04955-2075-496f-adc8-12a1895e891d}</Project>
-      <Name>Lesula.JobContracts</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
