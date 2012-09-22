@@ -4,16 +4,15 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{6D76F723-71CB-4EFB-98CB-E2592B10C60B}</ProjectGuid>
-    <OutputType>Exe</OutputType>
+    <ProjectGuid>{69194894-2AD1-49C6-9601-D007E56EB0BF}</ProjectGuid>
+    <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Lesula.Client</RootNamespace>
-    <AssemblyName>Lesula.Client</AssemblyName>
+    <RootNamespace>Lesula.Admin.Contracts</RootNamespace>
+    <AssemblyName>Lesula.Admin.Contracts</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -23,7 +22,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
@@ -32,9 +30,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Funq">
-      <HintPath>..\Lesula.Core\bin\Debug\Funq.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -44,34 +39,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Extensions\JobDataExtensions.cs" />
-    <Compile Include="Mappers\MapperFactory.cs" />
-    <Compile Include="Mappers\MapRunner.cs" />
-    <Compile Include="Program.cs" />
+    <Compile Include="Models\Job.cs" />
+    <Compile Include="Models\Task.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Reducers\ReducerRunner.cs" />
-    <Compile Include="Reducers\RunnerFactory.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="App.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Lesula.Cassandra.Contracts\Lesula.Cassandra.Contracts.csproj">
-      <Project>{3BA77057-3011-4A29-954C-88FD4C06FF2E}</Project>
-      <Name>Lesula.Cassandra.Contracts</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Lesula.Client.Contracts\Lesula.Client.Contracts.csproj">
-      <Project>{5c038435-17a3-4fd9-ad07-775fca47836b}</Project>
-      <Name>Lesula.Client.Contracts</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Lesula.Client.Dalc\Lesula.Client.Dalc.csproj">
-      <Project>{eaa935d3-6f88-4685-b852-9053df29e324}</Project>
-      <Name>Lesula.Client.Dalc</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Lesula.Core\Lesula.Core.csproj">
-      <Project>{e236cca6-3d70-4146-9da9-7199416ee69f}</Project>
-      <Name>Lesula.Core</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

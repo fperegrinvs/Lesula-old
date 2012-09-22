@@ -1,7 +1,7 @@
-﻿using System;
-
-namespace Lesula.Core.Mappers
+﻿namespace Lesula.Client.Mappers
 {
+    using System;
+
     public class MapperFactory
     {
         public MapRunner CreateMapRunner(string mapperType)

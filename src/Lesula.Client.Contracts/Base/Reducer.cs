@@ -2,6 +2,8 @@
 {
     using System.Collections.Generic;
 
+    using Lesula.Client.Contracts.Base;
+
     /// <summary>
     /// 1 - Shuffle  
     /// Reducer is input the grouped output of a Mapper. In the phase the framework, for each Reducer,

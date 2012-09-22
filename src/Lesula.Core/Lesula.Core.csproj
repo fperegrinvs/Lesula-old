@@ -42,20 +42,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Base\JobData.cs" />
-    <Compile Include="Base\Mapper.cs" />
-    <Compile Include="Base\Reducer.cs" />
     <Compile Include="Context.cs" />
-    <Compile Include="Extensions\JobDataExtensions.cs" />
     <Compile Include="IContext.cs" />
-    <Compile Include="IFactory.cs" />
-    <Compile Include="Mappers\MapperFactory.cs" />
-    <Compile Include="Mappers\MapperOptions.cs" />
-    <Compile Include="Mappers\MapRunner.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Reducers\ReducerOptions.cs" />
-    <Compile Include="Reducers\ReducerRunner.cs" />
-    <Compile Include="Reducers\RunnerFactory.cs" />
     <Compile Include="ThreadContext.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -64,6 +53,7 @@
       <Name>Lesula.Cassandra.Contracts</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

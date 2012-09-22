@@ -9,6 +9,8 @@ using System.Web.Routing;
 
 namespace Lesula.Admin
 {
+    using Lesula.Admin.App_Start;
+
     // Note: For instructions on enabling IIS6 or IIS7 classic mode, 
     // visit http://go.microsoft.com/?LinkId=9394801
 
@@ -18,6 +20,7 @@ namespace Lesula.Admin
         {
             AreaRegistration.RegisterAllAreas();
 
+            IocConfig.ConfigureIoC();
             WebApiConfig.Register(GlobalConfiguration.Configuration);
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);

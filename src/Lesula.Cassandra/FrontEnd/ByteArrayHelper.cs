@@ -8,11 +8,6 @@
         /// <summary>
         /// Tabela para codificação de caracteres
         /// </summary>
-        private static readonly char[][] CharLookupTableUpper;
-
-        /// <summary>
-        /// Tabela para codificação de caracteres
-        /// </summary>
         private static readonly char[][] CharLookupTable;
 
         /// <summary>

@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace Lesula.Core.Reducers
+﻿namespace Lesula.Client.Reducers
 {
-    using Lesula.JobContracts;
+    using System;
 
     public class RunnerFactory
     {

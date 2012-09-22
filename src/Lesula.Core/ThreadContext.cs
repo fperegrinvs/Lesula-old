@@ -49,7 +49,7 @@
         /// <returns>
         /// Instância que implemente a interface IContext
         /// </returns>
-        public IContext CreateInstance()
+        public static IContext CreateInstance()
         {
             if (contextId == Thread.CurrentContext.ContextID && threadContext != null)
             {
