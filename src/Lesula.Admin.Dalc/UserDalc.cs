@@ -75,6 +75,7 @@ namespace Lesula.Admin.Dalc
         /// </param>
         public void SaveUser(User user)
         {
+            user.Password = user.Password.GetMD5Hexa();
             var serialized = ServiceStack.Text.TypeSerializer.SerializeToString(user);
             var compressed = LZ4Sharp.LZ4.Compress(serialized.ToBytes());
 
@@ -92,7 +93,7 @@ namespace Lesula.Admin.Dalc
         {
             var user = this.GetUser(login.Email);
 
-            var hash = login.Email.GetMD5Hexa();
+            var hash = login.Password.GetMD5Hexa();
             if (user.Password != hash)
             {
                 return null;
