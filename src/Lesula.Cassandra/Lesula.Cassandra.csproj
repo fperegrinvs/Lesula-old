@@ -247,9 +247,7 @@
   </Target>
   -->
   <PropertyGroup>
-    <PostBuildEvent>IF EXIST ..\..\..\Lib GOTO EXISTSLIB
-mkdir ..\..\..\Lib
-:EXISTSLIB
-copy *.* ..\..\..\Lib</PostBuildEvent>
+    <PostBuildEvent>
+    </PostBuildEvent>
   </PropertyGroup>
 </Project>

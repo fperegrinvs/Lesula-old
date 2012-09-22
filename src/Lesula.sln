@@ -13,6 +13,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lesula.Cassandra", "Lesula.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lesula.Cassandra.Contracts", "Lesula.Cassandra.Contracts\Lesula.Cassandra.Contracts.csproj", "{3BA77057-3011-4A29-954C-88FD4C06FF2E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lesula.Client", "Lesula.Client\Lesula.Client.csproj", "{6D76F723-71CB-4EFB-98CB-E2592B10C60B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lesula.Admin", "Lesula.Admin\Lesula.Admin.csproj", "{0210E67C-4CCE-4184-A377-36BFE1CAB3B4}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +43,14 @@ Global
 		{3BA77057-3011-4A29-954C-88FD4C06FF2E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3BA77057-3011-4A29-954C-88FD4C06FF2E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3BA77057-3011-4A29-954C-88FD4C06FF2E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6D76F723-71CB-4EFB-98CB-E2592B10C60B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6D76F723-71CB-4EFB-98CB-E2592B10C60B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6D76F723-71CB-4EFB-98CB-E2592B10C60B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6D76F723-71CB-4EFB-98CB-E2592B10C60B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0210E67C-4CCE-4184-A377-36BFE1CAB3B4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0210E67C-4CCE-4184-A377-36BFE1CAB3B4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0210E67C-4CCE-4184-A377-36BFE1CAB3B4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0210E67C-4CCE-4184-A377-36BFE1CAB3B4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
