@@ -1,0 +1,9 @@
+﻿@if (User.Identity.IsAuthenticated)
+{
+    @User.Identity.Name
+    <span>&nbsp;</span>
+    <a class="logout" href="@Url.Action("Logoff", "Login")">Sair</a>                   
+    <script type="text/javascript">
+        $('.logout').button({ icons: { primary: "us-logout"} });
+    </script>
+}

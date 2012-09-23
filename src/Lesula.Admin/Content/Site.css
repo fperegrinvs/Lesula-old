@@ -2,7 +2,7 @@
     font-size: .85em;
     font-family: "Segoe UI", Verdana, Helvetica, Sans-Serif;
     color: #232323;
-    background-color: #fff;
+    background-color: #FBF7EC;
 }
 
 header, footer, nav, section {
@@ -58,4 +58,33 @@ textarea {
 
 .validation-summary-valid {
     display: none;
+}
+
+.header
+{
+    clear: both;
+    margin-left: 15px;
+    margin-right: 15px;
+}
+
+.menuBox
+{
+    margin: 5px;
+    float: left;
+}
+
+.content
+{
+    clear: both;
+    margin-left: 15px;
+    margin-right: 15px;
+    /*padding: 15px; */
+    /* background-color: White; */
+}
+
+.userBox
+{
+    margin-top: 15px;
+    margin-right: 5px;
+    float: right;
 }

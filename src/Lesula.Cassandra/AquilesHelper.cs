@@ -77,7 +77,7 @@
 
         public AquilesHelper(AbstractAquilesClusterBuilder builder, string sectionConfigurationName)
         {
-            AquilesConfigurationSection section = (AquilesConfigurationSection)ConfigurationManager.GetSection(sectionConfigurationName);
+            CassandraConfigurationSection section = (CassandraConfigurationSection)ConfigurationManager.GetSection(sectionConfigurationName);
             if (section != null)
             {
                 this.Clusters = BuildClusters(builder, section);
@@ -94,7 +94,7 @@
             set;
         }
 
-        public static Dictionary<string, ICluster> BuildClusters(AbstractAquilesClusterBuilder builder, AquilesConfigurationSection section)
+        public static Dictionary<string, ICluster> BuildClusters(AbstractAquilesClusterBuilder builder, CassandraConfigurationSection section)
         {
             Dictionary<string, ICluster> clusters = null;
             CassandraClusterCollection clusterCollection = section.CassandraClusters;

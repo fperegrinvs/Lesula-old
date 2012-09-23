@@ -1,4 +1,4 @@
-﻿@model Lesula.Admin.Contracts.Models.LoginVO
+﻿@model Lesula.Admin.Contracts.Models.Login
 
 @{
     ViewBag.Title = "Login";
@@ -9,16 +9,10 @@
 
 <h2>Login</h2>
 
-@using (Html.BeginForm()) {
+@using (Html.BeginForm())
+{
     @Html.ValidationSummary(true)
     <fieldset>
-        <div class="editor-label">
-            @Html.LabelFor(model => model.StoreId)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.StoreId)
-            @Html.ValidationMessageFor(model => model.StoreId)
-        </div>
         <div class="editor-label">
             @Html.LabelFor(model => model.Email)
         </div>
@@ -34,7 +28,7 @@
             @Html.PasswordFor(model => model.Password)
             @Html.ValidationMessageFor(model => model.Password)
         </div>
-@*        <div class="editor-label">
+        @*        <div class="editor-label">
             @Html.ActionLink("Esqueci minha senha", "ForgetPassword","Login")
         </div>
         <div class="editor-field">
@@ -45,9 +39,9 @@
         </p>
     </fieldset>
 }
-    <script type="text/javascript">
-        $('.login').button({ icons: { primary: "us-login"} });
-        $(function () {
-            $('#StoreId').focus();
-        });        
-    </script>
+<script type="text/javascript">
+    $('.login').button({ icons: { primary: "us-login" } });
+    $(function () {
+        $('#StoreId').focus();
+    });
+</script>

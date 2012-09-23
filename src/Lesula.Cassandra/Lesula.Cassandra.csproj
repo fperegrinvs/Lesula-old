@@ -119,7 +119,7 @@
     <Compile Include="CommandDelegates.cs" />
     <Compile Include="Configuration\AquilesClusterBuilder.cs" />
     <Compile Include="Configuration\AquilesConfigurationException.cs" />
-    <Compile Include="Configuration\AquilesConfigurationSection.cs" />
+    <Compile Include="Configuration\CassandraConfigurationSection.cs" />
     <Compile Include="Configuration\AquilesTextElement.cs" />
     <Compile Include="Configuration\CassandraClusterCollection.cs" />
     <Compile Include="Configuration\CassandraClusterElement.cs" />

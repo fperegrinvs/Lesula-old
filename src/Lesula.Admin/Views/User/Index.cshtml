@@ -5,13 +5,13 @@
 <h2>Users</h2>
 @using Telerik.Web.Mvc.UI
 @(Html.Telerik().Grid(Model).Name("Users")
-.ToolBar(tb => tb.Custom().ButtonType(GridButtonType.Text).Action("Create", "User").Text("Novo").HtmlAttributes(new { @class = "new" }))
+.ToolBar(tb => tb.Custom().ButtonType(GridButtonType.Text).Action("Create", "User").Text("New").HtmlAttributes(new { @class = "new" }))
 .Columns(cols =>
         {
             cols.Bound(c => c.Name);
             cols.Bound(c => c.Email);
             cols.Bound(c => c.Roles);
-            cols.Template(c => Html.Raw("<a class=\"edit\" href=\"" + Url.Action("Edit", new { id = ViewBag.StoreId, rowKey = c.Email }) + "\">Editar</a>")).Title("Ações");
+            cols.Template(c => Html.Raw("<a class=\"edit\" href=\"" + Url.Action("Edit", new { id = ViewBag.StoreId, rowKey = c.Email }) + "\">Edit</a>")).Title("Actions");
         }
 ))
 <script type="text/javascript">

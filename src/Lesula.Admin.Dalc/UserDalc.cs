@@ -80,7 +80,7 @@ namespace Lesula.Admin.Dalc
             var compressed = LZ4Sharp.LZ4.Compress(serialized.ToBytes());
 
             var mutator = DataBase.CreateMutator();
-            var column = mutator.NewColumn(user.Email, compressed);
+            var column = mutator.NewColumn("DAT", compressed);
             mutator.InsertColumn("User", user.Email, column, ConsistencyLevel.ONE);
         }
 
