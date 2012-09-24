@@ -1,5 +1,5 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="JobData.cs" company="Lesula MapReduce Framework - http://github.com/lstern/lesula">
+// <copyright file="Job.cs" company="Lesula MapReduce Framework - http://github.com/lstern/lesula">
 //   Licensed under the Apache License, Version 2.0 (the "License");
 //   you may not use this file except in compliance with the License.
 //   You may obtain a copy of the License at
@@ -13,29 +13,36 @@
 //   limitations under the License.
 // </copyright>
 // <summary>
-//   Defines the JobData type.
+//   The job.
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
 
-namespace Lesula.Client.Contracts.Base
+namespace Lesula.Client.Contracts.Models
 {
     using System;
+    using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
 
-    using Lesula.Cassandra.Contracts;
-    using Lesula.JobContracts.Cassandra;
-
-    public abstract class JobData
+    /// <summary>
+    /// The job.
+    /// </summary>
+    public class Job
     {
-        public virtual byte[] Key { get; private set; }
+        public Guid Id { get; set; }
 
-        public virtual IRow ToRow()
-        {
-            throw new NotImplementedException();
-        }
+        /// <summary>
+        /// The task container
+        /// </summary>
+        public Guid TaskId { get; set; }
 
-        public virtual JobData FromRow(IRow row)
-        {
-            throw new NotImplementedException();
-        }
+        /// <summary>
+        /// List of job that must complete before this one
+        /// </summary>
+        public List<Guid> Dependency { get; set; }
+
+        [Required]
+        public string Name { get; set; }
+
+        public JobOptions Options { get; set; }
     }
 }

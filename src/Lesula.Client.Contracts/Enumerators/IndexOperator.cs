@@ -1,5 +1,5 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="JobData.cs" company="Lesula MapReduce Framework - http://github.com/lstern/lesula">
+// <copyright file="IndexOperator.cs" company="Lesula MapReduce Framework - http://github.com/lstern/lesula">
 //   Licensed under the Apache License, Version 2.0 (the "License");
 //   you may not use this file except in compliance with the License.
 //   You may obtain a copy of the License at
@@ -13,29 +13,40 @@
 //   limitations under the License.
 // </copyright>
 // <summary>
-//   Defines the JobData type.
+//   The index operator.
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
 
-namespace Lesula.Client.Contracts.Base
+namespace Lesula.Cassandra.Contracts
 {
-    using System;
-
-    using Lesula.Cassandra.Contracts;
-    using Lesula.JobContracts.Cassandra;
-
-    public abstract class JobData
+    /// <summary>
+    /// The index operator.
+    /// </summary>
+    public enum IndexOperator
     {
-        public virtual byte[] Key { get; private set; }
+        /// <summary>
+        /// Equals to
+        /// </summary>
+        EQ = 0,
 
-        public virtual IRow ToRow()
-        {
-            throw new NotImplementedException();
-        }
+        /// <summary>
+        /// Greater or equal to
+        /// </summary>
+        GTE = 1,
 
-        public virtual JobData FromRow(IRow row)
-        {
-            throw new NotImplementedException();
-        }
+        /// <summary>
+        /// Greater than
+        /// </summary>
+        GT = 2,
+
+        /// <summary>
+        /// Less or equals to
+        /// </summary>
+        LTE = 3,
+
+        /// <summary>
+        /// Less than
+        /// </summary>
+        LT = 4,
     }
 }

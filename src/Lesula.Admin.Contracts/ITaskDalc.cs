@@ -1,5 +1,5 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="Task.cs" company="Lesula MapReduce Framework - http://github.com/lstern/lesula">
+// <copyright file="ITaskDalc.cs" company="Lesula MapReduce Framework - http://github.com/lstern/lesula">
 //   Licensed under the Apache License, Version 2.0 (the "License");
 //   you may not use this file except in compliance with the License.
 //   You may obtain a copy of the License at
@@ -13,40 +13,47 @@
 //   limitations under the License.
 // </copyright>
 // <summary>
-//   Set of MapReduce Jobs
+//   Defines the ITaskDalc type.
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
 
-namespace Lesula.Admin.Contracts.Models
+namespace Lesula.Admin.Contracts
 {
     using System;
-    using System.ComponentModel;
+    using System.Collections.Generic;
+
+    using Lesula.Admin.Contracts.Models;
 
     /// <summary>
-    /// Set of MapReduce Jobs
+    /// The TaskDalc interface.
     /// </summary>
-    public class Task
+    public interface ITaskDalc
     {
         /// <summary>
-        /// Job Id
+        /// Get all tasks
         /// </summary>
-        public Guid Id { get; set; }
+        /// <returns>
+        /// List of all tasks.
+        /// </returns>
+        List<Task> GetAll();
 
         /// <summary>
-        /// Friendly name
+        /// Get task info
         /// </summary>
-        public string Name { get; set; }
+        /// <param name="taskId">task id</param>
+        /// <returns>requested task info</returns>
+        Task Get(Guid taskId);
 
         /// <summary>
-        /// Who changed the job
+        /// Save task
         /// </summary>
-        [DisplayName("Changed By")]
-        public string ChangedBy { get; set; }
+        /// <param name="task">task data</param>
+        void Save(Task task);
 
         /// <summary>
-        /// Who changed the job
+        /// Deletes a task
         /// </summary>
-        [DisplayName("Changed Date")]
-        public DateTime ChangedDate { get; set; }
+        /// <param name="taskId">task id</param>
+        void Delete(Guid taskId);
     }
 }

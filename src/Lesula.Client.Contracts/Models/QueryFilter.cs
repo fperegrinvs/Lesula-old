@@ -1,5 +1,5 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="JobData.cs" company="Lesula MapReduce Framework - http://github.com/lstern/lesula">
+// <copyright file="QueryFilter.cs" company="Lesula MapReduce Framework - http://github.com/lstern/lesula">
 //   Licensed under the Apache License, Version 2.0 (the "License");
 //   you may not use this file except in compliance with the License.
 //   You may obtain a copy of the License at
@@ -13,29 +13,32 @@
 //   limitations under the License.
 // </copyright>
 // <summary>
-//   Defines the JobData type.
+//   Defines the QueryFilter type.
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
 
-namespace Lesula.Client.Contracts.Base
+namespace Lesula.Client.Contracts.Models
 {
-    using System;
-
     using Lesula.Cassandra.Contracts;
-    using Lesula.JobContracts.Cassandra;
 
-    public abstract class JobData
+    /// <summary>
+    /// The query filter.
+    /// </summary>
+    public class QueryFilter
     {
-        public virtual byte[] Key { get; private set; }
+        /// <summary>
+        /// Gets or sets the column name.
+        /// </summary>
+       public string ColumnName { get; set; }
 
-        public virtual IRow ToRow()
-        {
-            throw new NotImplementedException();
-        }
+        /// <summary>
+        /// Gets or sets the operator.
+        /// </summary>
+        public IndexOperator Operator { get; set; }
 
-        public virtual JobData FromRow(IRow row)
-        {
-            throw new NotImplementedException();
-        }
+        /// <summary>
+        /// Gets or sets the value.
+        /// </summary>
+        public string Value { get; set; }
     }
 }

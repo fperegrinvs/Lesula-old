@@ -31,6 +31,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -39,18 +40,26 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Base\IColumn.cs" />
+    <Compile Include="Base\IRow.cs" />
     <Compile Include="Base\JobData.cs" />
     <Compile Include="Base\Mapper.cs" />
     <Compile Include="Base\Reducer.cs" />
-    <Compile Include="Models\MapperOptions.cs" />
-    <Compile Include="Models\ReducerOptions.cs" />
+    <Compile Include="Enumerators\ColumnSliceType.cs" />
+    <Compile Include="Enumerators\ColumnType.cs" />
+    <Compile Include="Enumerators\CompressionFormat.cs" />
+    <Compile Include="Enumerators\ConsistencyLevel.cs" />
+    <Compile Include="Enumerators\IndexOperator.cs" />
+    <Compile Include="Enumerators\QueryRange.cs" />
+    <Compile Include="Enumerators\SerializationFormat.cs" />
+    <Compile Include="Enumerators\SourceType.cs" />
+    <Compile Include="Models\ColumnSlice.cs" />
+    <Compile Include="Models\DataSource.cs" />
+    <Compile Include="Models\DataType.cs" />
+    <Compile Include="Models\Job.cs" />
+    <Compile Include="Models\JobOptions.cs" />
+    <Compile Include="Models\QueryFilter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Lesula.Cassandra.Contracts\Lesula.Cassandra.Contracts.csproj">
-      <Project>{3ba77057-3011-4a29-954c-88fd4c06ff2e}</Project>
-      <Name>Lesula.Cassandra.Contracts</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

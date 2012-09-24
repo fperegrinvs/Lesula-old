@@ -11,7 +11,13 @@
             {
                 menu.Add().Text("Users")
                     .Url(Url.Action("Index", "User"));
-            } 
+            }
+
+            if (User.Identity.IsAuthenticated && User.IsInRole("Admin"))
+            {
+                menu.Add().Text("Tasks")
+                    .Url(Url.Action("Index", "Task"));
+            }  
         })
         
         .Render();

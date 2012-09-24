@@ -84,6 +84,7 @@ namespace Lesula.Admin.Dalc
             famManager.TryAddColumnFamily("Machine", ColumnTypeEnum.Standard, ComparatorTypeEnum.UTF8Type);
             famManager.TryAddColumnFamily("User", ColumnTypeEnum.Standard, ComparatorTypeEnum.UTF8Type);
             famManager.TryAddColumnFamily("Status", ColumnTypeEnum.Standard, ComparatorTypeEnum.UTF8Type);
+            famManager.TryAddColumnFamily("Task", ColumnTypeEnum.Standard, ComparatorTypeEnum.UTF8Type);
 
             var columnDefs = new List<ColumnDef>
                 {
@@ -96,6 +97,7 @@ namespace Lesula.Admin.Dalc
                     ColumnFamilyManager.NewColumnDefinition("STA", true, ComparatorTypeEnum.BytesType), // status
                 };
             famManager.TryAddColumnFamily("ScheduledJobs", ColumnTypeEnum.Standard, ComparatorTypeEnum.UTF8Type, columnDefs: columnDefs);
+            famManager.TryAddColumnFamily("JobTracker", ColumnTypeEnum.Standard, ComparatorTypeEnum.UTF8Type, columnDefs: columnDefs);
 
             columnDefs = new List<ColumnDef>
                 {

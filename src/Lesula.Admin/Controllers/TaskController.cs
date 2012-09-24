@@ -1,5 +1,5 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="UserController.cs" company="Lesula MapReduce Framework - http://github.com/lstern/lesula">
+// <copyright file="TaskController.cs" company="Lesula MapReduce Framework - http://github.com/lstern/lesula">
 //   Licensed under the Apache License, Version 2.0 (the "License");
 //   you may not use this file except in compliance with the License.
 //   You may obtain a copy of the License at
@@ -13,7 +13,7 @@
 //   limitations under the License.
 // </copyright>
 // <summary>
-//   Gerenciamento de usuários.
+//   Defines the TaskController type.
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
 
@@ -24,37 +24,34 @@ namespace Lesula.Admin.Controllers
 
     using Lesula.Admin.Contracts;
     using Lesula.Admin.Contracts.Models;
-    using Lesula.Admin.Extensions;
     using Lesula.Core;
 
-    /// <summary>
-    /// Gerenciamento de usuários.
-    /// </summary>
-    public class UserController : AdminBaseController
+    public class TaskController : AdminBaseController
     {
         [Authorize(Roles = "Admin")]
         public ActionResult Index()
         {
-            var users = Context.Container.Resolve<IUserDalc>().GetAllUsers();
-            return View(users);
+            var tasks = Context.Container.Resolve<ITaskDalc>().GetAll();
+            return this.View(tasks);
         }
 
         [Authorize(Roles = "Admin")]
         public ActionResult Create()
         {
-            var user = new User();
-            return View(user);
+            var task = new Task { Id = Guid.NewGuid() };
+            return this.View(task);
         }
 
         [HttpPost]
         [Authorize(Roles = "Admin")]
-        public ActionResult Create(User user)
+        public ActionResult Create(Task task)
         {
             try
             {
-                user.Roles = user.BindFlagsFor(u => u.Roles);
-                Context.Container.Resolve<IUserDalc>().SaveUser(user);
-                SuccessMessage = SuccessMessageDefault;
+                task.ChangedBy = User.Identity.Name;
+                task.ChangedDate = DateTime.Now;
+                Context.Container.Resolve<ITaskDalc>().Save(task);
+                this.SuccessMessage = this.SuccessMessageDefault;
                 return this.RedirectToAction("Index");
             }
             catch (Exception)
@@ -65,23 +62,22 @@ namespace Lesula.Admin.Controllers
         }
 
         [Authorize(Roles = "Admin")]
-        public ActionResult Edit(string id)
+        public ActionResult Edit(Guid id)
         {
-            var user = Context.Container.Resolve<IUserDalc>().GetUser(id);
-
-            return View(user);
+            var user = Context.Container.Resolve<ITaskDalc>().Get(id);
+            return this.View(user);
         }
 
         [HttpPost]
         [Authorize(Roles = "Admin")]
-        public ActionResult Edit(User user)
+        public ActionResult Edit(Task task)
         {
             try
             {
-                user.Roles = user.BindFlagsFor(u => u.Roles);
-
-                Context.Container.Resolve<IUserDalc>().SaveUser(user);
-                SuccessMessage = SuccessMessageDefault;
+                task.ChangedBy = User.Identity.Name;
+                task.ChangedDate = DateTime.Now;
+                Context.Container.Resolve<ITaskDalc>().Save(task);
+                this.SuccessMessage = this.SuccessMessageDefault;
                 return this.RedirectToAction("Index");
             }
             catch (Exception)

@@ -23,11 +23,10 @@ namespace Lesula.Client.Mappers
 
     using Lesula.Client.Contracts.Base;
     using Lesula.Client.Contracts.Models;
-    using Lesula.JobContracts;
 
     public abstract class MapRunner
     {
-        protected MapperOptions Options { get; set; }
+        protected JobOptions Options { get; set; }
 
         public void Execute()
         {
@@ -62,6 +61,6 @@ namespace Lesula.Client.Mappers
 
         public abstract void Cleanup();
 
-        public abstract void Configure(MapperOptions options);
+        public abstract void Configure(JobOptions options);
     }
 }

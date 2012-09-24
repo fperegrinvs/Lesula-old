@@ -1,5 +1,5 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="Register.cs" company="Lesula MapReduce Framework - http://github.com/lstern/lesula">
+// <copyright file="ColumnSlice.cs" company="Lesula MapReduce Framework - http://github.com/lstern/lesula">
 //   Licensed under the Apache License, Version 2.0 (the "License");
 //   you may not use this file except in compliance with the License.
 //   You may obtain a copy of the License at
@@ -13,28 +13,42 @@
 //   limitations under the License.
 // </copyright>
 // <summary>
-//   IOC Helper
+//   Defines the ColumnSlice type.
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
 
-namespace Lesula.Admin.Dalc
+namespace Lesula.Client.Contracts.Models
 {
-    using Lesula.Admin.Contracts;
-    using Lesula.Core;
+    using System.Collections.Generic;
 
     /// <summary>
-    /// IOC Helper
+    /// The column slice.
     /// </summary>
-    public static class Register
+    public class ColumnSlice
     {
         /// <summary>
-        /// Registers all classes in the ioc container
+        /// Gets or sets the start column.
         /// </summary>
-        public static void RegisterAll()
-        {
-            Context.Container.Register<IDataBase>(c => new DataBase());
-            Context.Container.Register<ITaskDalc>(c => new TaskDalc());
-            Context.Container.Register<IUserDalc>(c => new UserDalc());
-        }
+        public string StartColumn { get; set; }
+
+        /// <summary>
+        /// Gets or sets the end column.
+        /// </summary>
+        public string EndColumn { get; set; }
+
+        /// <summary>
+        /// Gets or sets the column names.
+        /// </summary>
+        public IList<string> ColumnNames { get; set; }
+
+        /// <summary>
+        /// Gets or sets the count.
+        /// </summary>
+        public int Count { get; set; }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether reverse.
+        /// </summary>
+        public bool Reverse { get; set; }
     }
 }

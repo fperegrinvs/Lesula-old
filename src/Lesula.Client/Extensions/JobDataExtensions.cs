@@ -22,6 +22,7 @@ namespace Lesula.Client.Extensions
     using System.Collections.Generic;
     using System.Linq;
 
+    using Lesula.Cassandra.Contracts;
     using Lesula.Client.Contracts.Base;
     using Lesula.JobContracts.Cassandra;
 

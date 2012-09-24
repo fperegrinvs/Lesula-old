@@ -1,5 +1,5 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="JobData.cs" company="Lesula MapReduce Framework - http://github.com/lstern/lesula">
+// <copyright file="DataType.cs" company="Lesula MapReduce Framework - http://github.com/lstern/lesula">
 //   Licensed under the Apache License, Version 2.0 (the "License");
 //   you may not use this file except in compliance with the License.
 //   You may obtain a copy of the License at
@@ -13,29 +13,32 @@
 //   limitations under the License.
 // </copyright>
 // <summary>
-//   Defines the JobData type.
+//   Datatype used in map/reduce
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
 
-namespace Lesula.Client.Contracts.Base
+namespace Lesula.Client.Contracts.Models
 {
     using System;
 
-    using Lesula.Cassandra.Contracts;
-    using Lesula.JobContracts.Cassandra;
-
-    public abstract class JobData
+    /// <summary>
+    /// Datatype used in map/reduce
+    /// </summary>
+    public class DataType
     {
-        public virtual byte[] Key { get; private set; }
+        /// <summary>
+        /// Unique Id
+        /// </summary>
+        public Guid Id { get; set; }
 
-        public virtual IRow ToRow()
-        {
-            throw new NotImplementedException();
-        }
+        /// <summary>
+        /// Friendly name
+        /// </summary>
+        public string Alias { get; set; }
 
-        public virtual JobData FromRow(IRow row)
-        {
-            throw new NotImplementedException();
-        }
+        /// <summary>
+        /// Class definition
+        /// </summary>
+        public string Code { get; set; }
     }
 }

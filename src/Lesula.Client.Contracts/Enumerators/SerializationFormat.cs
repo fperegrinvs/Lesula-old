@@ -1,5 +1,5 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="JobData.cs" company="Lesula MapReduce Framework - http://github.com/lstern/lesula">
+// <copyright file="SerializationFormat.cs" company="Lesula MapReduce Framework - http://github.com/lstern/lesula">
 //   Licensed under the Apache License, Version 2.0 (the "License");
 //   you may not use this file except in compliance with the License.
 //   You may obtain a copy of the License at
@@ -13,29 +13,33 @@
 //   limitations under the License.
 // </copyright>
 // <summary>
-//   Defines the JobData type.
+//   The serialization format.
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
 
-namespace Lesula.Client.Contracts.Base
+namespace Lesula.Client.Contracts.Enumerators
 {
-    using System;
+    using System.ComponentModel;
 
-    using Lesula.Cassandra.Contracts;
-    using Lesula.JobContracts.Cassandra;
-
-    public abstract class JobData
+    /// <summary>
+    /// The serialization format.
+    /// </summary>
+    public enum SerializationFormat
     {
-        public virtual byte[] Key { get; private set; }
+        /// <summary>
+        /// No serialization
+        /// </summary>
+        [Description("None - Not Serialized")]
+        None = 0,
 
-        public virtual IRow ToRow()
-        {
-            throw new NotImplementedException();
-        }
+        /// <summary>
+        /// ServerStack's JSV Format
+        /// </summary>
+        Jsv = 1,
 
-        public virtual JobData FromRow(IRow row)
-        {
-            throw new NotImplementedException();
-        }
+        /// <summary>
+        /// Google's protobuf format
+        /// </summary>
+        ProtoBuf = 2,
     }
 }

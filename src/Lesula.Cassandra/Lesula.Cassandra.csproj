@@ -232,12 +232,6 @@
       <Install>true</Install>
     </BootstrapperPackage>
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Lesula.Cassandra.Contracts\Lesula.Cassandra.Contracts.csproj">
-      <Project>{3ba77057-3011-4a29-954c-88fd4c06ff2e}</Project>
-      <Name>Lesula.Cassandra.Contracts</Name>
-    </ProjectReference>
-  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

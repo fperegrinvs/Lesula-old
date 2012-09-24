@@ -57,10 +57,6 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Lesula.Cassandra.Contracts\Lesula.Cassandra.Contracts.csproj">
-      <Project>{3BA77057-3011-4A29-954C-88FD4C06FF2E}</Project>
-      <Name>Lesula.Cassandra.Contracts</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Lesula.Client.Contracts\Lesula.Client.Contracts.csproj">
       <Project>{5c038435-17a3-4fd9-ad07-775fca47836b}</Project>
       <Name>Lesula.Client.Contracts</Name>

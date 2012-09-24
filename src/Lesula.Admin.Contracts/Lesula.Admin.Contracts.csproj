@@ -43,8 +43,8 @@
     <Compile Include="Enumerators\UserRole.cs" />
     <Compile Include="Enumerators\UserStatus.cs" />
     <Compile Include="IDataBase.cs" />
+    <Compile Include="ITaskDalc.cs" />
     <Compile Include="IUserDalc.cs" />
-    <Compile Include="Models\Job.cs" />
     <Compile Include="Models\Login.cs" />
     <Compile Include="Models\Task.cs" />
     <Compile Include="Models\User.cs" />

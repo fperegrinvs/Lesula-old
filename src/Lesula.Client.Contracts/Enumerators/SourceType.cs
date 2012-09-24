@@ -1,5 +1,5 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="MapperOptions.cs" company="Lesula MapReduce Framework - http://github.com/lstern/lesula">
+// <copyright file="SourceType.cs" company="Lesula MapReduce Framework - http://github.com/lstern/lesula">
 //   Licensed under the Apache License, Version 2.0 (the "License");
 //   you may not use this file except in compliance with the License.
 //   You may obtain a copy of the License at
@@ -13,13 +13,25 @@
 //   limitations under the License.
 // </copyright>
 // <summary>
-//   Defines the MapperOptions type.
+//   The source type.
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
 
-namespace Lesula.Client.Contracts.Models
+namespace Lesula.Client.Contracts.Enumerators
 {
-    public class MapperOptions
+    /// <summary>
+    /// The source type.
+    /// </summary>
+    public enum SourceType
     {
+        /// <summary>
+        /// Source from Job
+        /// </summary>
+        Job = 1,
+
+        /// <summary>
+        /// Source from code
+        /// </summary>
+        Code = 2,
     }
 }

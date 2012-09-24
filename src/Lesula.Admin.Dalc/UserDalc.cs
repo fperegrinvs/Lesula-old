@@ -49,7 +49,7 @@ namespace Lesula.Admin.Dalc
         {
             var selector = DataBase.CreateSelector();
             var columns = selector.GetColumnFromRow("User", email, "DAT", ConsistencyLevel.ONE);
-            var user = this.MapFromColumns(columns);
+            var user = this.MapFromColumn(columns);
             return user;
         }
 
@@ -63,7 +63,7 @@ namespace Lesula.Admin.Dalc
         {
             var selector = DataBase.CreateSelector();
             var rows = selector.GetColumnsFromRows("User", Selector.KeyRangeAll, Selector.NewColumnsPredicate("DAT"), ConsistencyLevel.ONE);
-            var users = rows.Select(row => this.MapFromColumns(row.Value[0])).ToList();
+            var users = rows.Select(row => this.MapFromColumn(row.Value[0])).ToList();
             return users;
         }
 
@@ -102,7 +102,16 @@ namespace Lesula.Admin.Dalc
             return user.Roles;
         }
 
-        private User MapFromColumns(Column column)
+        /// <summary>
+        /// Map data column to User
+        /// </summary>
+        /// <param name="column">
+        /// Column
+        /// </param>
+        /// <returns>
+        /// Resulting user
+        /// </returns>
+        private User MapFromColumn(Column column)
         {
             var decompressed = LZ4Sharp.LZ4.Decompress(column.Value).ToUtf8String();
             var user = ServiceStack.Text.TypeSerializer.DeserializeFromString<User>(decompressed);
