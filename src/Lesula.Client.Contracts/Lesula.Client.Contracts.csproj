@@ -44,6 +44,7 @@
     <Compile Include="Base\IRow.cs" />
     <Compile Include="Base\JobData.cs" />
     <Compile Include="Base\Mapper.cs" />
+    <Compile Include="Base\NewClass.cs" />
     <Compile Include="Base\Reducer.cs" />
     <Compile Include="Enumerators\ColumnSliceType.cs" />
     <Compile Include="Enumerators\ColumnType.cs" />

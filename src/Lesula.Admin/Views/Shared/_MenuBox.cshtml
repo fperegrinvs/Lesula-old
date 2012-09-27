@@ -18,6 +18,11 @@
                 menu.Add().Text("Tasks")
                     .Url(Url.Action("Index", "Task"));
             }  
+            if (User.Identity.IsAuthenticated && User.IsInRole("Admin"))
+            {
+                menu.Add().Text("Data Type")
+                    .Url(Url.Action("Index", "DataType"));
+            }  
         })
         
         .Render();
