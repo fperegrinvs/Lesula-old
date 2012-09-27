@@ -1,5 +1,5 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="SourceType.cs" company="Lesula MapReduce Framework - http://github.com/lstern/lesula">
+// <copyright file="SourceKind.cs" company="Lesula MapReduce Framework - http://github.com/lstern/lesula">
 //   Licensed under the Apache License, Version 2.0 (the "License");
 //   you may not use this file except in compliance with the License.
 //   You may obtain a copy of the License at
@@ -22,7 +22,7 @@ namespace Lesula.Client.Contracts.Enumerators
     /// <summary>
     /// The source type.
     /// </summary>
-    public enum SourceType
+    public enum SourceKind
     {
         /// <summary>
         /// Source from Job

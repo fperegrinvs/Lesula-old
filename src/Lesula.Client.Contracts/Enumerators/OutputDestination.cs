@@ -1,5 +1,5 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="DataType.cs" company="Lesula MapReduce Framework - http://github.com/lstern/lesula">
+// <copyright file="OuputDestination.cs" company="Lesula MapReduce Framework - http://github.com/lstern/lesula">
 //   Licensed under the Apache License, Version 2.0 (the "License");
 //   you may not use this file except in compliance with the License.
 //   You may obtain a copy of the License at
@@ -13,34 +13,25 @@
 //   limitations under the License.
 // </copyright>
 // <summary>
-//   Datatype used in map/reduce
+//   Job output destination
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
 
-namespace Lesula.Client.Contracts.Models
+namespace Lesula.Client.Contracts.Enumerators
 {
-    using System;
-    using System.ComponentModel;
-
     /// <summary>
-    /// Datatype used in map/reduce
+    /// Job output destination
     /// </summary>
-    public class DataType
+    public enum OutputDestination
     {
         /// <summary>
-        /// Unique Id
+        /// No output
         /// </summary>
-        public Guid Id { get; set; }
+        None = 0,
 
         /// <summary>
-        /// Friendly name
+        /// output to another job
         /// </summary>
-        [DisplayName("Friendly Name")]
-        public string Name { get; set; }
-
-        /// <summary>
-        /// Class definition
-        /// </summary>
-        public string Code { get; set; }
+        Job = 1,
     }
 }

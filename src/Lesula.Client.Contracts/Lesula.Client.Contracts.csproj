@@ -50,9 +50,11 @@
     <Compile Include="Enumerators\CompressionFormat.cs" />
     <Compile Include="Enumerators\ConsistencyLevel.cs" />
     <Compile Include="Enumerators\IndexOperator.cs" />
+    <Compile Include="Enumerators\JobType.cs" />
+    <Compile Include="Enumerators\OutputDestination.cs" />
     <Compile Include="Enumerators\QueryRange.cs" />
     <Compile Include="Enumerators\SerializationFormat.cs" />
-    <Compile Include="Enumerators\SourceType.cs" />
+    <Compile Include="Enumerators\SourceKind.cs" />
     <Compile Include="Models\ColumnSlice.cs" />
     <Compile Include="Models\DataSource.cs" />
     <Compile Include="Models\DataType.cs" />

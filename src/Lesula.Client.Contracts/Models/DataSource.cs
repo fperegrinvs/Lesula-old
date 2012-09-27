@@ -43,7 +43,13 @@ namespace Lesula.Client.Contracts.Models
         /// <summary>
         /// Source type
         /// </summary>
-        public SourceType SourceType { get; set; }
+        public SourceKind SourceKind { get; set; }
+
+        /// <summary>
+        /// Type of the data
+        /// </summary>
+        [DisplayName("Data Type")]
+        public Guid DataType { get; set; }
 
         /// <summary>
         /// Source from job
@@ -51,7 +57,13 @@ namespace Lesula.Client.Contracts.Models
         public Guid? JobId { get; set; }
 
         /// <summary>
-        /// Source keyspace (SourceType = Query)
+        /// CLuster Id
+        /// </summary>
+        [DisplayName("Cluster Alias")]
+        public string ClusterId { get; set; }
+
+        /// <summary>
+        /// Source keyspace (SourceKind = Query)
         /// </summary>
         public string Keyspace { get; set; }
 
@@ -59,12 +71,6 @@ namespace Lesula.Client.Contracts.Models
         /// Gets or sets the column family.
         /// </summary>
         public string ColumnFamily { get; set; }
-
-        /// <summary>
-        /// Source column type
-        /// </summary>
-        [DisplayName("Source column type")]
-        public ColumnType ColumnType { get; set; }
 
         /// <summary>
         /// Slice type
@@ -91,7 +97,7 @@ namespace Lesula.Client.Contracts.Models
         public ConsistencyLevel? ConsistencyLevel { get; set; }
 
         /// <summary>
-        /// Source is compressed using IZ4 ?
+        /// Source is compressed ?
         /// </summary>
         [DisplayName("Source is compressed using which format ?")]
         public CompressionFormat CompressionFormat { get; set; }
