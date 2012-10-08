@@ -147,6 +147,7 @@
     <Compile Include="Connection\Pooling\Impl\SizeControlledClientPool.cs" />
     <Compile Include="Exceptions\AquilesException.cs" />
     <Compile Include="Exceptions\ExecutionBlockException.cs" />
+    <Compile Include="Extensions\FactoryExtensions.cs" />
     <Compile Include="Helpers\UnixHelper.cs" />
     <Compile Include="IFactory.cs" />
     <Compile Include="FrontEnd\BooleanHelper.cs" />

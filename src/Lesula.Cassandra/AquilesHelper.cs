@@ -1,10 +1,28 @@
-﻿namespace Lesula.Cassandra
+﻿// --------------------------------------------------------------------------------------------------------------------
+// <copyright file="AquilesHelper.cs" company="Lesula MapReduce Framework - http://github.com/lstern/lesula">
+//   Licensed under the Apache License, Version 2.0 (the "License");
+//   you may not use this file except in compliance with the License.
+//   You may obtain a copy of the License at
+//   
+//    http://www.apache.org/licenses/LICENSE-2.0
+//   
+//   Unless required by applicable law or agreed to in writing, software
+//   distributed under the License is distributed on an "AS IS" BASIS,
+//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+//   See the License for the specific language governing permissions and
+//   limitations under the License.
+// </copyright>
+// <summary>
+//   Defines the AquilesHelper type.
+// </summary>
+// --------------------------------------------------------------------------------------------------------------------
+
+namespace Lesula.Cassandra
 {
     using System;
     using System.Collections.Generic;
     using System.Configuration;
 
-    using Lesula.Cassandra.Client;
     using Lesula.Cassandra.Cluster;
     using Lesula.Cassandra.Configuration;
     using Lesula.Cassandra.Exceptions;
@@ -17,8 +35,7 @@
         private static AquilesHelper _instance;
         static AquilesHelper()
         {
-            AquilesClusterBuilder builder = new AquilesClusterBuilder();
-            _instance = new AquilesHelper(builder, SECTION_CONFIGURATION_NAME);
+            Reset();
         }
 
         /// <summary>
@@ -28,30 +45,6 @@
         {
             var builder = new AquilesClusterBuilder();
             _instance = new AquilesHelper(builder, SECTION_CONFIGURATION_NAME);
-        }
-
-
-        /// <summary>
-        /// Retrieve a connection for cluster associated with the given clusterName. In case there is no cluster configured with the friendly name given, an AquilesException is thrown.
-        /// <remarks>can throw <see cref="AquilesException"/> in case something went wrong</remarks>
-        /// </summary>
-        /// <param name="clusterName">friendly names chosen in the configuration section on the .config file</param>
-        /// <returns>it returns a connection to work against the cluster.</returns>
-        public static IClient RetrieveConnection(string clusterName)
-        {
-            return _instance.retrieveConnection(clusterName, null);
-        }
-
-        /// <summary>
-        /// Retrieve a connection for cluster associated with the given clusterName. In case there is no cluster configured with the friendly name given, an AquilesException is thrown.
-        /// <remarks>can throw <see cref="AquilesException"/> in case something went wrong</remarks>
-        /// </summary>
-        /// <param name="clusterName">friendly names chosen in the configuration section on the .config file</param>
-        /// <param name="keyspace">name of the keyspace to connect to</param>
-        /// <returns>it returns a connection to work against the cluster.</returns>
-        public static IClient RetrieveConnection(string clusterName, string keyspace)
-        {
-            return _instance.retrieveConnection(clusterName, keyspace);
         }
 
         /// <summary>
@@ -77,7 +70,7 @@
 
         public AquilesHelper(AbstractAquilesClusterBuilder builder, string sectionConfigurationName)
         {
-            CassandraConfigurationSection section = (CassandraConfigurationSection)ConfigurationManager.GetSection(sectionConfigurationName);
+            var section = (CassandraConfigurationSection)ConfigurationManager.GetSection(sectionConfigurationName);
             if (section != null)
             {
                 this.Clusters = BuildClusters(builder, section);
@@ -132,32 +125,11 @@
         public ICluster retrieveCluster(string clusterName)
         {
             if (string.IsNullOrEmpty(clusterName))
+            {
                 throw new ArgumentException("clusterName cannot be null nor empty");
+            }
 
             return this.Clusters[clusterName];
-        }
-
-        public IClient retrieveConnection(string clusterName, string keyspace)
-        {
-            ICluster cluster = this.retrieveCluster(clusterName);
-            IClient client = null;
-
-            if (cluster != null)
-            {
-                if (keyspace != null)
-                {
-                    client = cluster.Borrow(keyspace);
-                }
-                else
-                {
-                    client = cluster.Borrow();
-                }
-            }
-            else
-            {
-                throw new AquilesException("Cluster not found by the name of '" + clusterName + "'");
-            }
-            return client;
         }
     }
 }

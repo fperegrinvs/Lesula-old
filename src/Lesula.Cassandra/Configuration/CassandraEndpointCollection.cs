@@ -82,6 +82,7 @@
                 return (CassandraEndpointElement)BaseGet(Name);
             }
         }
+
         /// <summary>
         /// Given a CassandraEndpointElement, it returns its position on the array
         /// </summary>

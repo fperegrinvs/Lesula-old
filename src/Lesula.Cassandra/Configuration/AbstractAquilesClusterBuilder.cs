@@ -11,6 +11,7 @@
     using Lesula.Cassandra.Connection.Factory;
     using Lesula.Cassandra.Connection.Pooling;
     using Lesula.Cassandra.Connection.Pooling.Factory;
+    using Lesula.Cassandra.Extensions;
     using Lesula.Cassandra.Model;
     using Lesula.Cassandra.Model.Impl;
 
@@ -113,7 +114,7 @@
             var poolFactory = new SizeControlledClientPoolFactory();
             poolFactory.Name = string.Concat(clusterName, "_sizeControlledPool");
             poolFactory.ClientFactory = this.buildClientFactory(clusterConfig);
-            poolFactory.EndpointManager = this.buildEndpointManager(clusterConfig, poolFactory.Name);
+            poolFactory.EndpointManager = this.BuildEndpointManager(clusterConfig, poolFactory.Name);
 
             SpecialConnectionParameterElement specialConfig = retrieveSpecialParameter(clusterConfig.Connection.SpecialConnectionParameters, PoolPeriodictimeKey);
             if (specialConfig != null && int.TryParse(specialConfig.Value, out intTempValue))
@@ -155,7 +156,7 @@
             var poolFactory = new SizeKespaceControlledClientPoolFactory();
             poolFactory.Name = string.Concat(clusterName, "_sizeKeyspaceControlledPool");
             poolFactory.ClientFactory = this.buildClientFactory(clusterConfig);
-            poolFactory.EndpointManager = this.buildEndpointManager(clusterConfig, poolFactory.Name);
+            poolFactory.EndpointManager = this.BuildEndpointManager(clusterConfig, poolFactory.Name);
 
             specialConfig = retrieveSpecialParameter(clusterConfig.Connection.SpecialConnectionParameters, PoolPeriodictimeKey);
             if (specialConfig != null && int.TryParse(specialConfig.Value, out intTempValue))
@@ -190,7 +191,7 @@
             return poolFactory.Create();
         }
 
-        protected virtual IEndpointManager buildEndpointManager(CassandraClusterElement clusterConfig, string poolName)
+        protected virtual IEndpointManager BuildEndpointManager(CassandraClusterElement clusterConfig, string poolName)
         {
             IEndpointManager endpointManager;
             var endpointManagerType = (EndpointManagerType)Enum.Parse(typeof(EndpointManagerType), clusterConfig.EndpointManager.Type, true);
@@ -206,12 +207,55 @@
             return endpointManager;
         }
 
+        /// <summary>
+        /// Retrieves a list of endpoints used by the cluster
+        /// </summary>
+        /// <param name="endpointManager">the cluster endpoint manager</param>
+        /// <returns>cluster endpoints</returns>
+        private CassandraEndpointCollection GetEndpointCollection(EndpointManagerElement endpointManager)
+        {
+            // manual endpoints
+            if (string.IsNullOrEmpty(endpointManager.Factory))
+            {
+                return endpointManager.CassandraEndpoints;
+            }
+
+            var factory = FactoryExtensions.GetEndpointFactory(endpointManager.Factory);
+            if (factory == null)
+            {
+                throw new AquilesConfigurationException("Enpoint factory '" + endpointManager.Factory + "' not set");
+            }
+
+            var endpoints = factory(endpointManager.FactorySource);
+            if (endpoints == null)
+            {
+                throw new AquilesConfigurationException("Error getting endpoints from factory '" + endpointManager.Factory + "'");
+            }
+
+            var collection = new CassandraEndpointCollection();
+            var i = 0;
+            foreach (var endpoint in endpoints)
+            {
+                ++i;
+                collection.Add(endpoint);
+            }
+
+            if (i == 0)
+            {
+                throw new AquilesConfigurationException("No endpoints returned from factory '" + endpointManager.Factory + "'");
+            }
+
+            return collection;
+        }
+
         private IEndpointManager buildRoundRobinEndpointManager(CassandraClusterElement clusterConfig, string poolName)
         {
             var endpointManagerFactory = new RoundRobinEndpointManagerFactory();
             endpointManagerFactory.Name = string.Concat(poolName, "_endpointManager");
             endpointManagerFactory.ClientFactory = this.buildClientFactory(clusterConfig);
-            endpointManagerFactory.Endpoints = this.buildEndpoints(clusterConfig.EndpointManager.CassandraEndpoints, clusterConfig.EndpointManager.DefaultTimeout);
+
+            var endpoints = this.GetEndpointCollection(clusterConfig.EndpointManager);
+            endpointManagerFactory.Endpoints = this.buildEndpoints(endpoints, clusterConfig.EndpointManager.DefaultTimeout);
             SpecialConnectionParameterElement specialConfig = retrieveSpecialParameter(clusterConfig.Connection.SpecialConnectionParameters, EndpointmanagerPeriodictimeKey);
             int intTempValue = 0;
             if (specialConfig != null && int.TryParse(specialConfig.Value, out intTempValue))
@@ -252,7 +296,7 @@
             NoClientPoolFactory poolFactory = new NoClientPoolFactory();
             poolFactory.Name = string.Concat(clusterName, "_noPool");
             poolFactory.ClientFactory = this.buildClientFactory(clusterConfig);
-            poolFactory.EndpointManager = this.buildEndpointManager(clusterConfig, poolFactory.Name);
+            poolFactory.EndpointManager = this.BuildEndpointManager(clusterConfig, poolFactory.Name);
             //poolFactory.Logger = logger;
 
             return poolFactory.Create();
