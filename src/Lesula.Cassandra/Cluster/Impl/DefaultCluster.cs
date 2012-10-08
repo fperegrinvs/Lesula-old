@@ -1,4 +1,23 @@
-﻿namespace Lesula.Cassandra.Cluster.Impl
+﻿// --------------------------------------------------------------------------------------------------------------------
+// <copyright file="DefaultCluster.cs" company="Lesula MapReduce Framework - http://github.com/lstern/lesula">
+//   Licensed under the Apache License, Version 2.0 (the "License");
+//   you may not use this file except in compliance with the License.
+//   You may obtain a copy of the License at
+//   
+//    http://www.apache.org/licenses/LICENSE-2.0
+//   
+//   Unless required by applicable law or agreed to in writing, software
+//   distributed under the License is distributed on an "AS IS" BASIS,
+//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+//   See the License for the specific language governing permissions and
+//   limitations under the License.
+// </copyright>
+// <summary>
+//   Defines the DefaultCluster type.
+// </summary>
+// --------------------------------------------------------------------------------------------------------------------
+
+namespace Lesula.Cassandra.Cluster.Impl
 {
     using System;
 
@@ -15,20 +34,15 @@
             set;
         }
 
-        public int MaximumRetries
-        {
-            get;
-            set;
-        }
-
-        public DefaultCluster()
-        {
-            this.MaximumRetries = 0;
-        }
+        /// <summary>
+        /// How many times the client should a command after a recoverable error ?
+        /// </summary>
+        public int MaximumRetries { get; set; }
 
         #region ICluster Members
 
         public string Name { get; set; }
+
 
         public IClient Borrow()
         {
@@ -42,6 +56,7 @@
             {
                 client.KeyspaceName = keyspaceName;
             }
+
             return client;
         }
 
@@ -59,54 +74,50 @@
         {
             T rtnObject = default(T);
             int executionCounter = 0;
-            IClient client = null;
-            bool noException = false;
-            bool isClientHealthy = true;
-            Exception exception = null;
+            bool noException;
+            Exception exception;
             do
             {
                 exception = null;
                 noException = false;
-                isClientHealthy = true;
-                client = BorrowClient(keyspaceName);
+                bool isClientHealthy = true;
+                IClient client = this.BorrowClient(keyspaceName);
 
-                if (client != null)
-                {
-                    try
-                    {
-                        rtnObject = client.Execute<T>(executionBlock);
-                        noException = true;
-                    }
-                    catch (ExecutionBlockException ex)
-                    {
-                        exception = ex;
-                        isClientHealthy = ex.IsClientHealthy;
-                        if (!ex.ShouldRetry)
-                        {
-                            executionCounter = 0;
-                        }
-                    }
-                    catch (System.IO.IOException)
-                    {
-                        AquilesHelper.Reset();
-                        throw;
-                    }
-                    finally
-                    {
-                        if (noException || isClientHealthy)
-                        {
-                            this.Release(client);
-                        }
-                        else
-                        {
-                            this.Invalidate(client);
-                        }
-                    }
-                }
-                else
+                if (client == null)
                 {
                     AquilesHelper.Reset();
                     throw new AquilesException("No client could be borrowed.");
+                }
+
+                try
+                {
+                    rtnObject = client.Execute<T>(executionBlock);
+                    noException = true;
+                }
+                catch (ExecutionBlockException ex)
+                {
+                    exception = ex;
+                    isClientHealthy = ex.IsClientHealthy;
+                    if (!ex.ShouldRetry)
+                    {
+                        executionCounter = 0;
+                    }
+                }
+                catch (System.IO.IOException)
+                {
+                    AquilesHelper.Reset();
+                    throw;
+                }
+                finally
+                {
+                    if (noException || isClientHealthy)
+                    {
+                        this.Release(client);
+                    }
+                    else
+                    {
+                        this.Invalidate(client);
+                    }
                 }
 
                 executionCounter++;
@@ -123,7 +134,7 @@
 
         public T Execute<T>(ExecutionBlock<T> executionBlock)
         {
-            return this.Execute<T>(executionBlock, null);
+            return this.Execute(executionBlock, null);
         }
 
         #endregion
@@ -139,6 +150,7 @@
             {
                 client = this.Borrow();
             }
+
             return client;
         }
     }

@@ -94,6 +94,7 @@
             {
                 return this.CassandraClient.InputProtocol.Transport.IsOpen && this.CassandraClient.OutputProtocol.Transport.IsOpen;
             }
+
             return false;
         }
 
@@ -123,7 +124,7 @@
                 }
                 catch (Exception ex)
                 {
-                    throw buildException(ex);
+                    throw BuildException(ex);
                 }
             }
 
@@ -134,13 +135,14 @@
            catch (TargetInvocationException ex)
             {
                 Exception inner = ex.InnerException;
-                throw buildException(inner);
+                throw BuildException(inner);
             }
         }
 
-        internal static ExecutionBlockException buildException(Exception exception)
+        internal static ExecutionBlockException BuildException(Exception exception)
         {
             Type exceptionType = exception.GetType();
+
             if (exceptionType.Equals(typeof(NotFoundException)))
             {
                 // WTF?? "not found" should be trapped.
@@ -207,6 +209,7 @@
             {
                 // i got the client, it was opened but the node crashed or something
                 AquilesHelper.Reset();
+
                 string error = BuildExceptionMessage(exception);
                 return new ExecutionBlockException(error, exception) { IsClientHealthy = false, ShouldRetry = true };
             }

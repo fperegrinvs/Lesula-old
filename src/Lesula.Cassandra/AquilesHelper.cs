@@ -22,29 +22,87 @@ namespace Lesula.Cassandra
     using System;
     using System.Collections.Generic;
     using System.Configuration;
+    using System.Threading;
 
     using Lesula.Cassandra.Cluster;
     using Lesula.Cassandra.Configuration;
     using Lesula.Cassandra.Exceptions;
 
+    /// <summary>
+    /// The aquiles helper.
+    /// </summary>
     public sealed class AquilesHelper
     {
-        private const string SECTION_CONFIGURATION_NAME = "CassandraConfiguration";
+        /// <summary>
+        /// The section configuration name.
+        /// </summary>
+        private const string SectionConfigurationName = "CassandraConfiguration";
 
         #region static
-        private static AquilesHelper _instance;
+
+        /// <summary>
+        /// Singleton for the AquilesInstance
+        /// </summary>
+        private static AquilesHelper instance;
+
+        /// <summary>
+        /// Initializes static members of the <see cref="AquilesHelper"/> class.
+        /// </summary>
         static AquilesHelper()
         {
-            Reset();
+            Reset(false);
         }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="AquilesHelper"/> class.
+        /// </summary>
+        /// <param name="builder">
+        /// The builder.
+        /// </param>
+        /// <param name="sectionConfigurationName">
+        /// The section configuration name.
+        /// </param>
+        public AquilesHelper(AbstractAquilesClusterBuilder builder, string sectionConfigurationName)
+        {
+            var section = (CassandraConfigurationSection)ConfigurationManager.GetSection(sectionConfigurationName);
+            if (section != null)
+            {
+                this.Clusters = BuildClusters(builder, section);
+                RebuildDelay = section.RebuildDelay;
+            }
+            else
+            {
+                throw new AquilesConfigurationException("Configuration Section not found for '" + sectionConfigurationName + "'");
+            }
+        }
+
+        /// <summary>
+        /// Delay between a node failure and a cluster rebuild 
+        /// (a imediate rebuild is also issued to clean the dead connections)
+        /// </summary>
+        public static int RebuildDelay { get; set; }
+
+        /// <summary>
+        /// The cassandra clusters
+        /// </summary>
+        public Dictionary<string, ICluster> Clusters { get; set; }
 
         /// <summary>
         /// Reinicializa o cluster do Cassandra
         /// </summary>
-        public static void Reset()
+        /// <param name="triggerDelayed">
+        /// Indicates if this reset should trigger a delayed one
+        /// </param>
+        public static void Reset(bool triggerDelayed = true)
         {
             var builder = new AquilesClusterBuilder();
-            _instance = new AquilesHelper(builder, SECTION_CONFIGURATION_NAME);
+            instance = new AquilesHelper(builder, SectionConfigurationName);
+
+            if (triggerDelayed && RebuildDelay > 0)
+            {
+                var thread = new Thread(DelayedReset);
+                thread.Start(RebuildDelay);
+            }
         }
 
         /// <summary>
@@ -64,39 +122,37 @@ namespace Lesula.Cassandra
         /// <returns>it returns a cluster instance.</returns>
         public static ICluster RetrieveCluster(string clusterName)
         {
-            return _instance.retrieveCluster(clusterName);
+            if (string.IsNullOrEmpty(clusterName))
+            {
+                throw new ArgumentException("clusterName cannot be null nor empty");
+            }
+
+            return instance.Clusters[clusterName];
         }
         #endregion
 
-        public AquilesHelper(AbstractAquilesClusterBuilder builder, string sectionConfigurationName)
-        {
-            var section = (CassandraConfigurationSection)ConfigurationManager.GetSection(sectionConfigurationName);
-            if (section != null)
-            {
-                this.Clusters = BuildClusters(builder, section);
-            }
-            else
-            {
-                throw new AquilesConfigurationException("Configuration Section not found for '" + sectionConfigurationName + "'");
-            }
-        }
-
-        public Dictionary<string, ICluster> Clusters
-        {
-            get;
-            set;
-        }
-
+        /// <summary>
+        /// Build all clusters
+        /// </summary>
+        /// <param name="builder">
+        /// A instance of the clusterBuilder
+        /// </param>
+        /// <param name="section">
+        /// The configuration session
+        /// </param>
+        /// <returns>
+        /// Cluster dictionary
+        /// </returns>
         public static Dictionary<string, ICluster> BuildClusters(AbstractAquilesClusterBuilder builder, CassandraConfigurationSection section)
         {
-            Dictionary<string, ICluster> clusters = null;
+            Dictionary<string, ICluster> clusters;
             CassandraClusterCollection clusterCollection = section.CassandraClusters;
             if (clusterCollection != null && clusterCollection.Count > 0)
             {
-                ICluster cluster = null;
                 clusters = new Dictionary<string, ICluster>(clusterCollection.Count);
                 foreach (CassandraClusterElement clusterConfig in section.CassandraClusters)
                 {
+                    ICluster cluster;
                     try
                     {
                         cluster = builder.Build(clusterConfig);
@@ -105,6 +161,7 @@ namespace Lesula.Cassandra
                     {
                         throw new AquilesConfigurationException("Exception found while creating clusters. See internal exception details.", e);
                     }
+
                     if (cluster != null)
                     {
                         if (!clusters.ContainsKey(cluster.Name))
@@ -122,14 +179,17 @@ namespace Lesula.Cassandra
             return clusters;
         }
 
-        public ICluster retrieveCluster(string clusterName)
+        /// <summary>
+        /// Delayed reset method
+        /// </summary>
+        /// <param name="o">
+        /// The time.
+        /// </param>
+        private static void DelayedReset(object o)
         {
-            if (string.IsNullOrEmpty(clusterName))
-            {
-                throw new ArgumentException("clusterName cannot be null nor empty");
-            }
-
-            return this.Clusters[clusterName];
+            var time = (int)o;
+            Thread.Sleep(time * 1000);
+            Reset(false);
         }
     }
 }

@@ -94,7 +94,7 @@
                 }
                 catch (Exception ex)
                 {
-                    throw DefaultClient.buildException(ex);
+                    throw DefaultClient.BuildException(ex);
                 }
             }
 
@@ -105,7 +105,7 @@
             catch (TargetInvocationException ex)
             {
                 Exception inner = ex.InnerException;
-                throw DefaultClient.buildException(inner);
+                throw DefaultClient.BuildException(inner);
             }
         }
 

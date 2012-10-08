@@ -240,7 +240,7 @@
                 }
                 else
                 {
-                    AquilesHelper.Reset(); 
+                    AquilesHelper.Reset();
                     throw new AquilesException("No client could be created during startup phase.");
                 }
             }

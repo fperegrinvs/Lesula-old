@@ -1,4 +1,23 @@
-﻿namespace Lesula.Cassandra.Configuration
+﻿// --------------------------------------------------------------------------------------------------------------------
+// <copyright file="CassandraClusterElement.cs" company="Lesula MapReduce Framework - http://github.com/lstern/lesula">
+//   Licensed under the Apache License, Version 2.0 (the "License");
+//   you may not use this file except in compliance with the License.
+//   You may obtain a copy of the License at
+//   
+//    http://www.apache.org/licenses/LICENSE-2.0
+//   
+//   Unless required by applicable law or agreed to in writing, software
+//   distributed under the License is distributed on an "AS IS" BASIS,
+//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+//   See the License for the specific language governing permissions and
+//   limitations under the License.
+// </copyright>
+// <summary>
+//   ConfigurationElement holding Cluster information
+// </summary>
+// --------------------------------------------------------------------------------------------------------------------
+
+namespace Lesula.Cassandra.Configuration
 {
     using System.Configuration;
 
@@ -7,7 +26,6 @@
     /// </summary>
     public class CassandraClusterElement : ConfigurationElement
     {
-
         /// <summary>
         /// get or set the Friendly name
         /// </summary>
@@ -17,6 +35,16 @@
         {
             get { return (string)this["friendlyName"]; }
             set { this["friendlyName"] = value; }
+        }
+
+        /// <summary>
+        /// How many times the client should a command after a recoverable error ?
+        /// </summary>
+        [ConfigurationProperty("maximumRetries", DefaultValue = 0, IsRequired = false)]
+        public int MaximumRetries
+        {
+            get { return (int)this["maximumRetries"]; }
+            set { this["maximumRetries"] = value; }
         }
 
         /// <summary>
@@ -40,6 +68,7 @@
             {
                 return (ConnectionElement)this["connection"];
             }
+
             set
             {
                 this["connection"] = value;
@@ -56,6 +85,7 @@
             {
                 return (EndpointManagerElement)this["endpointManager"];
             }
+
             set
             {
                 this["endpointManager"] = value;

@@ -19,7 +19,9 @@
 
 namespace Lesula.Cassandra.Configuration
 {
+    using System;
     using System.Configuration;
+    using System.Globalization;
 
     /// <summary>
     /// ConfigurationSection for Aquiles
@@ -27,39 +29,27 @@ namespace Lesula.Cassandra.Configuration
     public class CassandraConfigurationSection : ConfigurationSection
     {
         /// <summary>
-        /// ctor
+        /// Initializes a new instance of the <see cref="CassandraConfigurationSection"/> class. 
         /// </summary>
-        protected CassandraConfigurationSection() : base() { }
-
-        /// <summary>
-        /// get or set the type of the client class to use for logging purpose
-        /// </summary>
-        [ConfigurationProperty("monitorFeaturesType", IsRequired = false)]
-        public AquilesTextElement MonitorFeaturesType
+        protected CassandraConfigurationSection()
         {
-            get
-            {
-                return (AquilesTextElement)this["monitorFeaturesType"];
-            }
-            set
-            {
-                this["monitorFeaturesType"] = value;
-            }
         }
 
         /// <summary>
-        /// get or set the type of the client class to use for logging purpose
+        /// Delay between a node failure and a cluster rebuild 
+        /// (a imediate rebuild is also issued to clean the dead connections)
         /// </summary>
-        [ConfigurationProperty("loggingManager", IsRequired = false)]
-        public AquilesTextElement LoggingManager
+        [ConfigurationProperty("rebuildDelay", IsRequired = false, DefaultValue = "0")]
+        public int RebuildDelay
         {
             get
             {
-                return (AquilesTextElement)this["loggingManager"];
+                return Convert.ToInt32(this["rebuildDelay"]);
             }
+
             set
             {
-                this["loggingManager"] = value;
+                this["rebuildDelay"] = value.ToString(CultureInfo.InvariantCulture);
             }
         }
 
@@ -74,6 +64,7 @@ namespace Lesula.Cassandra.Configuration
             {
                 return (CassandraClusterCollection)this["clusters"];
             }
+
             set
             {
                 this["clusters"] = value;
