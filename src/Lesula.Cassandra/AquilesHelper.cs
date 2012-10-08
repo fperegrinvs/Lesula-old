@@ -50,7 +50,8 @@ namespace Lesula.Cassandra
         /// </summary>
         static AquilesHelper()
         {
-            Reset(false);
+            var builder = new AquilesClusterBuilder();
+            instance = new AquilesHelper(builder, SectionConfigurationName);
         }
 
         /// <summary>
@@ -64,16 +65,7 @@ namespace Lesula.Cassandra
         /// </param>
         public AquilesHelper(AbstractAquilesClusterBuilder builder, string sectionConfigurationName)
         {
-            var section = (CassandraConfigurationSection)ConfigurationManager.GetSection(sectionConfigurationName);
-            if (section != null)
-            {
-                this.Clusters = BuildClusters(builder, section);
-                RebuildDelay = section.RebuildDelay;
-            }
-            else
-            {
-                throw new AquilesConfigurationException("Configuration Section not found for '" + sectionConfigurationName + "'");
-            }
+            this.BuildClusters(builder, sectionConfigurationName);
         }
 
         /// <summary>
@@ -96,7 +88,7 @@ namespace Lesula.Cassandra
         public static void Reset(bool triggerDelayed = true)
         {
             var builder = new AquilesClusterBuilder();
-            instance = new AquilesHelper(builder, SectionConfigurationName);
+            instance.BuildClusters(builder, SectionConfigurationName);
 
             if (triggerDelayed && RebuildDelay > 0)
             {
@@ -190,6 +182,29 @@ namespace Lesula.Cassandra
             var time = (int)o;
             Thread.Sleep(time * 1000);
             Reset(false);
+        }
+
+        /// <summary>
+        /// Build call clusters defined the configurations
+        /// </summary>
+        /// <param name="builder">
+        /// The builder.
+        /// </param>
+        /// <param name="sectionConfigurationName">
+        /// The section configuration name.
+        /// </param>
+        private void BuildClusters(AbstractAquilesClusterBuilder builder, string sectionConfigurationName)
+        {
+            var section = (CassandraConfigurationSection)ConfigurationManager.GetSection(sectionConfigurationName);
+            if (section != null)
+            {
+                this.Clusters = BuildClusters(builder, section);
+                RebuildDelay = section.RebuildDelay;
+            }
+            else
+            {
+                throw new AquilesConfigurationException("Configuration Section not found for '" + sectionConfigurationName + "'");
+            }
         }
     }
 }

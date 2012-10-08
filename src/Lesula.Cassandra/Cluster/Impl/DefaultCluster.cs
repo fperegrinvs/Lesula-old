@@ -91,7 +91,7 @@ namespace Lesula.Cassandra.Cluster.Impl
 
                 try
                 {
-                    rtnObject = client.Execute<T>(executionBlock);
+                    rtnObject = client.Execute(executionBlock);
                     noException = true;
                 }
                 catch (ExecutionBlockException ex)
@@ -102,11 +102,6 @@ namespace Lesula.Cassandra.Cluster.Impl
                     {
                         executionCounter = 0;
                     }
-                }
-                catch (System.IO.IOException)
-                {
-                    AquilesHelper.Reset();
-                    throw;
                 }
                 finally
                 {
@@ -126,6 +121,11 @@ namespace Lesula.Cassandra.Cluster.Impl
 
             if (exception != null)
             {
+                if (executionCounter == this.MaximumRetries)
+                {
+                    AquilesHelper.Reset();
+                }
+
                 throw exception;
             }
 
