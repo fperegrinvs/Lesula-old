@@ -1,4 +1,23 @@
-﻿namespace Lesula.CodeParser
+﻿// --------------------------------------------------------------------------------------------------------------------
+// <copyright file="AssemblyGenerator.cs" company="Lesula MapReduce Framework - http://github.com/lstern/lesula">
+//   Licensed under the Apache License, Version 2.0 (the "License");
+//   you may not use this file except in compliance with the License.
+//   You may obtain a copy of the License at
+//   
+//    http://www.apache.org/licenses/LICENSE-2.0
+//   
+//   Unless required by applicable law or agreed to in writing, software
+//   distributed under the License is distributed on an "AS IS" BASIS,
+//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+//   See the License for the specific language governing permissions and
+//   limitations under the License.
+// </copyright>
+// <summary>
+//   The assembly generator.
+// </summary>
+// --------------------------------------------------------------------------------------------------------------------
+
+namespace Lesula.CodeParser
 {
     using System.Collections.Generic;
     using System.IO;
@@ -24,7 +43,7 @@
         public static Assembly CreateAssembly(string assemblyName, List<string> files, List<string> references, out List<string> errors)
         {
             var trees = files.Select(file => SyntaxTree.ParseText(file)).ToList();
-            var refs = references.Select(MetadataReference.CreateAssemblyReference).ToList();
+            var refs = references.Select(r => r.Contains(":") ? MetadataFileProvider.Default.GetReference(r) : MetadataReference.CreateAssemblyReference(r)).ToList();
 
             var compilation = Compilation.Create(
                 assemblyName,
@@ -39,17 +58,10 @@
             {
                 errors = null;
                 return Assembly.Load(stream.ToArray());
-
             }
 
-            errors = new List<string>();
-            foreach (var alert in result.Diagnostics)
-            {
-                errors.Add(alert.Info.ToString());
-            }
-
+            errors = result.Diagnostics.Select(alert => alert.Info.ToString()).ToList();
             return null;
         }
-
     }
 }

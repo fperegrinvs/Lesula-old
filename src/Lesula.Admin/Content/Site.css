@@ -95,3 +95,19 @@ textarea {
     height: 300px;
     position: relative;
 }
+
+.errorMsg
+{
+    border: 1px solid #ff0000;
+    background-color: #ffeeee;
+    padding: 1em 1em 1em 1em;
+    color: #ff0000;
+}
+
+.successMsg
+{
+    border: 1px solid #00D000;
+    background-color: #DFFFDF;
+    padding: 1em 1em 1em 1em;
+    color: #00D000;
+}

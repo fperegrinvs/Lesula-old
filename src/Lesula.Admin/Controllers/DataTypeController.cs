@@ -17,14 +17,18 @@
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
 
-
-
 namespace Lesula.Admin.Controllers
 {
     using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Reflection;
     using System.Web.Mvc;
 
+    using Lesula.Admin.Contracts;
     using Lesula.Client.Contracts.Models;
+    using Lesula.CodeParser;
+    using Lesula.Core;
 
     /// <summary>
     /// The data type controller.
@@ -33,7 +37,8 @@ namespace Lesula.Admin.Controllers
     {
         public ActionResult Index()
         {
-            return View();
+            var types = Context.Container.Resolve<IDataTypeDalc>().GetAllDataTypes();
+            return this.View(types);
         }
 
         public ActionResult Create()
@@ -47,16 +52,58 @@ namespace Lesula.Admin.Controllers
             return this.View(dataType);
         }
 
+        /// <summary>
+        /// The create.
+        /// </summary>
+        /// <param name="collection">
+        /// The collection.
+        /// </param>
+        /// <returns>
+        /// The System.Web.Mvc.ActionResult.
+        /// </returns>
+        [ValidateInput(false)]
         [HttpPost]
         public ActionResult Create(DataType collection)
         {
             try
             {
-                return RedirectToAction("Index");
+                var contracts = Assembly.Load("Lesula.Client.Contracts");
+                var core = Assembly.Load("Lesula.Core");
+
+                var errors = new List<string>();
+
+                // see if code compiles
+                var assembly = AssemblyGenerator.CreateAssembly(
+                    "Test",
+                    new List<string> { collection.Code },
+                    new List<string> { "mscorlib", "System", "System.Core", contracts.Location, core.Location },
+                    out errors);
+
+                if (errors != null && errors.Count != 0)
+                {
+                    this.ErrorMessage = string.Concat("<br/>", errors);
+                }
+                else
+                {
+                    // check if type exists
+                    if (assembly.ExportedTypes.FirstOrDefault(t => t.Name == collection.Name) == null)
+                    {
+                        this.ErrorMessage = "Type '" + collection.Name + "' not found in compiled code";
+                    }
+                }
+
+                if (!string.IsNullOrEmpty(this.ErrorMessage))
+                {
+                    return this.View("Create", collection);
+                }
+
+                Context.Container.Resolve<IDataTypeDalc>().SaveDataType(collection);
+                return this.RedirectToAction("Index");
             }
-            catch
+            catch (Exception ex)
             {
-                return View();
+                this.ErrorMessage = ex.Message;
+                return this.View("Create", collection);
             }
         }
 

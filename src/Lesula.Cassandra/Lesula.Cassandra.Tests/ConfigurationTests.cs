@@ -1,5 +1,5 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="IRow.cs" company="Lesula MapReduce Framework - http://github.com/lstern/lesula">
+// <copyright file="ConfigurationTests.cs" company="Lesula MapReduce Framework - http://github.com/lstern/lesula">
 //   Licensed under the Apache License, Version 2.0 (the "License");
 //   you may not use this file except in compliance with the License.
 //   You may obtain a copy of the License at
@@ -13,20 +13,27 @@
 //   limitations under the License.
 // </copyright>
 // <summary>
-//   Defines the IRow type.
+//   Defines the ConfigurationTests type.
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
 
-namespace Lesula.Client.Contracts.Base
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+
+namespace Lesula.Cassandra.Tests
 {
-    using System.Collections.Generic;
-
-    using Lesula.JobContracts.Cassandra;
-
-    public interface IRow
+    /// <summary>
+    /// The configuration tests.
+    /// </summary>
+    [TestClass]
+    public class ConfigurationTests
     {
-        byte[] RowKey { get; set; }
-
-        IList<IColumn> Columns { get; set; } 
+        /// <summary>
+        /// The test method 1.
+        /// </summary>
+        [TestMethod]
+        public void TestMethod1()
+        {
+            AquilesHelper.Initialize();
+        }
     }
 }

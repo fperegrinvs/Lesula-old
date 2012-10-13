@@ -43,12 +43,19 @@
     <Compile Include="Enumerators\UserRole.cs" />
     <Compile Include="Enumerators\UserStatus.cs" />
     <Compile Include="IDataBase.cs" />
+    <Compile Include="IDataTypeDalc.cs" />
     <Compile Include="ITaskDalc.cs" />
     <Compile Include="IUserDalc.cs" />
     <Compile Include="Models\Login.cs" />
     <Compile Include="Models\Task.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Lesula.Client.Contracts\Lesula.Client.Contracts.csproj">
+      <Project>{5c038435-17a3-4fd9-ad07-775fca47836b}</Project>
+      <Name>Lesula.Client.Contracts</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -42,6 +42,11 @@ namespace Lesula.Admin.Controllers
         /// </summary>
         protected string ErrorMessage
         {
+            get
+            {
+                return this.TempData["ErrorMessage"] as string;
+            }
+
             set
             {
                 this.TempData["ErrorMessage"] = value;

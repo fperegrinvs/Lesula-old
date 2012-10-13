@@ -27,12 +27,13 @@
             @Html.LabelFor(model => model.Code)
         </div>
         <div class="editor-field job">
+            @Html.HiddenFor(model => model.Id)
             @Html.HiddenFor(model => model.Code)
             <div class="hlEditor" />
         </div>
         <p>
             @Html.ActionLink("Back","Index", null, new { @class = "back"})
-            <button type="submit" class="save">Save</button>
+            <button type="submit" class="save" onclick="updateHidden()">Save</button>
         </p>
     </fieldset>
 }

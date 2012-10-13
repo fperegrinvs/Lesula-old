@@ -35,6 +35,7 @@ namespace Lesula.Admin.Dalc
             Context.Container.Register<IDataBase>(c => new DataBase());
             Context.Container.Register<ITaskDalc>(c => new TaskDalc());
             Context.Container.Register<IUserDalc>(c => new UserDalc());
+            Context.Container.Register<IDataTypeDalc>(c => new DataTypeDalc());
         }
     }
 }
