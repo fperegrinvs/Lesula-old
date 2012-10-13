@@ -21,6 +21,7 @@ namespace Lesula.Client.Contracts.Models
 {
     using System;
     using System.ComponentModel;
+    using System.ComponentModel.DataAnnotations;
 
     /// <summary>
     /// Datatype used in map/reduce
@@ -35,6 +36,7 @@ namespace Lesula.Client.Contracts.Models
         /// <summary>
         /// Friendly name
         /// </summary>
+        [Required]
         [DisplayName("Friendly Name")]
         public string Name { get; set; }
 

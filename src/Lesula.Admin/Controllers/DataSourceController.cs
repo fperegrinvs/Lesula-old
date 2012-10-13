@@ -20,36 +20,48 @@
 namespace Lesula.Admin.Controllers
 {
     using System;
-    using System.Collections.Generic;
     using System.Linq;
-    using System.Reflection;
     using System.Web.Mvc;
 
     using Lesula.Admin.Contracts;
     using Lesula.Client.Contracts.Models;
-    using Lesula.CodeParser;
     using Lesula.Core;
 
     /// <summary>
     /// The data type controller.
     /// </summary>
-    public class DataTypeController : AdminBaseController
+    public class DataSourceController : AdminBaseController
     {
         public ActionResult Index()
         {
-            var types = Context.Container.Resolve<IDataTypeDalc>().GetAllDataTypes();
-            return this.View(types);
+            var sources = Context.Container.Resolve<IDataSourceDalc>().GetAllDataSources();
+            return this.View(sources);
         }
 
         public ActionResult Create()
         {
-            var dataType = new DataType
-                {
-                    Id = Guid.NewGuid(),
-                    Code = Properties.Resources.NewDataTypeCode
-                };
+            var dataSource = new DataSource
+            {
+                Id = Guid.NewGuid(),
+            };
 
-            return this.View(dataType);
+            ViewBag.Jobs = Context.Container.Resolve<IJobDalc>().GetAllJobs().Select(job =>
+                  new SelectListItem
+                  {
+                      Selected = false,
+                      Text = job.Name,
+                      Value = job.Id.ToString()
+                  });
+
+            ViewBag.DataTypes = Context.Container.Resolve<IDataTypeDalc>().GetAllDataTypes().Select(dataType =>
+                  new SelectListItem
+                  {
+                      Selected = false,
+                      Text = dataType.Name,
+                      Value = dataType.Id.ToString()
+                  });
+
+            return this.View(dataSource);
         }
 
         /// <summary>
@@ -63,41 +75,11 @@ namespace Lesula.Admin.Controllers
         /// </returns>
         [ValidateInput(false)]
         [HttpPost]
-        public ActionResult Create(DataType collection)
+        public ActionResult Create(DataSource collection)
         {
             try
             {
-                var contracts = Assembly.Load("Lesula.Client.Contracts");
-                var core = Assembly.Load("Lesula.Core");
-
-                var errors = new List<string>();
-
-                // see if code compiles
-                var assembly = AssemblyGenerator.CreateAssembly(
-                    "Test",
-                    new List<string> { collection.Code },
-                    new List<string> { "mscorlib", "System", "System.Core", contracts.Location, core.Location },
-                    out errors);
-
-                if (errors != null && errors.Count != 0)
-                {
-                    this.ErrorMessage = string.Concat("<br/>", errors);
-                }
-                else
-                {
-                    // check if type exists
-                    if (assembly.ExportedTypes.FirstOrDefault(t => t.Name == collection.Name) == null)
-                    {
-                        this.ErrorMessage = "Type '" + collection.Name + "' not found in compiled code";
-                    }
-                }
-
-                if (!string.IsNullOrEmpty(this.ErrorMessage))
-                {
-                    return this.View("Create", collection);
-                }
-
-                Context.Container.Resolve<IDataTypeDalc>().SaveDataType(collection);
+                Context.Container.Resolve<IDataSourceDalc>().SaveDataSource(collection);
                 return this.RedirectToAction("Index");
             }
             catch (Exception ex)
@@ -109,16 +91,16 @@ namespace Lesula.Admin.Controllers
 
         public ActionResult Edit(Guid id)
         {
-            var dataType = Context.Container.Resolve<IDataTypeDalc>().GetDataType(id);
-            return this.View(dataType);
+            var dataSource = Context.Container.Resolve<IDataSourceDalc>().GetDataSource(id);
+            return this.View(dataSource);
         }
 
         [HttpPost]
-        public ActionResult Edit(DataType collection)
+        public ActionResult Edit(DataSource collection)
         {
             try
             {
-                Context.Container.Resolve<IDataTypeDalc>().SaveDataType(collection);
+                Context.Container.Resolve<IDataSourceDalc>().SaveDataSource(collection);
                 return this.RedirectToAction("Index");
             }
             catch (Exception ex)

@@ -1,0 +1,125 @@
+﻿@using Lesula.Admin.Extensions
+@model Lesula.Client.Contracts.Models.DataSource
+@{
+    ViewBag.Title = "Create";
+}
+<h2>Create Data Type</h2>
+<script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
+@using (Html.BeginForm())
+{
+    @Html.ValidationSummary(true)
+    <fieldset>
+        <legend>Dados</legend>
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Id)
+        </div>
+        <div class="editor-field">
+            @Html.DisplayFor(model => model.Id)
+        </div>
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Alias)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Alias)
+            @Html.ValidationMessageFor(model => model.Alias)
+        </div>
+        <div class="editor-label">
+            @Html.LabelFor(model => model.SourceKind)
+        </div>
+        <div>
+            @Html.EnumDropDownListFor(model => model.SourceKind)
+            @Html.ValidationMessageFor(model => model.SourceKind)
+        </div>
+        <div class="editor-label">
+            @Html.LabelFor(model => model.JobId)
+        </div>
+        <div>
+            @Html.DropDownListFor(model => model.JobId, (IEnumerable<SelectListItem>)ViewBag.Jobs)
+            @Html.ValidationMessageFor(model => model.JobId)
+        </div>
+        <div class="editor-label">
+            @Html.LabelFor(model => model.DataType)
+        </div>
+        <div>
+            @Html.DropDownListFor(model => model.DataType, (IEnumerable<SelectListItem>)ViewBag.DataTypes)
+            @Html.ValidationMessageFor(model => model.DataType)
+        </div>
+        <div class="editor-label">
+            @Html.LabelFor(model => model.ClusterId)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.ClusterId)
+            @Html.ValidationMessageFor(model => model.ClusterId)
+        </div>
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Keyspace)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Keyspace)
+            @Html.ValidationMessageFor(model => model.Keyspace)
+        </div>
+        <div class="editor-label">
+            @Html.LabelFor(model => model.ColumnFamily)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.ColumnFamily)
+            @Html.ValidationMessageFor(model => model.ColumnFamily)
+        </div>
+        <div class="editor-label">
+            @Html.LabelFor(model => model.SliceType)
+        </div>
+        <div>
+            @Html.EnumDropDownListFor(model => model.SliceType)
+            @Html.ValidationMessageFor(model => model.SliceType)
+        </div>
+        <div class="editor-label">
+            @Html.LabelFor(model => model.CustomColumnSlice)
+        </div>
+        <div>
+            @Html.EditorFor(model => model.CustomColumnSlice)
+            @Html.ValidationMessageFor(model => model.CustomColumnSlice)
+        </div>
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Filters)
+        </div>
+        <div>
+            @Html.EditorFor(model => model.Filters)
+            @Html.ValidationMessageFor(model => model.Filters)
+        </div>
+        <div class="editor-label">
+            @Html.LabelFor(model => model.ConsistencyLevel)
+        </div>
+        <div>
+            @Html.EnumDropDownListFor(model => model.ConsistencyLevel)
+            @Html.ValidationMessageFor(model => model.ConsistencyLevel)
+        </div>
+        <div class="editor-label">
+            @Html.LabelFor(model => model.CompressionFormat)
+        </div>
+        <div>
+            @Html.EnumDropDownListFor(model => model.CompressionFormat)
+            @Html.ValidationMessageFor(model => model.CompressionFormat)
+        </div>
+        <div class="editor-label">
+            @Html.LabelFor(model => model.SerializationFormat)
+        </div>
+        <div>
+            @Html.EnumDropDownListFor(model => model.SerializationFormat)
+            @Html.ValidationMessageFor(model => model.SerializationFormat)
+        </div>
+        <div class="editor-field job">
+            @Html.HiddenFor(model => model.Id)
+            <div class="hlEditor" />
+        </div>
+        <p>
+            @Html.ActionLink("Back", "Index", null, new { @class = "back" })
+            <button type="submit" class="save">Save</button>
+        </p>
+    </fieldset>
+}
+
+<script type="text/javascript">
+    $(".back").button({ icons: { primary: "us-back" } });
+    $(".save").button({ icons: { primary: "us-save" } });
+</script>

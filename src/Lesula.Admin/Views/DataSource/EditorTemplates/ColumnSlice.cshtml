@@ -1,0 +1,36 @@
+﻿@model Lesula.Client.Contracts.Models.ColumnSlice
+<div class="editor-label">
+    @Html.LabelFor(model => model.StartColumn)
+</div>
+<div class="editor-field">
+    @Html.EditorFor(model => model.StartColumn)
+    @Html.ValidationMessageFor(model => model.StartColumn)
+</div>
+<div class="editor-label">
+    @Html.LabelFor(model => model.EndColumn)
+</div>
+<div class="editor-field">
+    @Html.EditorFor(model => model.EndColumn)
+    @Html.ValidationMessageFor(model => model.EndColumn)
+</div>
+<div class="editor-label">
+    @Html.LabelFor(model => model.ColumnNames)
+</div>
+<div class="editor-field">
+    @Html.EditorFor(model => model.ColumnNames)
+    @Html.ValidationMessageFor(model => model.ColumnNames)
+</div>
+<div class="editor-label">
+    @Html.LabelFor(model => model.Count)
+</div>
+<div class="editor-field">
+    @Html.EditorFor(model => model.Count)
+    @Html.ValidationMessageFor(model => model.Count)
+</div>
+<div class="editor-label">
+    @Html.LabelFor(model => model.Reverse)
+</div>
+<div class="editor-field">
+    @Html.EditorFor(model => model.Reverse)
+    @Html.ValidationMessageFor(model => model.Reverse)
+</div>

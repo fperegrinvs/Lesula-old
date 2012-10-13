@@ -23,7 +23,11 @@
                 menu.Add().Text("Data Type")
                     .Url(Url.Action("Index", "DataType"));
             }  
-        })
+            if (User.Identity.IsAuthenticated && User.IsInRole("Admin"))
+            {
+                menu.Add().Text("Data Source")
+                    .Url(Url.Action("Index", "DataSource"));
+            }          })
         
         .Render();
 }

@@ -24,6 +24,18 @@
         </div>
     </div>
     <div class="content">
+        @if (TempData["ErrorMessage"] != null)
+        {
+            <div class="errorMsg">
+                @TempData["ErrorMessage"]
+            </div>
+        }
+        @if (TempData["SuccessMessage"] != null)
+        {
+            <div class="successMsg">
+                @TempData["SuccessMessage"]
+            </div>
+        }
         @RenderBody()
 
         @Scripts.Render("~/bundles/jquery")

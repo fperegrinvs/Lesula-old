@@ -1,5 +1,5 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="IRow.cs" company="Lesula MapReduce Framework - http://github.com/lstern/lesula">
+// <copyright file="IDataSourceDalc.cs" company="Lesula MapReduce Framework - http://github.com/lstern/lesula">
 //   Licensed under the Apache License, Version 2.0 (the "License");
 //   you may not use this file except in compliance with the License.
 //   You may obtain a copy of the License at
@@ -13,20 +13,26 @@
 //   limitations under the License.
 // </copyright>
 // <summary>
-//   Defines the IRow type.
+//   Defines the IDataSource type.
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
 
-namespace Lesula.Client.Contracts.Base
+namespace Lesula.Admin.Contracts
 {
+    using System;
     using System.Collections.Generic;
 
-    using Lesula.JobContracts.Cassandra;
+    using Lesula.Client.Contracts.Models;
 
-    public interface IRow
+    /// <summary>
+    /// Data source interface
+    /// </summary>
+    public interface IDataSourceDalc
     {
-        byte[] RowKey { get; set; }
+        DataSource GetDataSource(Guid id);
 
-        IList<IColumn> Columns { get; set; } 
+        void SaveDataSource(DataSource dataType);
+
+        List<DataSource> GetAllDataSources();
     }
 }

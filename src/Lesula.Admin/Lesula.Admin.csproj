@@ -313,6 +313,7 @@
     <Compile Include="App_Start\IocConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AdminBaseController.cs" />
+    <Compile Include="Controllers\DataSourceController.cs" />
     <Compile Include="Controllers\DataTypeController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\InstallController.cs" />
@@ -1010,7 +1011,9 @@
     <Content Include="Scripts\require.js" />
     <Content Include="Scripts\syntax.js" />
     <Content Include="Scripts\_references.js" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
@@ -1034,6 +1037,10 @@
     <Content Include="Views\DataType\Index.cshtml" />
     <Content Include="Views\DataType\Create.cshtml" />
     <Content Include="Views\DataType\Edit.cshtml" />
+    <Content Include="Views\DataSource\Index.cshtml" />
+    <Content Include="Views\DataSource\Create.cshtml" />
+    <Content Include="Views\DataSource\EditorTemplates\ColumnSlice.cshtml" />
+    <Content Include="Views\DataSource\EditorTemplates\QueryFilterList.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -1053,6 +1060,10 @@
     <ProjectReference Include="..\Lesula.Client.Contracts\Lesula.Client.Contracts.csproj">
       <Project>{5c038435-17a3-4fd9-ad07-775fca47836b}</Project>
       <Name>Lesula.Client.Contracts</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Lesula.CodeParser\Lesula.CodeParser.csproj">
+      <Project>{fd2f9edb-e17a-4662-912d-2c0e10f41539}</Project>
+      <Name>Lesula.CodeParser</Name>
     </ProjectReference>
     <ProjectReference Include="..\Lesula.Core\Lesula.Core.csproj">
       <Project>{e236cca6-3d70-4146-9da9-7199416ee69f}</Project>
@@ -1285,6 +1296,7 @@
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

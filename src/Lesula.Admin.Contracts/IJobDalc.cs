@@ -1,5 +1,5 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="IRow.cs" company="Lesula MapReduce Framework - http://github.com/lstern/lesula">
+// <copyright file="IJobDalc.cs" company="Lesula MapReduce Framework - http://github.com/lstern/lesula">
 //   Licensed under the Apache License, Version 2.0 (the "License");
 //   you may not use this file except in compliance with the License.
 //   You may obtain a copy of the License at
@@ -13,20 +13,23 @@
 //   limitations under the License.
 // </copyright>
 // <summary>
-//   Defines the IRow type.
+//   Defines the IJobDalc type.
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
 
-namespace Lesula.Client.Contracts.Base
+namespace Lesula.Admin.Contracts
 {
+    using System;
     using System.Collections.Generic;
 
-    using Lesula.JobContracts.Cassandra;
+    using Lesula.Client.Contracts.Models;
 
-    public interface IRow
+    public interface IJobDalc
     {
-        byte[] RowKey { get; set; }
+        Job GetJob(Guid id);
 
-        IList<IColumn> Columns { get; set; } 
+        void SaveJob(Job dataType);
+
+        List<Job> GetAllJobs();
     }
 }

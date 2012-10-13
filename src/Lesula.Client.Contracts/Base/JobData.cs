@@ -21,6 +21,9 @@ namespace Lesula.Client.Contracts.Base
 {
     using Lesula.Cassandra.Contracts;
 
+    /// <summary>
+    /// The job data.
+    /// </summary>
     public abstract class JobData
     {
         public abstract byte[] Key { get; }

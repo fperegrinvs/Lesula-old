@@ -118,7 +118,10 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="NewDataTypeCode" xml:space="preserve">
-    <value>/// &lt;summary&gt;
+    <value>using System;
+using Lesula.Client.Contracts.Base;
+
+/// &lt;summary&gt;
 /// My Data Type
 /// &lt;/summary&gt;
 public class MyDataType : JobData

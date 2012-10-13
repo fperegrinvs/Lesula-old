@@ -43,6 +43,7 @@ namespace Lesula.Client.Contracts.Models
         /// <summary>
         /// Source type
         /// </summary>
+        [DisplayName("Source Kind")]
         public SourceKind SourceKind { get; set; }
 
         /// <summary>
@@ -54,10 +55,11 @@ namespace Lesula.Client.Contracts.Models
         /// <summary>
         /// Source from job
         /// </summary>
+        [DisplayName("Source Job")]
         public Guid? JobId { get; set; }
 
         /// <summary>
-        /// CLuster Id
+        /// Cluster Id
         /// </summary>
         [DisplayName("Cluster Alias")]
         public string ClusterId { get; set; }
@@ -68,7 +70,7 @@ namespace Lesula.Client.Contracts.Models
         public string Keyspace { get; set; }
 
         /// <summary>
-        /// Gets or sets the column family.
+        /// Column Family (SourceKind = Query)
         /// </summary>
         public string ColumnFamily { get; set; }
 

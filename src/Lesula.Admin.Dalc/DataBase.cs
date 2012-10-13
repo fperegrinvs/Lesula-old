@@ -85,6 +85,9 @@ namespace Lesula.Admin.Dalc
             famManager.TryAddColumnFamily("User", ColumnTypeEnum.Standard, ComparatorTypeEnum.UTF8Type);
             famManager.TryAddColumnFamily("Status", ColumnTypeEnum.Standard, ComparatorTypeEnum.UTF8Type);
             famManager.TryAddColumnFamily("Task", ColumnTypeEnum.Standard, ComparatorTypeEnum.UTF8Type);
+            famManager.TryAddColumnFamily("DataType", ColumnTypeEnum.Standard, ComparatorTypeEnum.UTF8Type);
+            famManager.TryAddColumnFamily("DataSource", ColumnTypeEnum.Standard, ComparatorTypeEnum.UTF8Type);
+            
 
             var columnDefs = new List<ColumnDef>
                 {
