@@ -1,18 +1,30 @@
-﻿@model System.Collections.Generic.List<Lesula.Client.Contracts.Models.DataSource>
-
+﻿@model IEnumerable<Lesula.Client.Contracts.Models.DataSource>
 @{
-    Layout = null;
+    ViewBag.Title = "Index";
 }
 
-<!DOCTYPE html>
+<h2>Data Types</h2>
+@using Telerik.Web.Mvc.UI
+@(Html.Telerik().Grid(Model).Name("DataSources")
+.ToolBar(tb => tb.Custom().ButtonType(GridButtonType.Text).Action("Create", "DataSource").Text("New").HtmlAttributes(new { @class = "new" }))
+.Columns(cols =>
+        {
+            cols.Bound(c => c.Id);
+            cols.Bound(c => c.Alias);
+            cols.Template(c => Html.Raw("<a class=\"edit\" href=\"" + Url.Action("Edit", new { id = c.Id }) + "\">Edit</a>")).Title("Actions");
+        }
+))
+<script type="text/javascript">
+    $('.new').button({ icons: { primary: "us-add" } }); /* ui-icon-close */
+    $('.edit').button({ icons: { primary: "us-edit" } }); /* "ui-icon-pencil" */
+    $('.delete').button({ icons: { primary: "us-close" } }); /* ui-icon-close */
 
-<html>
-    <head>
-        <title>title</title>
-    </head>
-    <body>
-        <div>
-              
-        </div>
-    </body>
-</html>
+    /* create the search text function */
+    searchOnGrid(
+            {
+                filterName: 'filter',
+                lines: '.t-grid table tr',
+                toolbar: '.t-grid-toolbar'
+            }
+        );
+</script>

@@ -25,13 +25,13 @@ namespace Lesula.Client.Contracts.Enumerators
     public enum SourceKind
     {
         /// <summary>
-        /// Source from Job
-        /// </summary>
-        Job = 1,
-
-        /// <summary>
         /// Source from code
         /// </summary>
-        Code = 2,
+        Code = 1,
+
+        /// <summary>
+        /// Source from Job
+        /// </summary>
+        Job = 2,
     }
 }

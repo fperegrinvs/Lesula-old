@@ -91,8 +91,24 @@ namespace Lesula.Admin.Controllers
 
         public ActionResult Edit(Guid id)
         {
+            ViewBag.Jobs = Context.Container.Resolve<IJobDalc>().GetAllJobs().Select(job =>
+                  new SelectListItem
+                  {
+                      Selected = false,
+                      Text = job.Name,
+                      Value = job.Id.ToString()
+                  });
+
+            ViewBag.DataTypes = Context.Container.Resolve<IDataTypeDalc>().GetAllDataTypes().Select(dataType =>
+                  new SelectListItem
+                  {
+                      Selected = false,
+                      Text = dataType.Name,
+                      Value = dataType.Id.ToString()
+                  });
+
             var dataSource = Context.Container.Resolve<IDataSourceDalc>().GetDataSource(id);
-            return this.View(dataSource);
+            return this.View("Create", dataSource);
         }
 
         [HttpPost]
@@ -106,7 +122,7 @@ namespace Lesula.Admin.Controllers
             catch (Exception ex)
             {
                 this.ErrorMessage = ex.Message;
-                return View(collection);
+                return this.View("Create", collection);
             }
         }
     }

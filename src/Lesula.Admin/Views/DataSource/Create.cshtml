@@ -31,12 +31,14 @@
             @Html.EnumDropDownListFor(model => model.SourceKind)
             @Html.ValidationMessageFor(model => model.SourceKind)
         </div>
-        <div class="editor-label">
-            @Html.LabelFor(model => model.JobId)
-        </div>
-        <div>
-            @Html.DropDownListFor(model => model.JobId, (IEnumerable<SelectListItem>)ViewBag.Jobs)
-            @Html.ValidationMessageFor(model => model.JobId)
+        <div id="jobtrue">
+            <div class="editor-label">
+                @Html.LabelFor(model => model.JobId)
+            </div>
+            <div>
+                @Html.DropDownListFor(model => model.JobId, (IEnumerable<SelectListItem>)ViewBag.Jobs)
+                @Html.ValidationMessageFor(model => model.JobId)
+            </div>
         </div>
         <div class="editor-label">
             @Html.LabelFor(model => model.DataType)
@@ -73,12 +75,14 @@
             @Html.EnumDropDownListFor(model => model.SliceType)
             @Html.ValidationMessageFor(model => model.SliceType)
         </div>
-        <div class="editor-label">
-            @Html.LabelFor(model => model.CustomColumnSlice)
-        </div>
-        <div>
-            @Html.EditorFor(model => model.CustomColumnSlice)
-            @Html.ValidationMessageFor(model => model.CustomColumnSlice)
+        <div id="customSlice">
+            <div class="editor-label">
+                @Html.LabelFor(model => model.CustomColumnSlice)
+            </div>
+            <div>
+                @Html.EditorFor(model => model.CustomColumnSlice)
+                @Html.ValidationMessageFor(model => model.CustomColumnSlice)
+            </div>
         </div>
         <div class="editor-label">
             @Html.LabelFor(model => model.Filters)
@@ -108,10 +112,7 @@
             @Html.EnumDropDownListFor(model => model.SerializationFormat)
             @Html.ValidationMessageFor(model => model.SerializationFormat)
         </div>
-        <div class="editor-field job">
-            @Html.HiddenFor(model => model.Id)
-            <div class="hlEditor" />
-        </div>
+        @Html.HiddenFor(model => model.Id)
         <p>
             @Html.ActionLink("Back", "Index", null, new { @class = "back" })
             <button type="submit" class="save">Save</button>
@@ -122,4 +123,25 @@
 <script type="text/javascript">
     $(".back").button({ icons: { primary: "us-back" } });
     $(".save").button({ icons: { primary: "us-save" } });
+
+    $("#SourceKind").change(function () {
+        var val = $("#SourceKind option:selected").first().val();
+        if (val == "Job") {
+            $("#jobtrue").show();
+        }
+        else {
+            $("#jobtrue").hide();
+        }
+    }).change();
+
+    $("#SliceType").change(function () {
+        var val = $("#SliceType option:selected").first().val();
+        if (val == "CustomSlice") {
+            $("#customSlice").show();
+        }
+        else {
+            $("#customSlice").hide();
+        }
+    }).change();
+
 </script>

@@ -22,6 +22,7 @@ namespace Lesula.Client.Contracts.Models
     using System;
     using System.Collections.Generic;
     using System.ComponentModel;
+    using System.ComponentModel.DataAnnotations;
 
     using Lesula.Client.Contracts.Enumerators;
 
@@ -89,6 +90,7 @@ namespace Lesula.Client.Contracts.Models
         /// <summary>
         /// Query filters
         /// </summary>
+        [UIHint("QueryFilterList")]
         [DisplayName("Query filters")]
         public List<QueryFilter> Filters { get; set; }
 
@@ -96,7 +98,7 @@ namespace Lesula.Client.Contracts.Models
         /// Query consistency level
         /// </summary>
         [DisplayName("Consistency level")]
-        public ConsistencyLevel? ConsistencyLevel { get; set; }
+        public ConsistencyLevel ConsistencyLevel { get; set; }
 
         /// <summary>
         /// Source is compressed ?

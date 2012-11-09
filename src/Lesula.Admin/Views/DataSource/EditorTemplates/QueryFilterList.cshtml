@@ -1,2 +1,139 @@
-﻿@model List<Lesula.Client.Contracts.Models.QueryFilter>
-<!-- TODO -->
+﻿@using Lesula.Admin.Extensions
+@using Lesula.Cassandra.Contracts
+@using SelectExtensions = Lesula.Admin.Extensions.SelectExtensions
+@model List<Lesula.Client.Contracts.Models.QueryFilter>
+<div id="previewTable" class="t-widget t-grid" style="width: 850px; margin-top: 5px">
+    Add new filter:
+    <table>
+        <thead class="t-grid-header">
+            <tr>
+                <th>Column Name
+                </th>
+                <th>Operator
+                </th>
+                <th>Value
+                </th>
+                <th style="width: 290px;">Actions
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr id="Preview">
+                <td><input id="columnName" type="text"/></td>
+                <td>@Html.DropDownList("operator", SelectExtensions.ToSelectList(IndexOperator.EQ))</td>
+                <td><input id="value" type="text"/></td>
+                <td>
+                    <button type="button" class="new" onclick="addItem()">
+                        Add</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+
+<div class="t-widget t-grid" id="itemsTable" style="display: none; width: 850px; margin-top: 5px;">
+    Filters:
+    <table>
+        <thead class="t-grid-header">
+            <tr>
+                <th>Column Name
+                </th>
+                <th>Operator
+                </th>
+                <th>Value
+                </th>
+                <th style="width: 290px;">Actions
+                </th>
+            </tr>
+        </thead>
+        <tbody id="itemsBody">
+            @if (Model != null && Model.Count > 0)
+            {
+                foreach (var itemInfo in Model)
+                {
+                    <tr>
+                        <td class="iname">
+                            @itemInfo.ColumnName
+                        </td>
+                        <td>
+                            @itemInfo.Operator
+                        </td>
+                        <td>
+                            @itemInfo.Value
+                        </td>
+                        <td>
+                            <button class="delete" type="button" onclick="removeItem($(this))">
+                                Remove
+                            </button>
+                        </td>
+                    </tr>
+                }
+                <script type="text/javascript">
+                    $("#itemsTable").show();
+                </script>
+            }
+        </tbody>
+    </table>
+</div>
+<span id="queryFilterItems">
+    
+</span>
+
+<script type="text/javascript">
+    function addItem(name, operator, value) {
+        if (!name) {
+            name = $("#columnName").val();
+            operator = $("#Filters_operator").val();
+            value = $("#value").val();
+        }
+
+        // $("#previewTable").hide();
+        $("#itemsTable").show();
+
+        var newRow = $("<tr><td class=\"iid\" name=\"name\">" + name
+            + "</td><td name=\"operator\">" + operator + "</td><td name=\"value\">"
+            + value + "</td><td><button class=\"delete\" type=\"button\" onclick=\"removeItem($(this))\">"
+            + "Remove</button></td></tr>");
+
+        $("#itemsBody").append(newRow);
+
+        $("#columnName").val('');
+        $("#operator").val('');
+        $("#value").val('');
+        adjustTableStyle();
+    }
+
+    function removeItem(item) {
+        $(item).parents("tr:first").remove();
+        adjustTableStyle();
+    }
+
+    function adjustTableStyle() {
+        var hidden = $('#queryFilterItems');
+        hidden.empty();
+        var items = $("#itemsBody tr");
+        for (var i = 0; i < items.length; i++) {
+
+            var qname = $('[name=name]', items[i]).text();
+            var qoperator = $('[name=operator]', items[i]).text();
+            var qvalue = $('[name=value]', items[i]).text();
+            hidden.append("<input name=\"Filters[" + i + "].ColumnName\" type=\"hidden\" value=\"" + qname + "\"/>");
+            hidden.append("<input name=\"Filters[" + i + "].Operator\" type=\"hidden\" value=\"" + qoperator + "\"/>");
+            hidden.append("<input name=\"Filters[" + i + "].Value\" type=\"hidden\" value=\"" + qvalue + "\"/>");
+            var item = $(items[i]);
+            if (i % 2 == 0) {
+                item.removeClass("t-alt");
+            }
+            else {
+                item.addClass("t-alt");
+            }
+        }
+
+        //$('.delete').button({ icons: { primary: "us-close" } });
+        //$('.up').button({ icons: { primary: "us-up" } });
+        //$('.down').button({ icons: { primary: "us-down" } });
+    }
+</script>
+
+

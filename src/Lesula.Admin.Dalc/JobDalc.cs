@@ -38,7 +38,7 @@ namespace Lesula.Admin.Dalc
         public Job GetJob(Guid id)
         {
             var selector = DataBase.CreateSelector();
-            var columns = selector.GetColumnFromRow("Job", id, "DAT", ConsistencyLevel.ONE);
+            var columns = selector.GetColumnFromRow("JobConfig", id, "DAT", ConsistencyLevel.ONE);
             var user = this.MapFromColumn(columns);
             return user;
         }
@@ -57,13 +57,13 @@ namespace Lesula.Admin.Dalc
 
             var mutator = DataBase.CreateMutator();
             var column = mutator.NewColumn("DAT", compressed);
-            mutator.InsertColumn("Job", dataType.Id.ToByteArray(), column, ConsistencyLevel.ONE);
+            mutator.InsertColumn("JobConfig", dataType.Id.ToByteArray(), column, ConsistencyLevel.ONE);
         }
 
         public List<Job> GetAllJobs()
         {
             var selector = DataBase.CreateSelector();
-            var rows = selector.GetColumnsFromRows("Job", Selector.KeyRangeAll, Selector.NewColumnsPredicate("DAT"), ConsistencyLevel.ONE);
+            var rows = selector.GetColumnsFromRows("JobConfig", Selector.KeyRangeAll, Selector.NewColumnsPredicate("DAT"), ConsistencyLevel.ONE);
             var data = rows.Select(row => this.MapFromColumn(row.Value[0])).ToList();
             return data;
         }

@@ -19,6 +19,7 @@
 
 namespace Lesula.Admin.Dalc
 {
+    using System;
     using System.Collections.Generic;
     using System.Linq;
 
@@ -91,7 +92,16 @@ namespace Lesula.Admin.Dalc
         /// <returns>user roles (null if login fails)</returns>
         public UserRole? Authenticate(Login login)
         {
-            var user = this.GetUser(login.Email);
+            User user;
+
+            try
+            {
+                user = this.GetUser(login.Email);
+            }
+            catch (NotFoundException)
+            {
+                return null;
+            }
 
             var hash = login.Password.GetMD5Hexa();
             if (user.Password != hash)
