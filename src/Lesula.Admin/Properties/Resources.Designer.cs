@@ -91,5 +91,52 @@ namespace Lesula.Admin.Properties {
                 return ResourceManager.GetString("NewDataTypeCode", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to public class MyMapper : Mapper
+        ///{
+        ///    /// &lt;summary&gt;
+        ///    /// Maps a single input key/value pair into an intermediate key/value pair
+        ///    /// &lt;/summary&gt;
+        ///    /// &lt;param name=&quot;input&quot;&gt;input key/pair&lt;/param&gt;
+        ///    /// &lt;returns&gt;intermediate key/value pair&lt;/returns&gt;
+        ///    public override JobData Map(JobData input)
+        ///    {
+        ///        throw new NotImplementedException();
+        ///    }
+        ///}
+        ///.
+        /// </summary>
+        internal static string NewMapper {
+            get {
+                return ResourceManager.GetString("NewMapper", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to using System;
+        ///using System.Collections.Generic;
+        ///
+        ///using Lesula.Client.Contracts.Base;
+        ///
+        ///public class MyReducer : Reducer
+        ///{
+        ///    /// &lt;summary&gt;
+        ///    /// Reduces a set of intermediate values which share a key to a smaller set of values.
+        ///    /// &lt;/summary&gt;
+        ///    /// &lt;param name=&quot;input&quot;&gt;input data&lt;/param&gt;
+        ///    /// &lt;returns&gt;reduced data&lt;/returns&gt;
+        ///    public override IList&lt;JobData&gt; Reduce(IList&lt;JobData&gt; input)
+        ///    {
+        ///        throw new NotImplementedException();
+        ///    }
+        ///}
+        ///.
+        /// </summary>
+        internal static string NewReducer {
+            get {
+                return ResourceManager.GetString("NewReducer", resourceCulture);
+            }
+        }
     }
 }

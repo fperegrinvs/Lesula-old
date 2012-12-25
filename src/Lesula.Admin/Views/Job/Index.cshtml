@@ -1,0 +1,30 @@
+﻿@model IEnumerable<Lesula.Client.Contracts.Models.Job>
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Jobs</h2>
+@using Telerik.Web.Mvc.UI
+@(Html.Telerik().Grid(Model).Name("Jobs")
+.ToolBar(tb => tb.Custom().ButtonType(GridButtonType.Text).Action("Create", "Job").Text("New").HtmlAttributes(new { @class = "new" }))
+.Columns(cols =>
+        {
+            cols.Bound(c => c.Id);
+            cols.Bound(c => c.Name);
+            cols.Template(c => Html.Raw("<a class=\"edit\" href=\"" + Url.Action("Edit", new { id = c.Id }) + "\">Edit</a>")).Title("Actions");
+        }
+))
+<script type="text/javascript">
+    $('.new').button({ icons: { primary: "us-add" } }); /* ui-icon-close */
+    $('.edit').button({ icons: { primary: "us-edit" } }); /* "ui-icon-pencil" */
+    $('.delete').button({ icons: { primary: "us-close" } }); /* ui-icon-close */
+
+    /* create the search text function */
+    searchOnGrid(
+            {
+                filterName: 'filter',
+                lines: '.t-grid table tr',
+                toolbar: '.t-grid-toolbar'
+            }
+        );
+</script>

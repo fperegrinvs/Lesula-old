@@ -38,11 +38,6 @@ namespace Lesula.Client.Contracts.Models
         public Guid Id { get; set; }
 
         /// <summary>
-        /// The task container
-        /// </summary>
-        public Guid TaskId { get; set; }
-
-        /// <summary>
         /// Job friendly name
         /// </summary>
         [Required]
@@ -66,7 +61,8 @@ namespace Lesula.Client.Contracts.Models
         /// List of job that must complete before this one
         /// </summary>
         [DisplayName("Jobs that must complete before this job can execute")]
-        public List<Guid> Dependency { get; set; }
+        [UIHint("DependencyList")]
+        public List<Dependency> Dependency { get; set; }
 
         /// <summary>
         /// Where job output goes
@@ -80,7 +76,7 @@ namespace Lesula.Client.Contracts.Models
         /// </summary>
         [Required]
         [DisplayName("Output Format")]
-        public DataType OutputFormat { get; set; }
+        public SerializationFormat OutputFormat { get; set; }
 
         /// <summary>
         /// Job obtions

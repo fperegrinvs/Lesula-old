@@ -65,6 +65,7 @@
     <Compile Include="Models\ColumnSlice.cs" />
     <Compile Include="Models\DataSource.cs" />
     <Compile Include="Models\DataType.cs" />
+    <Compile Include="Models\Dependency.cs" />
     <Compile Include="Models\Job.cs" />
     <Compile Include="Models\JobOptions.cs" />
     <Compile Include="Models\QueryFilter.cs" />

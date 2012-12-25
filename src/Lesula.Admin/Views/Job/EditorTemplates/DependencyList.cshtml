@@ -1,16 +1,10 @@
-﻿@using Lesula.Cassandra.Contracts
-@using SelectExtensions = Lesula.Admin.Extensions.SelectExtensions
-@model List<Lesula.Client.Contracts.Models.QueryFilter>
+﻿@model List<Lesula.Client.Contracts.Models.Dependency>
 <div id="previewTable" class="t-widget t-grid" style="width: 850px; margin-top: 5px">
-    Add new filter:
+    Add new dependency:
     <table>
         <thead class="t-grid-header">
             <tr>
-                <th>Column Name
-                </th>
-                <th>Operator
-                </th>
-                <th>Value
+                <th>Job
                 </th>
                 <th style="width: 290px;">Actions
                 </th>
@@ -18,9 +12,7 @@
         </thead>
         <tbody>
             <tr id="Preview">
-                <td><input id="columnName" type="text"/></td>
-                <td>@Html.DropDownList("operator", SelectExtensions.ToSelectList(IndexOperator.EQ))</td>
-                <td><input id="value" type="text"/></td>
+                <td>@Html.DropDownList("pid", (SelectList)ViewBag.JobList)</td>
                 <td>
                     <button type="button" class="new" onclick="addItem()">
                         Add</button>
@@ -32,15 +24,13 @@
 
 
 <div class="t-widget t-grid" id="itemsTable" style="display: none; width: 850px; margin-top: 5px;">
-    Filters:
+    Dependencies:
     <table>
         <thead class="t-grid-header">
             <tr>
-                <th>Column Name
+                <th>Id
                 </th>
-                <th>Operator
-                </th>
-                <th>Value
+                <th>Name
                 </th>
                 <th style="width: 290px;">Actions
                 </th>
@@ -52,14 +42,11 @@
                 foreach (var itemInfo in Model)
                 {
                     <tr>
-                        <td class="iname">
-                            @itemInfo.ColumnName
+                        <td class="iid">
+                            @itemInfo.Id
                         </td>
                         <td>
-                            @itemInfo.Operator
-                        </td>
-                        <td>
-                            @itemInfo.Value
+                            @itemInfo.Name
                         </td>
                         <td>
                             <button class="delete" type="button" onclick="removeItem($(this))">
@@ -80,26 +67,22 @@
 </span>
 
 <script type="text/javascript">
-    function addItem(name, operator, value) {
-        if (!name) {
-            name = $("#columnName").val();
-            operator = $("#Filters_operator").val();
-            value = $("#value").val();
+    function addItem(id, name) {
+        if (!id) {
+            id = $("#pid").val();
+            name = $("#pid").children("option").is("selected").text();
         }
 
         // $("#previewTable").hide();
         $("#itemsTable").show();
 
-        var newRow = $("<tr><td class=\"iid\" name=\"name\">" + name
-            + "</td><td name=\"operator\">" + operator + "</td><td name=\"value\">"
-            + value + "</td><td><button class=\"delete\" type=\"button\" onclick=\"removeItem($(this))\">"
+        var newRow = $("<tr><td class=\"iid\" name=\"id\">" + id
+            + "</td><td name=\"name\">" + name + "</td><td><button class=\"delete\" type=\"button\" onclick=\"removeItem($(this))\">"
             + "Remove</button></td></tr>");
 
         $("#itemsBody").append(newRow);
 
-        $("#columnName").val('');
-        $("#operator").val('');
-        $("#value").val('');
+        $("#pid").val('');
         adjustTableStyle();
     }
 
@@ -114,12 +97,10 @@
         var items = $("#itemsBody tr");
         for (var i = 0; i < items.length; i++) {
 
+            var qid = $('[name=id]', items[i]).text();
             var qname = $('[name=name]', items[i]).text();
-            var qoperator = $('[name=operator]', items[i]).text();
-            var qvalue = $('[name=value]', items[i]).text();
-            hidden.append("<input name=\"Filters[" + i + "].ColumnName\" type=\"hidden\" value=\"" + qname + "\"/>");
-            hidden.append("<input name=\"Filters[" + i + "].Operator\" type=\"hidden\" value=\"" + qoperator + "\"/>");
-            hidden.append("<input name=\"Filters[" + i + "].Value\" type=\"hidden\" value=\"" + qvalue + "\"/>");
+            hidden.append("<input name=\"Dependency[" + i + "].Id\" type=\"hidden\" value=\"" + qid + "\"/>");
+            hidden.append("<input name=\"Dependency[" + i + "].Name\" type=\"hidden\" value=\"" + qname + "\"/>");
             var item = $(items[i]);
             if (i % 2 == 0) {
                 item.removeClass("t-alt");
