@@ -62,6 +62,9 @@
     <Compile Include="Enumerators\QueryRange.cs" />
     <Compile Include="Enumerators\SerializationFormat.cs" />
     <Compile Include="Enumerators\SourceKind.cs" />
+    <Compile Include="Enumerators\TaskStatus.cs" />
+    <Compile Include="ITaskDalc.cs" />
+    <Compile Include="Models\Block.cs" />
     <Compile Include="Models\ColumnSlice.cs" />
     <Compile Include="Models\DataSource.cs" />
     <Compile Include="Models\DataType.cs" />
@@ -69,6 +72,8 @@
     <Compile Include="Models\Job.cs" />
     <Compile Include="Models\JobOptions.cs" />
     <Compile Include="Models\QueryFilter.cs" />
+    <Compile Include="Models\Segment.cs" />
+    <Compile Include="Models\Task.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
