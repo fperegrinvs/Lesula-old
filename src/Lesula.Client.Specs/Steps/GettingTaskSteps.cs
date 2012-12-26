@@ -82,7 +82,7 @@ namespace Lesula.Client.Specs.Steps
         [When(@"the system searches for an task")]
         public void WhenTheSystemSearchesForAnTask()
         {
-            var segment = TaskService.GetSegment();
+            var segment =TaskService.DefaultInstance.GetSegment();
             ScenarioContext.Current.Add("currentSegment", segment);
         }
         

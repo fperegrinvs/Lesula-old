@@ -57,14 +57,24 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>GettingTask.feature</DependentUpon>
     </Compile>
+    <Compile Include="Features\MachineBootstrap.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>MachineBootstrap.feature</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Steps\GettingTaskSteps.cs" />
+    <Compile Include="Steps\MachineBootstrapSteps.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
     <None Include="Features\GettingTask.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>GettingTask.feature.cs</LastGenOutput>
+    </None>
+    <None Include="Features\MachineBootstrap.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>MachineBootstrap.feature.cs</LastGenOutput>
     </None>
     <None Include="packages.config" />
   </ItemGroup>
