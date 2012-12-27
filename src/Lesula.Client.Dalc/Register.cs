@@ -1,4 +1,4 @@
-﻿namespace Lesula.Dalc
+﻿namespace Lesula.Client.Dalc
 {
     /// <summary>
     /// IOC Helper

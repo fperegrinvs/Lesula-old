@@ -106,6 +106,5 @@
 
             Assert.AreEqual(3, col.Value.ToInt32());
         }
-
     }
 }

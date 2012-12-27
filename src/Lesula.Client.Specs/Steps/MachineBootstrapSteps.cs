@@ -1,8 +1,7 @@
-﻿using System;
-using TechTalk.SpecFlow;
-
-namespace Lesula.Client.Specs.Steps
+﻿namespace Lesula.Client.Specs.Steps
 {
+    using TechTalk.SpecFlow;
+
     [Binding]
     public class MachineBootstrapSteps
     {

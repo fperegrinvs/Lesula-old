@@ -21,6 +21,7 @@ namespace Lesula.Admin.Dalc
 {
     using Lesula.Admin.Contracts;
     using Lesula.Core;
+    using Lesula.Core.Cassandra;
 
     /// <summary>
     /// IOC Helper

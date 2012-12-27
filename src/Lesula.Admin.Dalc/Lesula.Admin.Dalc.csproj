@@ -48,7 +48,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DataBase.cs" />
     <Compile Include="DataSourceDalc.cs" />
     <Compile Include="DataTypeDalc.cs" />
     <Compile Include="JobDalc.cs" />
@@ -72,6 +71,10 @@
     <ProjectReference Include="..\Lesula.Client.Contracts\Lesula.Client.Contracts.csproj">
       <Project>{5c038435-17a3-4fd9-ad07-775fca47836b}</Project>
       <Name>Lesula.Client.Contracts</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Lesula.Core.Cassandra\Lesula.Core.Cassandra.csproj">
+      <Project>{4731391e-637b-4724-a4fc-9b92fe0905c7}</Project>
+      <Name>Lesula.Core.Cassandra</Name>
     </ProjectReference>
     <ProjectReference Include="..\Lesula.Core\Lesula.Core.csproj">
       <Project>{e236cca6-3d70-4146-9da9-7199416ee69f}</Project>

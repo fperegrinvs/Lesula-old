@@ -17,18 +17,16 @@
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
 
-namespace Lesula.Admin.Dalc
+namespace Lesula.Core.Cassandra
 {
     using System.Collections.Generic;
 
     using Apache.Cassandra;
 
-    using Lesula.Admin.Contracts;
     using Lesula.Cassandra;
     using Lesula.Cassandra.Cluster;
     using Lesula.Cassandra.FrontEnd;
     using Lesula.Cassandra.FrontEnd.Enumerators;
-    using Lesula.Core;
 
     /// <summary>
     /// The data base.
@@ -88,7 +86,6 @@ namespace Lesula.Admin.Dalc
             famManager.TryAddColumnFamily("DataType", ColumnTypeEnum.Standard, ComparatorTypeEnum.UTF8Type);
             famManager.TryAddColumnFamily("DataSource", ColumnTypeEnum.Standard, ComparatorTypeEnum.UTF8Type);
             
-
             var columnDefs = new List<ColumnDef>
                 {
                     ColumnFamilyManager.NewColumnDefinition("RootId", true, ComparatorTypeEnum.BytesType),

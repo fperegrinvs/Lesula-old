@@ -19,7 +19,6 @@
 
 namespace Lesula.Admin.Dalc
 {
-    using System;
     using System.Collections.Generic;
     using System.Linq;
 
@@ -31,6 +30,7 @@ namespace Lesula.Admin.Dalc
     using Lesula.Cassandra;
     using Lesula.Cassandra.FrontEnd;
     using Lesula.Core;
+    using Lesula.Core.Cassandra;
 
     /// <summary>
     /// The user dalc.

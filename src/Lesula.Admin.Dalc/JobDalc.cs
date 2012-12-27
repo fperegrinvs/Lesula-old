@@ -29,6 +29,7 @@ namespace Lesula.Admin.Dalc
     using Lesula.Cassandra;
     using Lesula.Cassandra.FrontEnd;
     using Lesula.Client.Contracts.Models;
+    using Lesula.Core.Cassandra;
 
     /// <summary>
     /// The data source dalc.

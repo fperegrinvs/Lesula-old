@@ -17,7 +17,7 @@
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
 
-namespace Lesula.Admin.Contracts
+namespace Lesula.Core
 {
     /// <summary>
     /// The DataBase interface.

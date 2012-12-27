@@ -4,12 +4,12 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{69194894-2AD1-49C6-9601-D007E56EB0BF}</ProjectGuid>
+    <ProjectGuid>{4731391E-637B-4724-A4FC-9B92FE0905C7}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Lesula.Admin.Contracts</RootNamespace>
-    <AssemblyName>Lesula.Admin.Contracts</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <RootNamespace>Lesula.Core.Cassandra</RootNamespace>
+    <AssemblyName>Lesula.Core.Cassandra</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -31,7 +31,6 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
-    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -40,22 +39,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Enumerators\UserRole.cs" />
-    <Compile Include="Enumerators\UserStatus.cs" />
-    <Compile Include="IDataSourceDalc.cs" />
-    <Compile Include="IDataTypeDalc.cs" />
-    <Compile Include="IJobDalc.cs" />
-    <Compile Include="ITaskDalc.cs" />
-    <Compile Include="IUserDalc.cs" />
-    <Compile Include="Models\Login.cs" />
-    <Compile Include="Models\Task.cs" />
-    <Compile Include="Models\User.cs" />
+    <Compile Include="DataBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Lesula.Client.Contracts\Lesula.Client.Contracts.csproj">
-      <Project>{5c038435-17a3-4fd9-ad07-775fca47836b}</Project>
-      <Name>Lesula.Client.Contracts</Name>
+    <ProjectReference Include="..\Lesula.Cassandra\Lesula.Cassandra.csproj">
+      <Project>{e96d658f-a28d-4cac-a414-7328cf12052f}</Project>
+      <Name>Lesula.Cassandra</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Lesula.Core\Lesula.Core.csproj">
+      <Project>{e236cca6-3d70-4146-9da9-7199416ee69f}</Project>
+      <Name>Lesula.Core</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

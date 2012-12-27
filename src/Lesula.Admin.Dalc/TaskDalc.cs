@@ -29,6 +29,7 @@ namespace Lesula.Admin.Dalc
     using Lesula.Admin.Contracts.Models;
     using Lesula.Cassandra;
     using Lesula.Cassandra.FrontEnd;
+    using Lesula.Core.Cassandra;
 
     /// <summary>
     /// The task dalc.
