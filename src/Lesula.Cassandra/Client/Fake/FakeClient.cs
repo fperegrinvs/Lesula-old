@@ -1,4 +1,4 @@
-﻿namespace Lesula.Cassandra.Client
+﻿namespace Lesula.Cassandra.Client.Fake
 {
     using System;
     using System.Reflection;

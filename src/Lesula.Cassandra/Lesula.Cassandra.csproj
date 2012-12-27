@@ -66,6 +66,7 @@
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
+    <Reference Include="System.Numerics" />
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
@@ -111,9 +112,11 @@
     <Compile Include="Cassandra\TokenRange.cs" />
     <Compile Include="Cassandra\UnavailableException.cs" />
     <Compile Include="Client\DefaultClient.cs" />
-    <Compile Include="Client\FakeCassandra.cs" />
-    <Compile Include="Client\FakeCassandraStructure.cs" />
-    <Compile Include="Client\FakeClient.cs" />
+    <Compile Include="Client\Fake\FakeCassandra.cs" />
+    <Compile Include="Client\Fake\FakeClient.cs" />
+    <Compile Include="Client\Fake\FakeKeyspace.cs" />
+    <Compile Include="Client\Fake\FakeRow.cs" />
+    <Compile Include="Client\Fake\FakeSSTable.cs" />
     <Compile Include="Cluster\Factory\DefaultClusterFactory.cs" />
     <Compile Include="Client\AbstractClient.cs" />
     <Compile Include="CommandDelegates.cs" />
@@ -147,6 +150,7 @@
     <Compile Include="Exceptions\AquilesException.cs" />
     <Compile Include="Exceptions\ExecutionBlockException.cs" />
     <Compile Include="Extensions\FactoryExtensions.cs" />
+    <Compile Include="Helpers\MurmurHash.cs" />
     <Compile Include="Helpers\UnixHelper.cs" />
     <Compile Include="IFactory.cs" />
     <Compile Include="FrontEnd\BooleanHelper.cs" />

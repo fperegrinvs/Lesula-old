@@ -1616,7 +1616,7 @@ namespace Lesula.Cassandra.FrontEnd
         {
             Validation.safeGetRowKey(rowKey);
             Validation.validateColumn(column);
-            ColumnOrSuperColumn cosc = new ColumnOrSuperColumn();
+            var cosc = new ColumnOrSuperColumn();
             cosc.Counter_column = column;
             var mutation = new Mutation();
             mutation.Column_or_supercolumn = cosc;

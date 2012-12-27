@@ -1,6 +1,7 @@
 ﻿namespace Lesula.Cassandra.Connection.Factory
 {
     using Lesula.Cassandra.Client;
+    using Lesula.Cassandra.Client.Fake;
     using Lesula.Cassandra.Connection.Pooling;
     using Lesula.Cassandra.Model;
 
