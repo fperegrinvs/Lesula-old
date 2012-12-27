@@ -16,15 +16,22 @@
     /// </remarks>
     public class FakeCassandra : Cassandra.Iface
     {
-        private Dictionary<string, FakeKeyspace> database;
-        private Dictionary<string, List<string>> keyspaces;
-        private string currentKeyspace;
-        private long version = 1;
+        private static Dictionary<string, FakeKeyspace> database;
+        private static Dictionary<string, List<string>> keyspaces;
+        private static string currentKeyspace;
+        private static long version = 1;
 
-        public FakeCassandra()
+        static FakeCassandra()
         {
-            this.database = new Dictionary<string, FakeKeyspace>();
-            this.keyspaces = new Dictionary<string, List<string>>();
+            Init();
+        }
+
+        public static void Init()
+        {
+            database = new Dictionary<string, FakeKeyspace>();
+            keyspaces = new Dictionary<string, List<string>>();
+            currentKeyspace = string.Empty;
+            version = 1;
         }
 
         /// <summary>
@@ -44,12 +51,12 @@
         /// <param name="keyspace">requested keyspace</param>
         public void set_keyspace(string keyspace)
         {
-            if (!this.keyspaces.ContainsKey(keyspace))
+            if (!keyspaces.ContainsKey(keyspace))
             {
                 throw new InvalidRequestException();
             }
 
-            this.currentKeyspace = keyspace;
+            currentKeyspace = keyspace;
         }
 
         /// <summary>
@@ -63,22 +70,22 @@
         /// <returns>desired column or supercolumn</returns>
         public ColumnOrSuperColumn get(byte[] key, ColumnPath column_path, ConsistencyLevel consistency_level)
         {
-            if (!this.database[this.currentKeyspace].ContainsKey(column_path.Column_family))
+            if (!database[currentKeyspace].ContainsKey(column_path.Column_family))
             {
                 throw new Exception("Column family not found");
             }
 
-            if (!this.database[this.currentKeyspace][column_path.Column_family].Contains(key))
+            if (!database[currentKeyspace][column_path.Column_family].Contains(key))
             {
                 throw new NotFoundException();
             }
 
-            if (!this.database[this.currentKeyspace][column_path.Column_family][key].ContainsKey(column_path.Column))
+            if (!database[currentKeyspace][column_path.Column_family][key].ContainsKey(column_path.Column))
             {
                 throw new NotFoundException();
             }
 
-            return this.database[this.currentKeyspace][column_path.Column_family][key][column_path.Column];
+            return database[currentKeyspace][column_path.Column_family][key][column_path.Column];
         }
 
         /// <summary>
@@ -87,17 +94,17 @@
         /// </summary>
         public List<ColumnOrSuperColumn> get_slice(byte[] key, ColumnParent column_parent, SlicePredicate predicate, ConsistencyLevel consistency_level)
         {
-            if (!this.database[this.currentKeyspace].ContainsKey(column_parent.Column_family))
+            if (!database[currentKeyspace].ContainsKey(column_parent.Column_family))
             {
                 throw new Exception("Column family not found");
             }
 
-            if (!this.database[this.currentKeyspace][column_parent.Column_family].Contains(key))
+            if (!database[currentKeyspace][column_parent.Column_family].Contains(key))
             {
                 return new List<ColumnOrSuperColumn>();
             }
 
-            var row = this.database[this.currentKeyspace][column_parent.Column_family][key];
+            var row = database[currentKeyspace][column_parent.Column_family][key];
             if (predicate.__isset.column_names)
             {
                 var result = predicate.Column_names.Select(colName => row[colName]).ToList();
@@ -173,12 +180,12 @@
         /// </summary>
         public List<KeySlice> get_range_slices(ColumnParent column_parent, SlicePredicate predicate, KeyRange range, ConsistencyLevel consistency_level)
         {
-            if (!this.database[this.currentKeyspace].ContainsKey(column_parent.Column_family))
+            if (!database[currentKeyspace].ContainsKey(column_parent.Column_family))
             {
                 throw new Exception("Column family not found");
             }
 
-            var filteredKeys = this.database[this.currentKeyspace][column_parent.Column_family].KeySlice(range);
+            var filteredKeys = database[currentKeyspace][column_parent.Column_family].KeySlice(range);
             var resultDic = this.multiget_slice(filteredKeys, column_parent, predicate, consistency_level);
             var result = resultDic.Select(entry => new KeySlice { Columns = entry.Value, Key = entry.Key }).ToList();
             return result;
@@ -229,26 +236,26 @@
             {
                 this.CheckKeyspace();
                 var cosc = new ColumnOrSuperColumn { Column = column };
-                if (!this.database[this.currentKeyspace][column_parent.Column_family].Contains(key))
+                if (!database[currentKeyspace][column_parent.Column_family].Contains(key))
                 {
-                    this.database[this.currentKeyspace][column_parent.Column_family][key] = new FakeRow(key);
+                    database[currentKeyspace][column_parent.Column_family][key] = new FakeRow(key);
                 }
 
-                this.database[this.currentKeyspace][column_parent.Column_family][key][column.Name] = cosc;
+                database[currentKeyspace][column_parent.Column_family][key][column.Name] = cosc;
             }
         }
 
         private void CheckKeyspace()
         {
-            if (!this.database.ContainsKey(this.currentKeyspace))
+            if (!database.ContainsKey(currentKeyspace))
             {
                 var newKeyspace = new FakeKeyspace();
-                foreach (var cfname in this.keyspaces[this.currentKeyspace])
+                foreach (var cfname in keyspaces[currentKeyspace])
                 {
                     newKeyspace.Add(cfname, new FakeSSTable());
                 }
 
-                this.database[this.currentKeyspace] = newKeyspace;
+                database[currentKeyspace] = newKeyspace;
             }
         }
 
@@ -275,12 +282,12 @@
                 this.CheckKeyspace();
                 var cosc = new ColumnOrSuperColumn { Counter_column = column };
 
-                if (!this.database[this.currentKeyspace][column_parent.Column_family].Contains(key))
+                if (!database[currentKeyspace][column_parent.Column_family].Contains(key))
                 {
-                    this.database[this.currentKeyspace][column_parent.Column_family][key] = new FakeRow(key);
+                    database[currentKeyspace][column_parent.Column_family][key] = new FakeRow(key);
                 }
 
-                this.database[this.currentKeyspace][column_parent.Column_family][key][column.Name] = cosc;
+                database[currentKeyspace][column_parent.Column_family][key][column.Name] = cosc;
             }
         }
 
@@ -293,33 +300,33 @@
         /// </summary>
         public void remove(byte[] key, ColumnPath column_path, long timestamp, ConsistencyLevel consistency_level)
         {
-            if (!this.database.ContainsKey(this.currentKeyspace))
+            if (!database.ContainsKey(currentKeyspace))
             {
                 throw new Exception("Keyspace not found!");
             }
 
-            if (!this.database[this.currentKeyspace].ContainsKey(column_path.Column_family))
+            if (!database[currentKeyspace].ContainsKey(column_path.Column_family))
             {
                 throw new Exception("column family not found!");
             }
 
-            if (!this.database[this.currentKeyspace][column_path.Column_family].Contains(key))
+            if (!database[currentKeyspace][column_path.Column_family].Contains(key))
             {
                 throw new Exception("row not found!");
             }
 
             if (column_path.__isset.column)
             {
-                if (!this.database[this.currentKeyspace][column_path.Column_family][key].ContainsKey(column_path.Column))
+                if (!database[currentKeyspace][column_path.Column_family][key].ContainsKey(column_path.Column))
                 {
                    throw new Exception("column not found!");
                 }
 
-                this.database[this.currentKeyspace][column_path.Column_family][key].Remove(column_path.Column);
+                database[currentKeyspace][column_path.Column_family][key].Remove(column_path.Column);
             }
             else
             {
-                this.database[this.currentKeyspace][column_path.Column_family].DelItem(key);
+                database[currentKeyspace][column_path.Column_family].DelItem(key);
             }
         }
 
@@ -389,12 +396,12 @@
         /// </summary>
         public void truncate(string cfname)
         {
-            if (!this.database[this.currentKeyspace].ContainsKey(cfname))
+            if (!database[currentKeyspace].ContainsKey(cfname))
             {
                 throw new Exception("Column family not found");
             }
 
-            this.database[this.currentKeyspace][cfname] = new FakeSSTable { Definition = this.database[this.currentKeyspace][cfname].Definition };
+            database[currentKeyspace][cfname] = new FakeSSTable { Definition = database[currentKeyspace][cfname].Definition };
         }
 
         /// <summary>
@@ -468,12 +475,12 @@
         /// </summary>
         public KsDef describe_keyspace(string keyspace)
         {
-            if (!this.database.ContainsKey(keyspace))
+            if (!database.ContainsKey(keyspace))
             {
                 throw new Exception("Keyspace not found!");
             }
 
-            return this.database[keyspace].Definitions;
+            return database[keyspace].Definitions;
         }
 
         public List<string> describe_splits(string cfName, string start_token, string end_token, int keys_per_split)
@@ -488,18 +495,30 @@
         /// </summary>
         public string system_add_column_family(CfDef cf_def)
         {
-            if (!this.database.ContainsKey(cf_def.Keyspace))
+            if (!database.ContainsKey(cf_def.Keyspace))
             {
                 throw new Exception("Keyspace not found!");
             }
 
-            if (this.database[cf_def.Keyspace].ContainsKey(cf_def.Name))
+            if (database[cf_def.Keyspace].ContainsKey(cf_def.Name))
             {
-                throw new Exception("column family already exists!");
+                throw new InvalidRequestException(){ Why = "Column Family Already Exists" };
             }
 
-            this.database[cf_def.Keyspace][cf_def.Name] = new FakeSSTable() { Definition = cf_def };
-            return (++this.version).ToString(CultureInfo.InvariantCulture);
+            database[cf_def.Keyspace][cf_def.Name] = new FakeSSTable { Definition = cf_def };
+
+            if (database[cf_def.Keyspace].Definitions == null)
+            {
+                database[cf_def.Keyspace].Definitions = new KsDef();
+            }
+
+            if (!database[cf_def.Keyspace].Definitions.__isset.cf_defs)
+            {
+                database[cf_def.Keyspace].Definitions.Cf_defs = new List<CfDef>();
+            }
+
+            database[cf_def.Keyspace].Definitions.Cf_defs.Add(cf_def);
+            return (++version).ToString(CultureInfo.InvariantCulture);
         }
 
         /// <summary>
@@ -508,18 +527,18 @@
         /// </summary>
         public string system_drop_column_family(string column_family)
         {
-            if (!this.database.ContainsKey(currentKeyspace))
+            if (!database.ContainsKey(currentKeyspace))
             {
                 throw new Exception("Keyspace not found!");
             }
 
-            if (!this.database[this.currentKeyspace].ContainsKey(column_family))
+            if (!database[currentKeyspace].ContainsKey(column_family))
             {
                 throw new Exception("Column family not found!");
             }
 
-            this.database[this.currentKeyspace].Remove(column_family);
-            return (++this.version).ToString(CultureInfo.InvariantCulture);
+            database[currentKeyspace].Remove(column_family);
+            return (++version).ToString(CultureInfo.InvariantCulture);
         }
 
         /// <summary>
@@ -529,19 +548,24 @@
         /// </summary>
         public string system_add_keyspace(KsDef ks_def)
         {
+            if (database.ContainsKey(ks_def.Name))
+            {
+                throw new InvalidRequestException(){ Why = "Keyspace already exists." };
+            }
+
             var ksName = ks_def.Name;
-            this.database[ksName] = new FakeKeyspace { Definitions = ks_def };
+            database[ksName] = new FakeKeyspace { Definitions = ks_def };
             if (ks_def.Cf_defs != null)
             {
                 var cfs = ks_def.Cf_defs.Select(c => c.Name).ToList();
-                this.keyspaces[ksName] = cfs;
+                keyspaces[ksName] = cfs;
             }
             else
             {
-                this.keyspaces[ksName] = new List<string>();
+                keyspaces[ksName] = new List<string>();
             }
 
-            return (++this.version).ToString(CultureInfo.InvariantCulture);
+            return (++version).ToString(CultureInfo.InvariantCulture);
         }
 
         /// <summary>
@@ -551,15 +575,15 @@
         /// </summary>
         public string system_drop_keyspace(string keyspace)
         {
-            if (!this.database.ContainsKey(keyspace))
+            if (!database.ContainsKey(keyspace))
             {
                 throw new Exception("Keyspace not found!");
             }
 
-            this.database.Remove(keyspace);
-            this.keyspaces.Remove(keyspace);
+            database.Remove(keyspace);
+            keyspaces.Remove(keyspace);
 
-            return (++this.version).ToString(CultureInfo.InvariantCulture);
+            return (++version).ToString(CultureInfo.InvariantCulture);
         }
 
         /// <summary>
@@ -567,13 +591,13 @@
         /// </summary>
         public string system_update_keyspace(KsDef ks_def)
         {
-            if (!this.database.ContainsKey(ks_def.Name))
+            if (!database.ContainsKey(ks_def.Name))
             {
                 throw new Exception("Keyspace not found!");
             }
 
-            this.database[ks_def.Name].Definitions = ks_def;
-            return (++this.version).ToString(CultureInfo.InvariantCulture);
+            database[ks_def.Name].Definitions = ks_def;
+            return (++version).ToString(CultureInfo.InvariantCulture);
         }
 
         /// <summary>
@@ -591,18 +615,18 @@
                 throw new Exception("CF name not set!");
             }
 
-            if (!this.database.ContainsKey(cf_def.Keyspace))
+            if (!database.ContainsKey(cf_def.Keyspace))
             {
                 throw new Exception("Keyspace not found");
             }
 
-            if (!this.database[cf_def.Keyspace].ContainsKey(cf_def.Name))
+            if (!database[cf_def.Keyspace].ContainsKey(cf_def.Name))
             {
                 throw new Exception("Column Family not found");
             }
 
-            this.database[cf_def.Keyspace][cf_def.Name].Definition = cf_def;
-            return (++this.version).ToString(CultureInfo.InvariantCulture);
+            database[cf_def.Keyspace][cf_def.Name].Definition = cf_def;
+            return (++version).ToString(CultureInfo.InvariantCulture);
         }
 
         /// <summary>

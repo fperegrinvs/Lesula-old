@@ -66,7 +66,13 @@ namespace Lesula.Cassandra.FrontEnd
         /// <summary>
         /// The timestamp.
         /// </summary>
-        private readonly long timestamp;
+        private long Timestamp
+        {
+            get
+            {
+                return DateTimeOffset.UtcNow.ToTimestamp();
+            }
+        }
 
         /// <summary>
         /// The ttl.
@@ -106,7 +112,7 @@ namespace Lesula.Cassandra.FrontEnd
         /// Time To Live das colunas criadas pelo método NewColumn.
         /// </param>
         public Mutator(ICluster cluster, string keyspace, int ttl = NoTtl)
-            : this(DateTimeOffset.UtcNow.ToTimestamp(), false, ttl)
+            : this(false, ttl)
         {
             this.cluster = cluster;
             this.keyspace = keyspace;
@@ -116,9 +122,6 @@ namespace Lesula.Cassandra.FrontEnd
         /// Initializes a new instance of the <see cref="Mutator"/> class. 
         /// Create a batch mutation operation.
         /// </summary>
-        /// <param name="timestamp">
-        /// The time stamp to use for the operation.
-        /// </param>
         /// <param name="deleteIfNull">
         /// determine if null values on columns will result in a delete
         /// </param>
@@ -128,9 +131,8 @@ namespace Lesula.Cassandra.FrontEnd
         /// <summary>
         /// helper methods will default to (null to indicate no default)
         /// </summary>
-        public Mutator(long timestamp, bool deleteIfNull, int ttl = NoTtl)
+        public Mutator(bool deleteIfNull, int ttl = NoTtl)
         {
-            this.timestamp = timestamp;
             this.deleteIfNull = deleteIfNull;
             this.ttl = ttl;
             this.batch = MutationsByKey.Create();
@@ -314,10 +316,10 @@ namespace Lesula.Cassandra.FrontEnd
             Validation.validateColumnNames(colNames);
             SlicePredicate pred = new SlicePredicate();
             pred.Column_names = colNames;
-            Deletion deletion = new Deletion();
-            deletion.Timestamp = this.timestamp;
+            var deletion = new Deletion();
+            deletion.Timestamp = this.Timestamp;
             deletion.Predicate = pred;
-            Mutation mutation = new Mutation();
+            var mutation = new Mutation();
             mutation.Deletion = deletion;
             this.GetMutationList(colFamily, rowKey).Add(mutation);
             return this;
@@ -615,7 +617,7 @@ namespace Lesula.Cassandra.FrontEnd
             }
 
             var deletion = new Deletion();
-            deletion.Timestamp = this.timestamp;
+            deletion.Timestamp = this.Timestamp;
             deletion.Super_column = colName;
 
             // CASSANDRA-1027 allows for a null predicate
@@ -647,6 +649,7 @@ namespace Lesula.Cassandra.FrontEnd
                 });
 
             this.cluster.Execute(mutate, this.keyspace);
+            this.batch.Clear();
         }
 
         /// <summary>
@@ -687,7 +690,7 @@ namespace Lesula.Cassandra.FrontEnd
         /// </param>
         public byte[] GetMutationTimestamp(bool microsToMillis)
         {
-            long result = this.timestamp;
+            long result = this.Timestamp;
             if (microsToMillis)
             {
                 result /= 1000;
@@ -708,7 +711,7 @@ namespace Lesula.Cassandra.FrontEnd
         /// </returns>
         public long GetMutationTimestampValue()
         {
-            return this.timestamp;
+            return this.Timestamp;
         }
 
         /// <summary>
@@ -1075,7 +1078,7 @@ namespace Lesula.Cassandra.FrontEnd
             Column column = new Column();
             column.Name = colName;
             column.Value = colValue;
-            column.Timestamp = this.timestamp;
+            column.Timestamp = this.Timestamp;
 
             if (ttl != NoTtl)
             {

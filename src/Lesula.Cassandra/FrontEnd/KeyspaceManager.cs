@@ -66,6 +66,20 @@ namespace Lesula.Cassandra.FrontEnd
             return this.cluster.Execute(operation);
         }
 
+        public bool TryAddKeyspace(string name, int replicationFactor)
+        {
+            try
+            {
+                this.AddKeyspace(name, replicationFactor);
+            }
+            catch (InvalidRequestException)
+            {
+                return false;
+            }
+
+            return true;
+        }
+
         public string AddKeyspace(string name, int replicationFactor)
         {
             var keyDefinition = new KsDef
