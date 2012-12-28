@@ -33,6 +33,10 @@
     <Reference Include="Funq">
       <HintPath>..\Lesula.Core\bin\Debug\Funq.dll</HintPath>
     </Reference>
+    <Reference Include="Lesula.Cassandra, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\lib\Lesula.Cassandra\Lesula.Cassandra.dll</HintPath>
+    </Reference>
     <Reference Include="LZ4Sharp">
       <HintPath>..\..\lib\LZ4\LZ4Sharp.dll</HintPath>
     </Reference>
@@ -63,10 +67,6 @@
     <ProjectReference Include="..\Lesula.Admin.Contracts\Lesula.Admin.Contracts.csproj">
       <Project>{69194894-2AD1-49C6-9601-D007E56EB0BF}</Project>
       <Name>Lesula.Admin.Contracts</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Lesula.Cassandra\Lesula.Cassandra.csproj">
-      <Project>{e96d658f-a28d-4cac-a414-7328cf12052f}</Project>
-      <Name>Lesula.Cassandra</Name>
     </ProjectReference>
     <ProjectReference Include="..\Lesula.Client.Contracts\Lesula.Client.Contracts.csproj">
       <Project>{5c038435-17a3-4fd9-ad07-775fca47836b}</Project>

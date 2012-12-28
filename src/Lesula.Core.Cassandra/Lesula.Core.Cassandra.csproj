@@ -30,6 +30,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Lesula.Cassandra, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\lib\Lesula.Cassandra\Lesula.Cassandra.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -43,10 +47,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Lesula.Cassandra\Lesula.Cassandra.csproj">
-      <Project>{e96d658f-a28d-4cac-a414-7328cf12052f}</Project>
-      <Name>Lesula.Cassandra</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Lesula.Core\Lesula.Core.csproj">
       <Project>{e236cca6-3d70-4146-9da9-7199416ee69f}</Project>
       <Name>Lesula.Core</Name>
