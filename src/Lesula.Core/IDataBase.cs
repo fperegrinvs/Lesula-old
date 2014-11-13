@@ -17,6 +17,7 @@
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
 
+using System.Collections.Generic;
 namespace Lesula.Core
 {
     /// <summary>
@@ -27,6 +28,6 @@ namespace Lesula.Core
         /// <summary>
         /// Create database structure
         /// </summary>
-        void CreateStructure();
+        List<string> CreateStructure();
     }
 }

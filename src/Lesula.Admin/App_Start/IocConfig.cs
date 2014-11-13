@@ -19,6 +19,7 @@
 
 namespace Lesula.Admin.App_Start
 {
+    using Lesula.CodeParser;
     using Lesula.Core;
 
     /// <summary>
@@ -37,6 +38,9 @@ namespace Lesula.Admin.App_Start
 
             // admin dalc
             Dalc.Register.RegisterAll();
+
+            // assembly generator
+            Context.Container.Register<IAssemblyGenerator>(c => new AssemblyGenerator());
         }
     }
 }

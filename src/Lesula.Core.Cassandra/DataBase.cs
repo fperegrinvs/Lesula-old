@@ -72,8 +72,9 @@ namespace Lesula.Core.Cassandra
         /// <summary>
         /// Create database structure
         /// </summary>
-        public void CreateStructure()
+        public List<string> CreateStructure()
         {
+            var msgs = new List<string>();
             var connection = GetCluster();
             var manager = new KeyspaceManager(connection);
             manager.AddKeyspace("Lesula", int.Parse(Context.Config.Get("Replication")));
@@ -105,6 +106,7 @@ namespace Lesula.Core.Cassandra
                     ColumnFamilyManager.NewColumnDefinition("BID", true, ComparatorTypeEnum.BytesType), // bucket id
                 };
             famManager.TryAddColumnFamily("JobData", ColumnTypeEnum.Standard, ComparatorTypeEnum.UTF8Type, columnDefs: columnDefs);
+            return msgs;
         }
 
         /// <summary>

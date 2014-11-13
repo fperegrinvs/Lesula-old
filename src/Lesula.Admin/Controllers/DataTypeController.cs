@@ -67,33 +67,12 @@ namespace Lesula.Admin.Controllers
         {
             try
             {
-                var contracts = Assembly.Load("Lesula.Client.Contracts");
-                var core = Assembly.Load("Lesula.Core");
-
-                var errors = new List<string>();
-
-                // see if code compiles
-                var assembly = AssemblyGenerator.CreateAssembly(
-                    "Test",
-                    new List<string> { collection.Code },
-                    new List<string> { "mscorlib", "System", "System.Core", contracts.Location, core.Location },
-                    out errors);
-
-                if (errors != null && errors.Count != 0)
+                // check if datatype is ok
+                var checker = new DataTypeChecker();
+                var error = checker.CheckDataType(collection);
+                if (!string.IsNullOrEmpty(error))
                 {
-                    this.ErrorMessage = string.Concat("<br/>", errors);
-                }
-                else
-                {
-                    // check if type exists
-                    if (assembly.ExportedTypes.FirstOrDefault(t => t.Name == collection.Name) == null)
-                    {
-                        this.ErrorMessage = "Type '" + collection.Name + "' not found in compiled code";
-                    }
-                }
-
-                if (!string.IsNullOrEmpty(this.ErrorMessage))
-                {
+                    this.ErrorMessage = error;
                     return this.View("Create", collection);
                 }
 

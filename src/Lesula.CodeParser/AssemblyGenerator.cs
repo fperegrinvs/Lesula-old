@@ -30,7 +30,7 @@ namespace Lesula.CodeParser
     /// <summary>
     /// The assembly generator.
     /// </summary>
-    public class AssemblyGenerator
+    public class AssemblyGenerator : IAssemblyGenerator
     {
         /// <summary>
         /// Create an assembly from strings
@@ -40,7 +40,7 @@ namespace Lesula.CodeParser
         /// <param name="references">full name of referred assemblies</param>
         /// <param name="errors">compilation errors</param>
         /// <returns>Compiled assembly</returns>
-        public static Assembly CreateAssembly(string assemblyName, List<string> files, List<string> references, out List<string> errors)
+        public Assembly CreateAssembly(string assemblyName, List<string> files, List<string> references, out List<string> errors)
         {
             var trees = files.Select(file => SyntaxTree.ParseText(file)).ToList();
             var refs = references.Select(r => r.Contains(":") ? MetadataFileProvider.Default.GetReference(r) : MetadataReference.CreateAssemblyReference(r)).ToList();
