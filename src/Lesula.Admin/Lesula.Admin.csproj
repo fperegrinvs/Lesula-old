@@ -317,9 +317,9 @@
     <Compile Include="Controllers\DataTypeController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\InstallController.cs" />
-    <Compile Include="Controllers\JobController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\TaskController.cs" />
+    <Compile Include="Controllers\TransformationController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Extensions\BinderExtensions.cs" />
     <Compile Include="Extensions\CheckBoxList.cs" />
@@ -1042,10 +1042,10 @@
     <Content Include="Views\DataSource\Create.cshtml" />
     <Content Include="Views\DataSource\EditorTemplates\ColumnSlice.cshtml" />
     <Content Include="Views\DataSource\EditorTemplates\QueryFilterList.cshtml" />
-    <Content Include="Views\Job\Create.cshtml" />
-    <Content Include="Views\Job\Index.cshtml" />
-    <Content Include="Views\Job\EditorTemplates\JobOptions.cshtml" />
-    <Content Include="Views\Job\EditorTemplates\DependencyList.cshtml" />
+    <Content Include="Views\Transformation\Create.cshtml" />
+    <Content Include="Views\Transformation\Index.cshtml" />
+    <Content Include="Views\Transformation\EditorTemplates\JobOptions.cshtml" />
+    <Content Include="Views\Transformation\EditorTemplates\DependencyList.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

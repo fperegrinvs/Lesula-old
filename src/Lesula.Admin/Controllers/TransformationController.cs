@@ -28,20 +28,20 @@ namespace Lesula.Admin.Controllers
     using Lesula.Client.Contracts.Models;
     using Lesula.Core;
 
-    public class JobController : AdminBaseController
+    public class TransformationController : AdminBaseController
     {
         public ActionResult Index()
         {
-            var jobs = Context.Container.Resolve<IJobDalc>().GetAllJobs();
+            var jobs = Context.Container.Resolve<ITransformationDalc>().GetAllJobs();
             return this.View(jobs);
         }
 
         public ActionResult Create()
         {
-            var job = new Job
+            var job = new DataTransformation
             {
                 Id = Guid.NewGuid(),
-                JobType = JobType.Mapper,
+                JobType = TransformationType.Mapper,
                 Code = Properties.Resources.NewMapper
             };
 
@@ -60,11 +60,11 @@ namespace Lesula.Admin.Controllers
         /// </returns>
         [ValidateInput(false)]
         [HttpPost]
-        public ActionResult Create(Job collection)
+        public ActionResult Create(DataTransformation collection)
         {
             try
             {
-                Context.Container.Resolve<IJobDalc>().SaveJob(collection);
+                Context.Container.Resolve<ITransformationDalc>().SaveJob(collection);
                 return this.RedirectToAction("Index");
             }
             catch (Exception ex)
@@ -76,17 +76,17 @@ namespace Lesula.Admin.Controllers
 
         public ActionResult Edit(Guid id)
         {
-            var job = Context.Container.Resolve<IJobDalc>().GetJob(id);
+            var job = Context.Container.Resolve<ITransformationDalc>().GetJob(id);
             this.EditorViewBag();
             return this.View("Create", job);
         }
 
         [HttpPost]
-        public ActionResult Edit(Job collection)
+        public ActionResult Edit(DataTransformation collection)
         {
             try
             {
-                Context.Container.Resolve<IJobDalc>().SaveJob(collection);
+                Context.Container.Resolve<ITransformationDalc>().SaveJob(collection);
                 return this.RedirectToAction("Index");
             }
             catch (Exception ex)
@@ -99,7 +99,7 @@ namespace Lesula.Admin.Controllers
         [NonAction]
         private void EditorViewBag()
         {
-            var jobList = Context.Container.Resolve<IJobDalc>().GetAllJobs().OrderBy(j => j.Name);
+            var jobList = Context.Container.Resolve<ITransformationDalc>().GetAllJobs().OrderBy(j => j.Name);
             ViewBag.JobList = new SelectList(jobList, "Id", "Name");
             ViewBag.MapperCode = Properties.Resources.NewMapper;
             ViewBag.ReducerCode = Properties.Resources.NewReducer;

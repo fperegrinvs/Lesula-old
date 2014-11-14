@@ -26,7 +26,7 @@ namespace Lesula.Client.Reducers
 
     public abstract class ReducerRunner
     {
-        protected JobOptions Options { get; set; }
+        protected TransformationOptions Options { get; set; }
 
         public void Execute()
         {
@@ -61,6 +61,6 @@ namespace Lesula.Client.Reducers
 
         public abstract void Cleanup();
 
-        public abstract void Configure(JobOptions options);
+        public abstract void Configure(TransformationOptions options);
     }
 }

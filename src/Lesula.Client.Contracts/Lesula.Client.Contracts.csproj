@@ -61,6 +61,7 @@
     <Compile Include="Enumerators\QueryRange.cs" />
     <Compile Include="Enumerators\SerializationFormat.cs" />
     <Compile Include="Enumerators\SourceKind.cs" />
+    <Compile Include="Enumerators\TargetKind.cs" />
     <Compile Include="Enumerators\TaskStatus.cs" />
     <Compile Include="Implementation\Column.cs" />
     <Compile Include="Implementation\Row.cs" />
@@ -68,10 +69,11 @@
     <Compile Include="Models\Block.cs" />
     <Compile Include="Models\ColumnSlice.cs" />
     <Compile Include="Models\DataSource.cs" />
+    <Compile Include="Models\DataTarget.cs" />
     <Compile Include="Models\DataType.cs" />
     <Compile Include="Models\Dependency.cs" />
-    <Compile Include="Models\Job.cs" />
-    <Compile Include="Models\JobOptions.cs" />
+    <Compile Include="Models\DataTransformation.cs" />
+    <Compile Include="Models\TransformationOptions.cs" />
     <Compile Include="Models\QueryFilter.cs" />
     <Compile Include="Models\Segment.cs" />
     <Compile Include="Models\Task.cs" />

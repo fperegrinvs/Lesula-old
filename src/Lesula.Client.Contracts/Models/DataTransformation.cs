@@ -29,10 +29,10 @@ namespace Lesula.Client.Contracts.Models
     /// <summary>
     /// The job.
     /// </summary>
-    public class Job
+    public class DataTransformation
     {
         /// <summary>
-        /// Unique job id
+        /// Unique DT id
         /// </summary>
         [ReadOnly(true)]
         public Guid Id { get; set; }
@@ -49,23 +49,23 @@ namespace Lesula.Client.Contracts.Models
         /// </summary>
         [Required]
         [DisplayName("Type")]
-        public JobType JobType { get; set; }
+        public TransformationType JobType { get; set; }
 
         /// <summary>
-        /// Code used in this job
+        /// Code used in this DT
         /// </summary>
         [Required]
         public string Code { get; set; }
 
         /// <summary>
-        /// List of job that must complete before this one
+        /// List of DT that must complete before this one
         /// </summary>
-        [DisplayName("Jobs that must complete before this job can execute")]
+        [DisplayName("Transformations that must complete before this one can execute")]
         [UIHint("DependencyList")]
         public List<Dependency> Dependency { get; set; }
 
         /// <summary>
-        /// Where job output goes
+        /// Where datatransfprmation output goes
         /// </summary>
         [Required]
         [DisplayName("Output target")]
@@ -79,8 +79,8 @@ namespace Lesula.Client.Contracts.Models
         public SerializationFormat OutputFormat { get; set; }
 
         /// <summary>
-        /// Job obtions
+        /// Transform obtions
         /// </summary>
-        public JobOptions Options { get; set; }
+        public TransformationOptions Options { get; set; }
     }
 }

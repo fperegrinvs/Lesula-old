@@ -44,7 +44,7 @@
     <Compile Include="Enumerators\UserStatus.cs" />
     <Compile Include="IDataSourceDalc.cs" />
     <Compile Include="IDataTypeDalc.cs" />
-    <Compile Include="IJobDalc.cs" />
+    <Compile Include="ITransformationDalc.cs" />
     <Compile Include="ITaskDalc.cs" />
     <Compile Include="IUserDalc.cs" />
     <Compile Include="Models\Login.cs" />

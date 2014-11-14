@@ -25,9 +25,9 @@ namespace Lesula.Client.Contracts.Enumerators
     public enum SourceKind
     {
         /// <summary>
-        /// Source from code
+        /// Source from cassandra
         /// </summary>
-        Code = 1,
+        Cassandra = 1,
 
         /// <summary>
         /// Source from Job

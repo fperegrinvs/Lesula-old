@@ -38,7 +38,7 @@ namespace Lesula.Admin.Dalc
             Context.Container.Register<IUserDalc>(c => new UserDalc());
             Context.Container.Register<IDataTypeDalc>(c => new DataTypeDalc());
             Context.Container.Register<IDataSourceDalc>(c => new DataSourceDalc());
-            Context.Container.Register<IJobDalc>(c => new JobDalc());
+            Context.Container.Register<ITransformationDalc>(c => new TransformationDalc());
         }
     }
 }

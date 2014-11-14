@@ -22,7 +22,7 @@ namespace Lesula.Client.Contracts.Enumerators
     /// <summary>
     /// The job type.
     /// </summary>
-    public enum JobType
+    public enum TransformationType
     {
         /// <summary>
         /// Transform source

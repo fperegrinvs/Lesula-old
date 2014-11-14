@@ -26,7 +26,7 @@ namespace Lesula.Client.Mappers
 
     public abstract class MapRunner
     {
-        protected JobOptions Options { get; set; }
+        protected TransformationOptions Options { get; set; }
 
         public void Execute()
         {
@@ -61,6 +61,6 @@ namespace Lesula.Client.Mappers
 
         public abstract void Cleanup();
 
-        public abstract void Configure(JobOptions options);
+        public abstract void Configure(TransformationOptions options);
     }
 }

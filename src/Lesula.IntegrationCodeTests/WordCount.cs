@@ -53,8 +53,9 @@ namespace Lesula.IntegrationCodeTests
             //Register book DataType
             var registerBookErr = RegisterBookType();
             Assert.IsTrue(string.IsNullOrEmpty(registerBookErr), "Error creating book datatype: " + registerBookErr);
-        }
+        
 
+        }
 
         private string RegisterBookType()
         {
@@ -65,7 +66,7 @@ namespace Lesula.IntegrationCodeTests
                 var bookType = new DataType()
                 {
                     Name = "Book",
-                    Id = Guid.NewGuid(),
+                    Id =  new Guid("57D03CD6-5A57-4DDD-8498-FE7926206612"),
                     Code = code
                 };
 
@@ -76,6 +77,17 @@ namespace Lesula.IntegrationCodeTests
             {
                 return ex.Message;
             }
+        }
+
+        private string RegisterBookDataSource()
+        {
+            var ds = new DataSource()
+            {
+                Id = new Guid("9ccbc5bf-467b-44e9-9dba-2ac008095dc9"),
+                DataType = new Guid("57D03CD6-5A57-4DDD-8498-FE7926206612") // book,
+
+            };
+            return "";
         }
     }
 }
