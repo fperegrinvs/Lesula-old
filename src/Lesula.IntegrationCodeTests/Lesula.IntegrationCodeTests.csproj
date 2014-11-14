@@ -56,6 +56,12 @@
     <Content Include="Content\Book.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Content\Word.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\WordMapper.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Compile Include="WordCount.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

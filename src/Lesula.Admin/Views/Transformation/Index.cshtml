@@ -3,7 +3,7 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Jobs</h2>
+<h2>Transformations</h2>
 @using Telerik.Web.Mvc.UI
 @(Html.Telerik().Grid(Model).Name("Transformations")
 .ToolBar(tb => tb.Custom().ButtonType(GridButtonType.Text).Action("Create", "Transformation").Text("New").HtmlAttributes(new { @class = "new" }))

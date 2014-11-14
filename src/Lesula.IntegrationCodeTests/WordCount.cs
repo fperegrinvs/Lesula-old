@@ -46,6 +46,7 @@ namespace Lesula.IntegrationCodeTests
         [TestMethod]
         public void WordCount_MainTest()
         {
+            // Admin
             // setup database
             var setupErr = Context.Container.Resolve<IDataBase>().CreateStructure();
             Assert.IsTrue(setupErr == null || setupErr.Count == 0, "Error creating database structure");
@@ -53,8 +54,14 @@ namespace Lesula.IntegrationCodeTests
             //Register book DataType
             var registerBookErr = RegisterBookType();
             Assert.IsTrue(string.IsNullOrEmpty(registerBookErr), "Error creating book datatype: " + registerBookErr);
-        
 
+            //Register word DataType
+            var registerWordErr = RegisterWordType();
+            Assert.IsTrue(string.IsNullOrEmpty(registerWordErr), "Error creating word datatype: " + registerWordErr);
+
+            //Register wordmapper transformation
+            var registerWordMapperErr = RegisterWordMapper();
+            Assert.IsTrue(string.IsNullOrEmpty(registerWordMapperErr), "Error creating wordmapper transformation: " + registerWordMapperErr);
         }
 
         private string RegisterBookType()
@@ -79,13 +86,58 @@ namespace Lesula.IntegrationCodeTests
             }
         }
 
+        private string RegisterWordType()
+        {
+            try
+            {
+                var code = File.ReadAllText(this.BasePath + "/content/Word.cs");
+
+                var wordType = new DataType()
+                {
+                    Name = "Word",
+                    Id = new Guid("7D4BFF0D-5830-421E-8B02-873A83C22CFB"),
+                    Code = code
+                };
+
+                Context.Container.Resolve<IDataTypeDalc>().SaveDataType(wordType);
+                return "";
+            }
+            catch (Exception ex)
+            {
+                return ex.Message;
+            }
+        }
+
+        private string RegisterWordMapper()
+        {
+            try
+            {
+                var code = File.ReadAllText(this.BasePath + "/content/WordMapper.cs");
+
+                var wordType = new DataTransformation()
+                {
+                    Name = "WordMapper",
+                    Id = new Guid("2C293902-7B39-4053-8446-C2951DAFE8E5"),
+                    Code = code,
+                    JobType = Client.Contracts.Enumerators.TransformationType.Mapper,
+                    Dependency = null
+                };
+
+                Context.Container.Resolve<ITransformationDalc>().SaveTransformation(wordType);
+                return "";
+            }
+            catch (Exception ex)
+            {
+                return ex.Message;
+            }
+        }
+
         private string RegisterBookDataSource()
         {
             var ds = new DataSource()
             {
                 Id = new Guid("9ccbc5bf-467b-44e9-9dba-2ac008095dc9"),
                 DataType = new Guid("57D03CD6-5A57-4DDD-8498-FE7926206612") // book,
-
             };
             return "";
         }

@@ -38,7 +38,7 @@ namespace Lesula.Client.Mappers
                 var output = new List<JobData>(input.Count);
                 foreach (var record in input)
                 {
-                    output.Add(mapper.Map(record));
+                    output.AddRange(mapper.Map(record));
                     this.UpDateStatus();
                 }
 

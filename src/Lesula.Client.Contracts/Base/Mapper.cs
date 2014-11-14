@@ -20,6 +20,7 @@
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
 
+using System.Collections.Generic;
 namespace Lesula.Client.Contracts.Base
 {
     /// <summary>
@@ -35,6 +36,6 @@ namespace Lesula.Client.Contracts.Base
         /// </summary>
         /// <param name="input">input key/pair</param>
         /// <returns>intermediate key/value pair</returns>
-        public abstract JobData Map(JobData input);
+        public abstract List<JobData> Map(JobData input);
     }
 }

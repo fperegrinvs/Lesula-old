@@ -63,24 +63,5 @@ namespace Lesula.Client.Contracts.Models
         [DisplayName("Transformations that must complete before this one can execute")]
         [UIHint("DependencyList")]
         public List<Dependency> Dependency { get; set; }
-
-        /// <summary>
-        /// Where datatransfprmation output goes
-        /// </summary>
-        [Required]
-        [DisplayName("Output target")]
-        public OutputDestination OutputDestination { get; set; }
-
-        /// <summary>
-        /// Output data format
-        /// </summary>
-        [Required]
-        [DisplayName("Output Format")]
-        public SerializationFormat OutputFormat { get; set; }
-
-        /// <summary>
-        /// Transform obtions
-        /// </summary>
-        public TransformationOptions Options { get; set; }
     }
 }

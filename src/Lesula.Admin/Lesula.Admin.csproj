@@ -317,6 +317,7 @@
     <Compile Include="Controllers\DataTypeController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\InstallController.cs" />
+    <Compile Include="Controllers\JobController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\TaskController.cs" />
     <Compile Include="Controllers\TransformationController.cs" />

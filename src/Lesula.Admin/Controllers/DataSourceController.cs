@@ -45,7 +45,7 @@ namespace Lesula.Admin.Controllers
                 Id = Guid.NewGuid(),
             };
 
-            ViewBag.Jobs = Context.Container.Resolve<ITransformationDalc>().GetAllJobs().Select(job =>
+            ViewBag.Jobs = Context.Container.Resolve<ITransformationDalc>().GetAllTransformations().Select(job =>
                   new SelectListItem
                   {
                       Selected = false,
@@ -91,7 +91,7 @@ namespace Lesula.Admin.Controllers
 
         public ActionResult Edit(Guid id)
         {
-            ViewBag.Jobs = Context.Container.Resolve<ITransformationDalc>().GetAllJobs().Select(job =>
+            ViewBag.Jobs = Context.Container.Resolve<ITransformationDalc>().GetAllTransformations().Select(job =>
                   new SelectListItem
                   {
                       Selected = false,

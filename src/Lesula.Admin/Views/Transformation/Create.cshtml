@@ -46,27 +46,6 @@
             @Html.EditorFor(model => model.Dependency)
             @Html.ValidationMessageFor(model => model.Dependency)
         </div>
-        <div class="editor-label">
-            @Html.LabelFor(model => model.OutputDestination)
-        </div>
-        <div>
-            @Html.EnumDropDownListFor(model => model.OutputDestination)
-            @Html.ValidationMessageFor(model => model.OutputDestination)
-        </div>
-        <div class="editor-label">
-            @Html.LabelFor(model => model.OutputFormat)
-        </div>
-        <div>
-            @Html.EnumDropDownListFor(model => model.OutputFormat)
-            @Html.ValidationMessageFor(model => model.OutputFormat)
-        </div>
-        <div class="editor-label">
-            @Html.LabelFor(model => model.Options)
-        </div>
-        <div>
-            @Html.EditorFor(model => model.Options)
-            @Html.ValidationMessageFor(model => model.Options)
-        </div>
         <p>
             @Html.Hidden("mapperCode", (string)ViewBag.MapperCode)
             @Html.Hidden("reducerCode", (string)ViewBag.ReducerCode)

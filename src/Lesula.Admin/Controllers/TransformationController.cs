@@ -32,7 +32,7 @@ namespace Lesula.Admin.Controllers
     {
         public ActionResult Index()
         {
-            var jobs = Context.Container.Resolve<ITransformationDalc>().GetAllJobs();
+            var jobs = Context.Container.Resolve<ITransformationDalc>().GetAllTransformations();
             return this.View(jobs);
         }
 
@@ -64,7 +64,7 @@ namespace Lesula.Admin.Controllers
         {
             try
             {
-                Context.Container.Resolve<ITransformationDalc>().SaveJob(collection);
+                Context.Container.Resolve<ITransformationDalc>().SaveTransformation(collection);
                 return this.RedirectToAction("Index");
             }
             catch (Exception ex)
@@ -76,7 +76,7 @@ namespace Lesula.Admin.Controllers
 
         public ActionResult Edit(Guid id)
         {
-            var job = Context.Container.Resolve<ITransformationDalc>().GetJob(id);
+            var job = Context.Container.Resolve<ITransformationDalc>().GetTransformation(id);
             this.EditorViewBag();
             return this.View("Create", job);
         }
@@ -86,7 +86,7 @@ namespace Lesula.Admin.Controllers
         {
             try
             {
-                Context.Container.Resolve<ITransformationDalc>().SaveJob(collection);
+                Context.Container.Resolve<ITransformationDalc>().SaveTransformation(collection);
                 return this.RedirectToAction("Index");
             }
             catch (Exception ex)
@@ -99,7 +99,7 @@ namespace Lesula.Admin.Controllers
         [NonAction]
         private void EditorViewBag()
         {
-            var jobList = Context.Container.Resolve<ITransformationDalc>().GetAllJobs().OrderBy(j => j.Name);
+            var jobList = Context.Container.Resolve<ITransformationDalc>().GetAllTransformations().OrderBy(j => j.Name);
             ViewBag.JobList = new SelectList(jobList, "Id", "Name");
             ViewBag.MapperCode = Properties.Resources.NewMapper;
             ViewBag.ReducerCode = Properties.Resources.NewReducer;

@@ -73,6 +73,8 @@
     <Compile Include="Models\DataType.cs" />
     <Compile Include="Models\Dependency.cs" />
     <Compile Include="Models\DataTransformation.cs" />
+    <Compile Include="Models\Job.cs" />
+    <Compile Include="Models\JobCollection.cs" />
     <Compile Include="Models\TransformationOptions.cs" />
     <Compile Include="Models\QueryFilter.cs" />
     <Compile Include="Models\Segment.cs" />

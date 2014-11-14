@@ -36,7 +36,7 @@ namespace Lesula.Admin.Dalc
     /// </summary>
     public class TransformationDalc : ITransformationDalc
     {
-        public DataTransformation GetJob(Guid id)
+        public DataTransformation GetTransformation(Guid id)
         {
             var selector = DataBase.CreateSelector();
             var columns = selector.GetColumnFromRow("JobConfig", id, "DAT", ConsistencyLevel.ONE);
@@ -51,7 +51,7 @@ namespace Lesula.Admin.Dalc
             return data;
         }
 
-        public void SaveJob(DataTransformation dataType)
+        public void SaveTransformation(DataTransformation dataType)
         {
             var serialized = ServiceStack.Text.TypeSerializer.SerializeToString(dataType);
             var compressed = LZ4Sharp.LZ4.Compress(serialized.ToBytes());
@@ -61,7 +61,7 @@ namespace Lesula.Admin.Dalc
             mutator.InsertColumn("JobConfig", dataType.Id.ToByteArray(), column, ConsistencyLevel.ONE);
         }
 
-        public List<DataTransformation> GetAllJobs()
+        public List<DataTransformation> GetAllTransformations()
         {
             var selector = DataBase.CreateSelector();
             var rows = selector.GetColumnsFromRows("JobConfig", Selector.KeyRangeAll, Selector.NewColumnsPredicate("DAT"), ConsistencyLevel.ONE);

@@ -1,5 +1,5 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="IJobDalc.cs" company="Lesula MapReduce Framework - http://github.com/lstern/lesula">
+// <copyright file="ITransformationDalc.cs" company="Lesula MapReduce Framework - http://github.com/lstern/lesula">
 //   Licensed under the Apache License, Version 2.0 (the "License");
 //   you may not use this file except in compliance with the License.
 //   You may obtain a copy of the License at
@@ -13,7 +13,7 @@
 //   limitations under the License.
 // </copyright>
 // <summary>
-//   Defines the IJobDalc type.
+//   Defines the ITransformationDalc type.
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
 
@@ -26,10 +26,10 @@ namespace Lesula.Admin.Contracts
 
     public interface ITransformationDalc
     {
-        DataTransformation GetJob(Guid id);
+        DataTransformation GetTransformation(Guid id);
 
-        void SaveJob(DataTransformation dataType);
+        void SaveTransformation(DataTransformation dataType);
 
-        List<DataTransformation> GetAllJobs();
+        List<DataTransformation> GetAllTransformations();
     }
 }
