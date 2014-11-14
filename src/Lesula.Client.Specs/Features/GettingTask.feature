@@ -1,6 +1,6 @@
 ﻿Feature: Getting a task to execute in the correct order
     As a system administrator
-	I would like to be able to queue taks to be executed by the map/reducer
+	I would like to be able to queue tasks to be executed by the map/reducer
 	So I can add a task to be executed and don't need to worry if any task is running
 
 Scenario: There's no task in the queue

@@ -1,5 +1,5 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="IDataBase.cs" company="Lesula MapReduce Framework - http://github.com/lstern/lesula">
+// <copyright file="IRow.cs" company="Lesula MapReduce Framework - http://github.com/lstern/lesula">
 //   Licensed under the Apache License, Version 2.0 (the "License");
 //   you may not use this file except in compliance with the License.
 //   You may obtain a copy of the License at
@@ -13,27 +13,23 @@
 //   limitations under the License.
 // </copyright>
 // <summary>
-//   The DataBase interface.
+//   Defines the Row type.
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
 
+using Lesula.Client.Contracts.Base;
+using System;
 using System.Collections.Generic;
-namespace Lesula.Core
-{
-    /// <summary>
-    /// The DataBase interface.
-    /// </summary>
-    public interface IDataBase
-    {
-        /// <summary>
-        /// Create database structure
-        /// </summary>
-        List<string> CreateStructure();
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-        /// <summary>
-        /// Delete database structure
-        /// </summary>
-        /// <returns>errors</returns>
-        List<string> CleanStructure();
+namespace Lesula.Client.Contracts.Implementation
+{
+    public class Row : IRow
+    {
+        public byte[] RowKey { get; set;}
+
+        public IList<JobContracts.Cassandra.IColumn> Columns { get; set;}
     }
 }

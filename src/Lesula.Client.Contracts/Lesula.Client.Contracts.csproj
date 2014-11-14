@@ -62,6 +62,8 @@
     <Compile Include="Enumerators\SerializationFormat.cs" />
     <Compile Include="Enumerators\SourceKind.cs" />
     <Compile Include="Enumerators\TaskStatus.cs" />
+    <Compile Include="Implementation\Column.cs" />
+    <Compile Include="Implementation\Row.cs" />
     <Compile Include="ITaskDalc.cs" />
     <Compile Include="Models\Block.cs" />
     <Compile Include="Models\ColumnSlice.cs" />
