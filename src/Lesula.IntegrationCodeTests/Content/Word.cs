@@ -1,4 +1,8 @@
 ﻿using System;
+using Lesula.Cassandra;
+using Lesula.Cassandra.FrontEnd;
+using System.Collections.Generic;
+using Lesula.JobContracts.Cassandra;
 using Lesula.Client.Contracts.Base;
 using Lesula.Client.Contracts.Implementation;
 
@@ -8,7 +12,7 @@ using Lesula.Client.Contracts.Implementation;
 public class Word : JobData
 {
 
-    public string Word { get; set; }
+    public string Data { get; set; }
 
     /// <summary>
     /// Gets the element unique key
@@ -17,7 +21,7 @@ public class Word : JobData
     {
         get
         {
-            return Word.ToBytes();
+            return Data.ToBytes();
         }
     }
 
@@ -30,7 +34,7 @@ public class Word : JobData
         var row = new Row();
         row.RowKey = Key;
         row.Columns = new List<IColumn>();
-        row.Columns.Add(new Column { Name = "Word".ToBytes(), Value = Word.ToBytes() });
+        row.Columns.Add(new Column { Name = "Word".ToBytes(), Value = Data.ToBytes() });
         return row;
     }
 
@@ -49,7 +53,7 @@ public class Word : JobData
             switch (name)
             {
                 case "Word":
-                    word.Word = column.Value.ToUtf8String();
+                    word.Data = column.Value.ToUtf8String();
                     break;
             }
         }

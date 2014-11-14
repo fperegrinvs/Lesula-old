@@ -1,4 +1,8 @@
 ﻿using System;
+using Lesula.Cassandra;
+using Lesula.Cassandra.FrontEnd;
+using System.Collections.Generic;
+using Lesula.JobContracts.Cassandra;
 using Lesula.Client.Contracts.Base;
 using Lesula.Client.Contracts.Implementation;
 

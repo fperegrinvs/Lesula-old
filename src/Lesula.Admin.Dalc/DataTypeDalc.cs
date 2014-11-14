@@ -61,7 +61,7 @@ namespace Lesula.Admin.Dalc
         /// </param>
         /// <exception cref="NotImplementedException">
         /// </exception>
-        public void SaveDataType(DataType dataType)
+        public string SaveDataType(DataType dataType)
         {
             var serialized = ServiceStack.Text.TypeSerializer.SerializeToString(dataType);
             var compressed = LZ4Sharp.LZ4.Compress(serialized.ToBytes());
@@ -69,6 +69,7 @@ namespace Lesula.Admin.Dalc
             var mutator = DataBase.CreateMutator();
             var column = mutator.NewColumn("DAT", compressed);
             mutator.InsertColumn("DataType", dataType.Id.ToByteArray(), column, ConsistencyLevel.ONE);
+            return "";
         }
 
         public List<DataType> GetAllDataTypes()

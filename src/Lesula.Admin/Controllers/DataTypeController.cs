@@ -29,6 +29,7 @@ namespace Lesula.Admin.Controllers
     using Lesula.Client.Contracts.Models;
     using Lesula.CodeParser;
     using Lesula.Core;
+    using Lesula.Admin.Service;
 
     /// <summary>
     /// The data type controller.
@@ -68,15 +69,14 @@ namespace Lesula.Admin.Controllers
             try
             {
                 // check if datatype is ok
-                var checker = new DataTypeChecker();
-                var error = checker.CheckDataType(collection);
+                var service = new DataUtils();
+                var error = service.SaveDataType(collection);
                 if (!string.IsNullOrEmpty(error))
                 {
                     this.ErrorMessage = error;
                     return this.View("Create", collection);
                 }
 
-                Context.Container.Resolve<IDataTypeDalc>().SaveDataType(collection);
                 return this.RedirectToAction("Index");
             }
             catch (Exception ex)

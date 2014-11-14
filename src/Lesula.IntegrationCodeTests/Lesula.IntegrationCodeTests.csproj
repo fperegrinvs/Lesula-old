@@ -62,7 +62,7 @@
     <Content Include="Content\WordMapper.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Compile Include="WordCount.cs" />
+    <Compile Include="WordCountTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -76,6 +76,10 @@
     <ProjectReference Include="..\Lesula.Admin.Dalc\Lesula.Admin.Dalc.csproj">
       <Project>{891d5581-137a-40cc-9d96-1aa1eead3e69}</Project>
       <Name>Lesula.Admin.Dalc</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Lesula.Admin.Service\Lesula.Admin.Service.csproj">
+      <Project>{348060e5-76aa-4ec4-a9f5-9bf9fe346f46}</Project>
+      <Name>Lesula.Admin.Service</Name>
     </ProjectReference>
     <ProjectReference Include="..\Lesula.Client.Contracts\Lesula.Client.Contracts.csproj">
       <Project>{5c038435-17a3-4fd9-ad07-775fca47836b}</Project>

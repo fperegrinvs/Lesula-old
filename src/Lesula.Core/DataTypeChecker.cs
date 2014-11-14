@@ -42,6 +42,8 @@ namespace Lesula.Core
         {
             var contracts = Assembly.Load("Lesula.Client.Contracts");
             var core = Assembly.Load("Lesula.Core");
+            var cassandra = Assembly.Load("Lesula.Cassandra");
+
 
             var errors = new List<string>();
 
@@ -49,7 +51,7 @@ namespace Lesula.Core
             assembly = Context.Container.Resolve<IAssemblyGenerator>().CreateAssembly(
                 "Test",
                 new List<string> { dataType.Code },
-                new List<string> { "mscorlib", "System", "System.Core", contracts.Location, core.Location },
+                new List<string> { "mscorlib", "System", "System.Core", contracts.Location, core.Location, cassandra.Location },
                 out errors);
 
             if (errors != null && errors.Count != 0)

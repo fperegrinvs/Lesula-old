@@ -31,7 +31,7 @@ namespace Lesula.Admin.Contracts
     {
         DataType GetDataType(Guid id);
 
-        void SaveDataType(DataType dataType);
+        string SaveDataType(DataType dataType);
 
         List<DataType> GetAllDataTypes();
     }

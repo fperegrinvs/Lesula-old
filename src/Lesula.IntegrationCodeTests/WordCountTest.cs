@@ -7,6 +7,7 @@ using System.Reflection;
 using Lesula.Client.Contracts.Models;
 using Lesula.Admin.Contracts;
 using Lesula.CodeParser;
+using Lesula.Admin.Service;
 
 namespace Lesula.IntegrationCodeTests
 {
@@ -77,8 +78,7 @@ namespace Lesula.IntegrationCodeTests
                     Code = code
                 };
 
-                Context.Container.Resolve<IDataTypeDalc>().SaveDataType(bookType);
-                return "";
+                return new DataUtils().SaveDataType(bookType);
             }
             catch (Exception ex)
             {
@@ -99,8 +99,7 @@ namespace Lesula.IntegrationCodeTests
                     Code = code
                 };
 
-                Context.Container.Resolve<IDataTypeDalc>().SaveDataType(wordType);
-                return "";
+                return new DataUtils().SaveDataType(wordType);
             }
             catch (Exception ex)
             {
