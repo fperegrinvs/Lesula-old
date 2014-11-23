@@ -37,6 +37,14 @@ namespace Lesula.Client.Contracts.Models
         [ReadOnly(true)]
         public Guid Id { get; set; }
 
+
+        [DisplayName("Source Type")]
+        [Required]
+        public Guid SourceTypeId { get; set; }
+
+        [DisplayName("Target Type")]
+        public Guid? TargetTypeId { get; set; } 
+
         /// <summary>
         /// Job friendly name
         /// </summary>
@@ -49,7 +57,7 @@ namespace Lesula.Client.Contracts.Models
         /// </summary>
         [Required]
         [DisplayName("Type")]
-        public TransformationType JobType { get; set; }
+        public TransformationType TransformationType { get; set; }
 
         /// <summary>
         /// Code used in this DT

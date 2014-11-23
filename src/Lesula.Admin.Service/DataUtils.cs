@@ -22,5 +22,17 @@ namespace Lesula.Admin.Service
 
             return Context.Container.Resolve<IDataTypeDalc>().SaveDataType(collection);
         }
+
+        public string SaveTransformation(DataTransformation collection)
+        {
+            var checker = new TransformationChecker();
+            var error = checker.CheckTransformation(collection);
+            if (!string.IsNullOrEmpty(error))
+            {
+                return error;
+            }
+
+            return Context.Container.Resolve<ITransformationDalc>().SaveTransformation(collection);
+        }
     }
 }

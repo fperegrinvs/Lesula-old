@@ -51,7 +51,7 @@ namespace Lesula.Admin.Dalc
             return data;
         }
 
-        public void SaveTransformation(DataTransformation dataType)
+        public string SaveTransformation(DataTransformation dataType)
         {
             var serialized = ServiceStack.Text.TypeSerializer.SerializeToString(dataType);
             var compressed = LZ4Sharp.LZ4.Compress(serialized.ToBytes());
@@ -59,6 +59,7 @@ namespace Lesula.Admin.Dalc
             var mutator = DataBase.CreateMutator();
             var column = mutator.NewColumn("DAT", compressed);
             mutator.InsertColumn("JobConfig", dataType.Id.ToByteArray(), column, ConsistencyLevel.ONE);
+            return "";
         }
 
         public List<DataTransformation> GetAllTransformations()

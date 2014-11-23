@@ -28,7 +28,7 @@ namespace Lesula.Admin.Contracts
     {
         DataTransformation GetTransformation(Guid id);
 
-        void SaveTransformation(DataTransformation dataType);
+        string SaveTransformation(DataTransformation dataType);
 
         List<DataTransformation> GetAllTransformations();
     }

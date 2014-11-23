@@ -113,17 +113,18 @@ namespace Lesula.IntegrationCodeTests
             {
                 var code = File.ReadAllText(this.BasePath + "/content/WordMapper.cs");
 
-                var wordType = new DataTransformation()
+                var wordMapper = new DataTransformation()
                 {
                     Name = "WordMapper",
                     Id = new Guid("2C293902-7B39-4053-8446-C2951DAFE8E5"),
                     Code = code,
-                    JobType = Client.Contracts.Enumerators.TransformationType.Mapper,
-                    Dependency = null
+                    TransformationType = Client.Contracts.Enumerators.TransformationType.Mapper,
+                    Dependency = null,
+                    SourceTypeId = new Guid("57D03CD6-5A57-4DDD-8498-FE7926206612"),
+                    TargetTypeId = new Guid("7D4BFF0D-5830-421E-8B02-873A83C22CFB"),
                 };
 
-                Context.Container.Resolve<ITransformationDalc>().SaveTransformation(wordType);
-                return "";
+                return new DataUtils().SaveTransformation(wordMapper);
             }
             catch (Exception ex)
             {

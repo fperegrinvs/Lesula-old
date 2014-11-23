@@ -27,6 +27,7 @@ namespace Lesula.Admin.Controllers
     using Lesula.Client.Contracts.Enumerators;
     using Lesula.Client.Contracts.Models;
     using Lesula.Core;
+    using Lesula.Admin.Service;
 
     public class TransformationController : AdminBaseController
     {
@@ -41,7 +42,7 @@ namespace Lesula.Admin.Controllers
             var job = new DataTransformation
             {
                 Id = Guid.NewGuid(),
-                JobType = TransformationType.Mapper,
+                TransformationType = TransformationType.Mapper,
                 Code = Properties.Resources.NewMapper
             };
 
@@ -84,9 +85,18 @@ namespace Lesula.Admin.Controllers
         [HttpPost]
         public ActionResult Edit(DataTransformation collection)
         {
+
             try
             {
-                Context.Container.Resolve<ITransformationDalc>().SaveTransformation(collection);
+                // check if datatype is ok
+                var service = new DataUtils();
+                var error = service.SaveTransformation(collection);
+                if (!string.IsNullOrEmpty(error))
+                {
+                    this.ErrorMessage = error;
+                    return this.View("Create", collection);
+                }
+
                 return this.RedirectToAction("Index");
             }
             catch (Exception ex)

@@ -68,7 +68,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Context.cs" />
-    <Compile Include="DataTypeChecker.cs" />
     <Compile Include="IConfigSettings.cs" />
     <Compile Include="IContext.cs" />
     <Compile Include="IDataBase.cs" />
@@ -76,12 +75,18 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ThreadContext.cs" />
     <Compile Include="AppConfigSettings.cs" />
+    <Compile Include="Validation\DataTypeChecker.cs" />
+    <Compile Include="Validation\TransformationChecker.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Lesula.snk" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Lesula.Admin.Contracts\Lesula.Admin.Contracts.csproj">
+      <Project>{69194894-2ad1-49c6-9601-d007e56eb0bf}</Project>
+      <Name>Lesula.Admin.Contracts</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Lesula.Client.Contracts\Lesula.Client.Contracts.csproj">
       <Project>{5c038435-17a3-4fd9-ad07-775fca47836b}</Project>
       <Name>Lesula.Client.Contracts</Name>

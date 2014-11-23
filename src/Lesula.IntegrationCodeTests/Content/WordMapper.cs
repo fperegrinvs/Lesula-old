@@ -11,10 +11,9 @@ public class WordMapper : Mapper
     /// <returns>intermediate key/value pair</returns>
     public override List<JobData> Map(JobData input)
     {
-        //var book = (Book)JobData;
-        var book = "";
-        var words = (from word in book.Split(new []{' ', '\t'})
-                    select (JobData)new Word{ Word = word}).ToList();
+        var book = (Book)input;
+        var words = (from word in book.Body.Split(new []{' ', '\t'})
+                     select (JobData)new Word { Data = word }).ToList();
 
         return words;
     }
