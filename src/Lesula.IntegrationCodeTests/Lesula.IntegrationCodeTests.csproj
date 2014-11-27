@@ -62,6 +62,12 @@
     <Content Include="Content\WordMapper.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Content\WordCount.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\WordReducer.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Compile Include="WordCountTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

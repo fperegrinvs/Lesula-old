@@ -25,11 +25,11 @@
             @Html.ValidationMessageFor(model => model.Name)
         </div>
         <div class="editor-label">
-            @Html.LabelFor(model => model.JobType)
+            @Html.LabelFor(model => model.TransformationType)
         </div>
         <div>
-            @Html.EnumDropDownListFor(model => model.JobType)
-            @Html.ValidationMessageFor(model => model.JobType)
+            @Html.EnumDropDownListFor(model => model.TransformationType)
+            @Html.ValidationMessageFor(model => model.TransformationType)
         </div>
         <div class="editor-label">
             @Html.LabelFor(model => model.Code)
@@ -58,7 +58,7 @@
 <script type="text/javascript">
     $(".back").button({ icons: { primary: "us-back" } });
     $(".save").button({ icons: { primary: "us-save" } });
-    $("#JobType").bind('change', jobTypeChange);
+    $("#TransformationType").bind('change', jobTypeChange);
     
     var require = { paths: { ace: '@Url.Content("~/Scripts/ace/")' } };
     var hlText = [$("#Code").val()];

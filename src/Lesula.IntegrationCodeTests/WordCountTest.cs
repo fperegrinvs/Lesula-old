@@ -60,9 +60,36 @@ namespace Lesula.IntegrationCodeTests
             var registerWordErr = RegisterWordType();
             Assert.IsTrue(string.IsNullOrEmpty(registerWordErr), "Error creating word datatype: " + registerWordErr);
 
+            //Register wordCount DataType
+            var registerWordCountErr = RegisterWordCountType();
+
             //Register wordmapper transformation
             var registerWordMapperErr = RegisterWordMapper();
             Assert.IsTrue(string.IsNullOrEmpty(registerWordMapperErr), "Error creating wordmapper transformation: " + registerWordMapperErr);
+
+            var registerWordReducerErr = RegisterWordCountReducer();
+            Assert.IsTrue(string.IsNullOrEmpty(registerWordReducerErr), "Error creating wordreducer transformation: " + registerWordReducerErr);
+        }
+
+        private string RegisterWordCountType()
+        {
+            try
+            {
+                var code = File.ReadAllText(this.BasePath + "/content/WordCount.cs");
+
+                var bookType = new DataType()
+                {
+                    Name = "WordCount",
+                    Id = new Guid("5627AFB9-1961-4E2A-BA45-01EB514E1602"),
+                    Code = code
+                };
+
+                return new DataUtils().SaveDataType(bookType);
+            }
+            catch (Exception ex)
+            {
+                return ex.Message;
+            }
         }
 
         private string RegisterBookType()
@@ -122,6 +149,31 @@ namespace Lesula.IntegrationCodeTests
                     Dependency = null,
                     SourceTypeId = new Guid("57D03CD6-5A57-4DDD-8498-FE7926206612"),
                     TargetTypeId = new Guid("7D4BFF0D-5830-421E-8B02-873A83C22CFB"),
+                };
+
+                return new DataUtils().SaveTransformation(wordMapper);
+            }
+            catch (Exception ex)
+            {
+                return ex.Message;
+            }
+        }
+
+        private string RegisterWordCountReducer()
+        {
+            try
+            {
+                var code = File.ReadAllText(this.BasePath + "/content/WordReducer.cs");
+
+                var wordMapper = new DataTransformation()
+                {
+                    Name = "WordReducer",
+                    Id = new Guid("2C293902-7B39-4053-8446-C2951DAFE8E8"),
+                    Code = code,
+                    TransformationType = Client.Contracts.Enumerators.TransformationType.Reducer,
+                    Dependency = null,
+                    SourceTypeId = new Guid("7D4BFF0D-5830-421E-8B02-873A83C22CFB"),
+                    TargetTypeId = new Guid("5627AFB9-1961-4E2A-BA45-01EB514E1602"),
                 };
 
                 return new DataUtils().SaveTransformation(wordMapper);

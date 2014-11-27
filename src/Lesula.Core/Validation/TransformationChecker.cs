@@ -26,19 +26,28 @@ namespace Lesula.Core
 
             if (string.IsNullOrEmpty(error))
             {
-                Mapper mapper = null;
-                error = TryCreateInstance(assembly, transformation.Name, out mapper);
+                error = transformation.TransformationType == Client.Contracts.Enumerators.TransformationType.Mapper
+                ? TryInstanciate<Mapper>(assembly, transformation)
+                : TryInstanciate<Reducer>(assembly, transformation);
+            }
+
+            return error;
+        }
+
+        internal string TryInstanciate<T>(Assembly assembly, DataTransformation transformation) where T : class
+        {
+            T returnObject = null;
+            var error = TryCreateInstance(assembly, transformation.Name, out returnObject);
+
+            if (string.IsNullOrEmpty(error))
+            {
+                string serialized = null;
+                error = TrySerialize(returnObject, out serialized);
 
                 if (string.IsNullOrEmpty(error))
                 {
-                    string serialized = null;
-                    error = TrySerialize(mapper, out serialized);
-
-                    if (string.IsNullOrEmpty(error))
-                    {
-                        JobData deserialized = null;
-                        error = TryDeserialize(serialized, out deserialized);
-                    }
+                    JobData deserialized = null;
+                    error = TryDeserialize(serialized, out deserialized);
                 }
             }
 
@@ -52,7 +61,7 @@ namespace Lesula.Core
             var target = transformation.TargetTypeId.HasValue ? Context.Container.Resolve<IDataTypeDalc>().GetDataType(transformation.TargetTypeId.Value) : null;
 
             if (source == null)
-            { 
+            {
                 assembly = null;
                 return "Source data type not found";
             }
